@@ -1,18 +1,43 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { FaAngleDown, FaAngleUp, FaBars } from "react-icons/fa";
 import logoImg from "../../../images/logo quwwata.png";
 import MegaMenu from "./MegaMenu";
 
 const DesktopMenu = () => {
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
+  const timeoutIdRef = useRef(null);
 
-  const toggleMegaMenu = () => {
-    setMegaMenuOpen(!megaMenuOpen);
+  const openMegaMenu = () => setMegaMenuOpen(true);
+  const closeMegaMenu = () => setMegaMenuOpen(false);
+
+  const handleMouseEnter = () => {
+    if (timeoutIdRef.current) {
+      clearTimeout(timeoutIdRef.current);
+      timeoutIdRef.current = null;
+    }
+    openMegaMenu();
+  };
+
+  const handleMouseLeave = () => {
+    timeoutIdRef.current = setTimeout(() => {
+      closeMegaMenu();
+    }, 200);
+  };
+
+  const handleMegaMenuMouseEnter = () => {
+    if (timeoutIdRef.current) {
+      clearTimeout(timeoutIdRef.current);
+      timeoutIdRef.current = null;
+    }
+  };
+
+  const handleMegaMenuMouseLeave = () => {
+    closeMegaMenu();
   };
 
   return (
-    <nav className="relative">
-      <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-lg p-4 ">
+    <nav className="bg-gradient-to-r from-slate-500 to-slate-950 relative">
+      <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
         <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
           <img src={logoImg} className="h-14" alt="Flowbite Logo" />
           <span className="self-center text-sm font-bold font-raleway whitespace-nowrap text-slate-200">
@@ -25,7 +50,7 @@ const DesktopMenu = () => {
           className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
           aria-controls="mega-menu-full"
           aria-expanded={megaMenuOpen ? "true" : "false"}
-          onClick={toggleMegaMenu}
+          onClick={() => setMegaMenuOpen(!megaMenuOpen)}
         >
           <span className="sr-only">Open main menu</span>
           <FaBars className="h-6 w-6" />
@@ -42,21 +67,32 @@ const DesktopMenu = () => {
                 Home
               </a>
             </li>
-            <li className="relative">
+            <li
+              className="relative"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
               <button
                 id="mega-menu-full-dropdown-button"
                 data-collapse-toggle="mega-menu-full-dropdown"
                 className="flex items-center justify-between w-full py-2 px-3 md:w-auto font-medium menu-link"
-                onClick={toggleMegaMenu}
               >
-                Products{" "}
+                Product{" "}
                 {megaMenuOpen ? (
                   <FaAngleUp className="ml-1" />
                 ) : (
                   <FaAngleDown className="ml-1" />
                 )}
               </button>
-              {megaMenuOpen && <MegaMenu />}
+              {megaMenuOpen && (
+                <div
+                  onMouseEnter={handleMegaMenuMouseEnter}
+                  onMouseLeave={handleMegaMenuMouseLeave}
+                  className="absolute left-0 top-full w-full"
+                >
+                  <MegaMenu />
+                </div>
+              )}
             </li>
             <li>
               <a href="#" className="block menu-link">
@@ -76,7 +112,6 @@ const DesktopMenu = () => {
           </ul>
         </div>
       </div>
-      <div className="w-[98%] mx-4 h-1 border-b-2 border-b-slate-200"></div>
     </nav>
   );
 };
