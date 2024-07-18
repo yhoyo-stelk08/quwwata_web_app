@@ -22,6 +22,7 @@ export default {
         quicksand: ["Quicksand", ...defaultTheme.fontFamily.serif],
         pacifico: ["Pacifico", "cursive"],
         roboto_condensed: ["Roboto Condensed", "sans-serif"],
+        raleway: ["Raleway", "sans-serif"],
       },
     },
   },
