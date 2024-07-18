@@ -1,8 +1,25 @@
+import { useEffect, useState } from "react";
 import MegaMenuItem from "./MegaMenuItem";
 
-const MegaMenu = () => {
+const MegaMenu = ({ isOpen }) => {
+  const [visible, setVisible] = useState(isOpen);
+
+  useEffect(() => {
+    let timeout;
+    if (isOpen) {
+      setVisible(true);
+    } else {
+      timeout = setTimeout(() => setVisible(false), 500); // Duration of fade-slide-out animation
+    }
+    return () => clearTimeout(timeout);
+  }, [isOpen]);
+
   return (
-    <div className="relative">
+    <div
+      className={`relative transition-all duration-500 ${
+        isOpen ? "animate-fade-slide-in-from-bottom" : "animate-fade-slide-out"
+      } ${!visible ? "hidden" : ""}`}
+    >
       {/* pointer */}
       <div className="absolute left-1/2 transform -translate-x-1/2 top-7 w-4 h-4 bg-gray-50 dark:bg-gray-800 rotate-45 border border-gray-200 dark:border-gray-600 opacity-90"></div>
       {/* mega menu content */}

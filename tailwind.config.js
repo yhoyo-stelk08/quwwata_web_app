@@ -24,6 +24,8 @@ export default {
         raleway: ["Raleway", "sans-serif"],
       },
       animation: {
+        "fade-slide-in": "fadeSlideIn 0.5s ease-out forwards",
+        "fade-slide-out": "fadeSlideOut 0.5s ease-out forwards",
         "fade-slide-in-from-left":
           "fade-slide-in-from-left 1s ease-out forwards",
         "fade-slide-in-from-right":
@@ -35,6 +37,14 @@ export default {
         "zoom-out": "zoom-out 1s ease-in-out backwards",
       },
       keyframes: {
+        fadeSlideIn: {
+          "0%": { opacity: "0", transform: "translateY(-10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        fadeSlideOut: {
+          "0%": { opacity: "1", transform: "translateY(0)" },
+          "100%": { opacity: "0", transform: "translateY(-10px)" },
+        },
         "fade-slide-in-from-left": {
           "0%": {
             opacity: "0",

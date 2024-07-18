@@ -21,7 +21,7 @@ const DesktopMenu = () => {
   const handleMouseLeave = () => {
     timeoutIdRef.current = setTimeout(() => {
       closeMegaMenu();
-    }, 200);
+    }, 300); // Adjust timeout duration as needed
   };
 
   const handleMegaMenuMouseEnter = () => {
@@ -84,15 +84,7 @@ const DesktopMenu = () => {
                   <FaAngleDown className="ml-1" />
                 )}
               </button>
-              {megaMenuOpen && (
-                <div
-                  onMouseEnter={handleMegaMenuMouseEnter}
-                  onMouseLeave={handleMegaMenuMouseLeave}
-                  className="absolute left-0 top-full w-full"
-                >
-                  <MegaMenu />
-                </div>
-              )}
+              <MegaMenu isOpen={megaMenuOpen} />
             </li>
             <li>
               <a href="#" className="block menu-link">
