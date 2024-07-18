@@ -30,13 +30,13 @@ const ImageSlideShow = () => {
   }, []);
 
   return (
-    <div className="relative w-96 h-full overflow-hidden rounded-lg shadow-lg">
+    <div className="relative w-96 h-full overflow-hidden rounded-tl-lg rounded-bl-lg shadow-lg">
       {images.map((image, index) => (
         <img
           key={index}
           src={image.image}
           alt={image.alt}
-          className={`absolute w-fit h-full object-contain top-0 left-0 opacity-0 transform scale-80 transition-all duration-500 ease-in-out ${
+          className={`absolute w-fit h-full object-contain top-0 left-0 opacity-0 transform scale-80 transition-all duration-1000 ease-in-out ${
             index === currentImageIndex ? "opacity-90 scale-80" : ""
           }`}
         />
