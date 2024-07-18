@@ -15,6 +15,9 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        xs: "425px",
+      },
       fontFamily: {
         sans: ["Figtree", ...defaultTheme.fontFamily.sans],
         inter: ["Inter", ...defaultTheme.fontFamily.serif],
