@@ -19,13 +19,13 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 1px; /* Adjust the height of the border */
-  background-color: transparent; /* Initial color of the border */
+  height: 1px;
+  background-color: transparent;
   transition: background-color 0.3s ease;
 }
 
 .menu-link:hover::after {
-  background-color: #cbd5e1; /* Color of the border on hover */
+  background-color: #cbd5e1;
 }
 
 @media (min-width: 768px) {
@@ -34,6 +34,6 @@ body {
   }
 
   .menu-link:hover::after {
-    background-color: #cbd5e1; /* Color of the border on hover */
+    background-color: #cbd5e1;
   }
 }
