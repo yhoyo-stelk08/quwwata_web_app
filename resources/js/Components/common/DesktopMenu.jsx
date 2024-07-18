@@ -11,8 +11,8 @@ const DesktopMenu = () => {
   };
 
   return (
-    <nav className="bg-gradient-to-r from-slate-500 to-slate-950 relative">
-      <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
+    <nav className="relative">
+      <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-lg p-4 ">
         <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
           <img src={logoImg} className="h-14" alt="Flowbite Logo" />
           <span className="self-center text-sm font-bold font-raleway whitespace-nowrap text-slate-200">
@@ -49,7 +49,7 @@ const DesktopMenu = () => {
                 className="flex items-center justify-between w-full py-2 px-3 md:w-auto font-medium menu-link"
                 onClick={toggleMegaMenu}
               >
-                Product{" "}
+                Products{" "}
                 {megaMenuOpen ? (
                   <FaAngleUp className="ml-1" />
                 ) : (
@@ -76,6 +76,7 @@ const DesktopMenu = () => {
           </ul>
         </div>
       </div>
+      <div className="w-[98%] mx-4 h-1 border-b-2 border-b-slate-200"></div>
     </nav>
   );
 };

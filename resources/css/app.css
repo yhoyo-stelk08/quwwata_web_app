@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-slate-50;
+  @apply bg-gradient-to-b from-slate-950 to-slate-400;
 }
 
 .menu-link {
