@@ -59,12 +59,12 @@ const Menu = () => {
             </li>
             <li>
               <a href="#" className="block menu-link">
-                Marketplace
+                Gallery
               </a>
             </li>
             <li>
               <a href="#" className="block menu-link">
-                Resources
+                About
               </a>
             </li>
             <li>
