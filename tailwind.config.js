@@ -13,7 +13,6 @@ export default {
     "./node_modules/flowbite/**/*.js",
     flowbite.content(),
   ],
-
   theme: {
     extend: {
       fontFamily: {
@@ -24,8 +23,77 @@ export default {
         roboto_condensed: ["Roboto Condensed", "sans-serif"],
         raleway: ["Raleway", "sans-serif"],
       },
+      animation: {
+        "fade-slide-in-from-left":
+          "fade-slide-in-from-left 1s ease-out forwards",
+        "fade-slide-in-from-right":
+          "fade-slide-in-from-right 1s ease-out forwards",
+        "fade-slide-in-from-bottom":
+          "fade-slide-in-from-bottom 1s ease-out forwards",
+        flash: "flash 1s ease-in-out infinite alternate",
+        "zoom-in": "zoom-in 1s ease-in-out forwards",
+        "zoom-out": "zoom-out 1s ease-in-out backwards",
+      },
+      keyframes: {
+        "fade-slide-in-from-left": {
+          "0%": {
+            opacity: "0",
+            transform: "translateX(-1rem)", // Adjust as per your design
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateX(0)",
+          },
+        },
+        "fade-slide-in-from-right": {
+          "0%": {
+            opacity: "0",
+            transform: "translateX(1rem)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateX(0)",
+          },
+        },
+        "fade-slide-in-from-bottom": {
+          "0%": {
+            opacity: "0",
+            transform: "translateY(1rem)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+        },
+        "zoom-in": {
+          "0%": {
+            transform: "scale(0)",
+          },
+          "100%": {
+            transform: "scale(1)",
+          },
+        },
+        "zoom-out": {
+          "0%": {
+            transform: "scale(1)",
+          },
+          "100%": {
+            transform: "scale(0)",
+          },
+        },
+        flash: {
+          "0%": {
+            opacity: "0",
+          },
+          "50%": {
+            opacity: "1",
+          },
+          "100%": {
+            opacity: "0",
+          },
+        },
+      },
     },
   },
-
   plugins: [flowbite.plugin(), forms, require("flowbite/plugin")],
 };
