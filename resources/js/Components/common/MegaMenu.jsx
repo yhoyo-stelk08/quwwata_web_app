@@ -6,8 +6,8 @@ const MegaMenu = () => {
       {/* pointer */}
       <div className="absolute left-1/2 transform -translate-x-1/2 top-8 w-4 h-4 bg-gradient-to-t from-gray-slate-900 to-white dark:bg-gray-800 rotate-45 border border-gray-200 dark:border-gray-600"></div>
       {/* mega menu content */}
-      <div className="grid max-w-screen-xl px-4 py-5 mx-auto text-gray-900 dark:text-white sm:grid-cols-2 md:grid-cols-2 md:px-6 bg-gradient-to-t from-slate-500 to-white dark:bg-gray-800 border-gray-200 shadow-sm border-y dark:border-gray-600 absolute left-1/2 transform -translate-x-1/2 w-[600px]  md:w-[800px] mt-9">
-        <ul aria-labelledby="mega-menu-full-dropdown-button">
+      <div className="grid max-w-screen-xl px-4 py-5 mx-auto text-gray-900 dark:text-white sm:grid-cols-2 md:grid-cols-2 md:px-6 bg-gradient-to-t from-slate-500 to-white dark:bg-gray-800 border-gray-200 shadow-sm border-y dark:border-gray-600 absolute left-1/2 transform -translate-x-1/2 w-[600px]  md:w-[800px] mt-9 rounded-2xl">
+        <ul className="mx-2">
           <MegaMenuItem
             title={"Turkish Laminated Bow"}
             description={
@@ -27,7 +27,7 @@ const MegaMenu = () => {
             }
           />
         </ul>
-        <ul>
+        <ul className="mx-2">
           <MegaMenuItem
             title={"Turkish Flat Fiber Bow"}
             description={
