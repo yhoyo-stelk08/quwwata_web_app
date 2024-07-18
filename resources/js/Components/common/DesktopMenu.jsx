@@ -36,7 +36,7 @@ const DesktopMenu = () => {
   };
 
   return (
-    <nav className="bg-gradient-to-r from-slate-500 to-slate-950 relative">
+    <nav className="bg-gradient-to-r from-slate-500 to-slate-950 relative w-full xs:w-auto">
       <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
         <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
           <img src={logoImg} className="h-14" alt="Flowbite Logo" />
