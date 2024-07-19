@@ -1,9 +1,21 @@
 import { Link } from "@inertiajs/react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import ImageSlideShow from "../common/ImageSlideShow";
 
 const HeroSection = () => {
+  const { scrollY } = useScroll();
+  const opacityScroll = useTransform(
+    scrollY,
+    [0, 100, 300, 700],
+    [1, 0.7, 0.5, 0]
+  );
   return (
-    <header className="flex flex-col md:flex-row my-12 mx-auto w-[90%] max-w-7xl shadow-xl shadow-slate-700">
+    <motion.header
+      className="flex flex-col md:flex-row my-12 mx-auto w-[90%] max-w-7xl shadow-xl shadow-slate-700"
+      style={{
+        opacity: opacityScroll,
+      }}
+    >
       <div className="w-full h-screen md:w-[32rem] md:h-[32rem]">
         <ImageSlideShow />
       </div>
@@ -41,7 +53,7 @@ const HeroSection = () => {
           </Link>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 };
 export default HeroSection;
