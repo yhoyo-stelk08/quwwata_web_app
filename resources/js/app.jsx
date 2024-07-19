@@ -9,8 +9,8 @@ import { initFlowbite } from "flowbite";
 // import function to register Swiper custom elements
 import { register } from "swiper/element/bundle";
 
-register();
 initFlowbite();
+register();
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
