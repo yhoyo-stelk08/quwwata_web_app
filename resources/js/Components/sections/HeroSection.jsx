@@ -7,20 +7,19 @@ const HeroSection = () => {
   const width = useResponsiveWidth();
 
   const { scrollY } = useScroll();
-
-  let opacityScroll = useTransform(
-    scrollY,
-    [0, 100, 300, 700],
-    [1, 0.7, 0.5, 0]
-  );
+  let scrollValuePixels = [0, 100, 300, 700];
+  let scrollValueOpacity = [1, 0.7, 0.5, 0];
 
   if (width < 769) {
-    opacityScroll = useTransform(
-      scrollY,
-      [0, 200, 500, 1200, 1800],
-      [1, 0.9, 0.8, 0.5, 0]
-    );
+    scrollValuePixels = [0, 200, 500, 1200, 1800];
+    scrollValueOpacity = [1, 0.9, 0.8, 0.5, 0];
   }
+
+  const opacityScroll = useTransform(
+    scrollY,
+    scrollValuePixels,
+    scrollValueOpacity
+  );
   return (
     <motion.header
       className="flex flex-col md:flex-row my-12 mx-auto w-[90%] max-w-7xl shadow-xl shadow-slate-700"
