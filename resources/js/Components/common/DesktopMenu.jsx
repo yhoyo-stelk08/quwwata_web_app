@@ -93,7 +93,7 @@ const DesktopMenu = () => {
             </li>
             <li>
               <a href="#" className="block menu-link">
-                About
+                About Me
               </a>
             </li>
             <li>
