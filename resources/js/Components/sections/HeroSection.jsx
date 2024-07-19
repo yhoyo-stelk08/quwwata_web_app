@@ -1,14 +1,26 @@
+import useResponsiveWidth from "@/hooks/UseResponsiveWidth";
 import { Link } from "@inertiajs/react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import ImageSlideShow from "../common/ImageSlideShow";
 
 const HeroSection = () => {
+  const width = useResponsiveWidth();
+
   const { scrollY } = useScroll();
-  const opacityScroll = useTransform(
+
+  let opacityScroll = useTransform(
     scrollY,
     [0, 100, 300, 700],
     [1, 0.7, 0.5, 0]
   );
+
+  if (width < 769) {
+    opacityScroll = useTransform(
+      scrollY,
+      [0, 200, 500, 1200, 1800],
+      [1, 0.9, 0.8, 0.5, 0]
+    );
+  }
   return (
     <motion.header
       className="flex flex-col md:flex-row my-12 mx-auto w-[90%] max-w-7xl shadow-xl shadow-slate-700"
