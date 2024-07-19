@@ -1,6 +1,18 @@
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+
 const TestimonySection = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false });
+
   return (
-    <div className="flex w-full items-center justify-center">
+    <motion.div
+      className="flex w-full items-center justify-center"
+      ref={ref}
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 50 }}
+      transition={{ duration: 1 }}
+    >
       <div className="h-full w-full p-12 text-center max-w-5xl">
         <swiper-container
           class="mySwiper"
@@ -62,7 +74,7 @@ const TestimonySection = () => {
           </swiper-slide>
         </swiper-container>
       </div>
-    </div>
+    </motion.div>
   );
 };
 export default TestimonySection;
