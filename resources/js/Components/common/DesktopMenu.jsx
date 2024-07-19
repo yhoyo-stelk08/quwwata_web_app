@@ -40,8 +40,8 @@ const DesktopMenu = () => {
       <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
         <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
           <img src={logoImg} className="h-14" alt="Flowbite Logo" />
-          <span className="self-center text-sm font-bold font-raleway whitespace-nowrap text-slate-200">
-            Quwwata <br /> Archery <br /> Shop
+          <span className="self-center text-sm font-bold font-pacifico whitespace-nowrap text-slate-200">
+            Traditional Archery Supply
           </span>
         </a>
         <button
