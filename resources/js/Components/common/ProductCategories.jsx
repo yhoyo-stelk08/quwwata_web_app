@@ -1,6 +1,6 @@
 import useResponsiveWidth from "@/hooks/UseResponsiveWidth";
 
-import CubeSlider from "../common/CubeSlider";
+import CubeSlider from "./CubeSlider";
 
 const categoryImg = [
   { imgSrc: "laminated-bow.jpeg", imgTitle: "Laminated Bow" },
