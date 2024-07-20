@@ -49,6 +49,7 @@ const ProductCategories = () => {
             title={"Laminated Bow"}
             imgData={laminatedBowCategory}
             isDataArray={true}
+            isAutoPlay={false}
           />
           <CubeSlider
             pagination={false}
@@ -56,6 +57,7 @@ const ProductCategories = () => {
             title={"Fiber Flat Bow"}
             imgData={fiberFlatBowCategory}
             isDataArray={true}
+            isAutoPlay={false}
           />
           <CubeSlider
             pagination={false}
@@ -63,6 +65,7 @@ const ProductCategories = () => {
             title={"Arrows"}
             imgData={arrowsCategory}
             isDataArray={true}
+            isAutoPlay={false}
           />
           <CubeSlider
             pagination={false}
@@ -70,6 +73,7 @@ const ProductCategories = () => {
             title={"Accessories"}
             imgData={accessoriesCategory}
             isDataArray={true}
+            isAutoPlay={false}
           />
         </section>
       ) : (
@@ -78,6 +82,7 @@ const ProductCategories = () => {
           timeDelay={6000}
           isDataArray={false}
           imgData={categoryImg}
+          isAutoPlay={true}
         />
       )}
     </>

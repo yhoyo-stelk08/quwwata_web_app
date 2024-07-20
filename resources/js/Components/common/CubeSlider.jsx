@@ -1,16 +1,24 @@
 import styles from "./CubeSlider.module.css";
 
-const CubeSlider = ({ pagination, title, timeDelay, imgData, isDataArray }) => {
+const CubeSlider = ({
+  pagination,
+  title,
+  timeDelay,
+  imgData,
+  isDataArray,
+  isAutoPlay,
+}) => {
   return (
     <div className="relative xs:mt-10 flex justify-center">
+      {isAutoPlay ? "" : ""}
       <swiper-container
         class={styles.swiperContainer}
         pagination={pagination}
         effect="cube"
         grab-cursor="true"
         loop="true"
-        autoplay-delay={timeDelay}
-        autoplay-disable-on-interaction="false"
+        autoplay-delay={isAutoPlay ? timeDelay : undefined}
+        autoplay-disable-on-interaction={isAutoPlay ? "false" : undefined}
         cube-effect-shadow="true"
         cube-effect-slide-shadows="true"
         cube-effect-shadow-offset="20"
