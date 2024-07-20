@@ -32,7 +32,7 @@ const ImageSlideShow = () => {
           key={index}
           src={image.image}
           alt={image.alt}
-          className={`absolute w-full h-full object-cover top-0 left-0 transition-opacity duration-1000 ease-in-out ${
+          className={`absolute w-full h-full object-cover top-0 left-0 transition-opacity duration-1000 ease-in-out  ${
             index === currentImageIndex ? "opacity-100" : "opacity-0"
           }`}
         />

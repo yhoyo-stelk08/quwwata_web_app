@@ -37,3 +37,15 @@ body {
     background-color: #cbd5e1;
   }
 }
+
+#cube-swiper-container {
+  @apply w-[300px] h-[300px];
+}
+
+#cube-swiper-slide {
+  @apply bg-center bg-cover;
+}
+
+#cube-swiper-slide img {
+  @apply block w-full h-96;
+}
