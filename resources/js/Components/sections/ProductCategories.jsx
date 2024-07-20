@@ -1,31 +1,86 @@
-import accesories from "../../../images/categories-images/accessories.jpeg";
-import arrows from "../../../images/categories-images/arrows.jpeg";
-import flatBow from "../../../images/categories-images/flat-bow.jpeg";
-import laminatedBow from "../../../images/categories-images/laminated-bow.jpeg";
+import useResponsiveWidth from "@/hooks/UseResponsiveWidth";
+
+import CubeSlider from "../common/CubeSlider";
 
 const categoryImg = [
-  { bgImage: laminatedBow, title: "Laminated Bow" },
-  { bgImage: flatBow, title: "Fiber Flat Bow" },
-  { bgImage: arrows, title: "Arrows" },
-  { bgImage: accesories, title: "Accessories" },
+  { imgSrc: "laminated-bow.jpeg", imgTitle: "Laminated Bow" },
+  { imgSrc: "flat-bow.jpeg", imgTitle: "Fiber Flat Bow" },
+  { imgSrc: "arrows.jpeg", imgTitle: "Arrows" },
+  { imgSrc: "accessories.jpeg", imgTitle: "Accessories" },
+];
+
+const fiberFlatBowCategory = [
+  "flat-bow-1.jpeg",
+  "flat-bow-2.jpeg",
+  "flat-bow-3.jpeg",
+  "flat-bow-4.jpeg",
+];
+
+const arrowsCategory = [
+  "arrows-1.jpeg",
+  "arrows-2.jpeg",
+  "arrows-3.jpeg",
+  "arrows-4.jpeg",
+];
+
+const accessoriesCategory = [
+  "accessories-1.jpeg",
+  "accessories-2.jpeg",
+  "accessories-3.jpeg",
+  "accessories-4.jpeg",
+];
+
+const laminatedBowCategory = [
+  "laminated-bow-1.jpeg",
+  "laminated-bow-2.jpeg",
+  "laminated-bow-3.jpeg",
+  "laminated-bow-4.jpeg",
 ];
 
 const ProductCategories = () => {
+  const width = useResponsiveWidth();
   return (
-    <section className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 px-4 mx-auto mt-20 border h-96 max-w-[90%]">
-      <div className="max-w-sm border border-white ">
-        <img src={laminatedBow} alt="Laminated Bow" width="300px" />
-      </div>
-      <div className="max-w-sm border border-white ">
-        <img src={laminatedBow} alt="Laminated Bow" width="300px" />
-      </div>
-      <div className="max-w-sm border border-white ">
-        <img src={laminatedBow} alt="Laminated Bow" width="300px" />
-      </div>
-      <div className="max-w-sm border border-white ">
-        <img src={laminatedBow} alt="Laminated Bow" width="300px" />
-      </div>
-    </section>
+    <>
+      {width > 640 ? (
+        <section className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 px-4 mx-auto mt-20  max-w-[90%]">
+          <CubeSlider
+            pagination={false}
+            timeDelay={6000}
+            title={"Laminated Bow"}
+            imgData={laminatedBowCategory}
+            isDataArray={true}
+          />
+          <CubeSlider
+            pagination={false}
+            timeDelay={6000}
+            title={"Fiber Flat Bow"}
+            imgData={fiberFlatBowCategory}
+            isDataArray={true}
+          />
+          <CubeSlider
+            pagination={false}
+            timeDelay={6000}
+            title={"Arrows"}
+            imgData={arrowsCategory}
+            isDataArray={true}
+          />
+          <CubeSlider
+            pagination={false}
+            timeDelay={6000}
+            title={"Accessories"}
+            imgData={accessoriesCategory}
+            isDataArray={true}
+          />
+        </section>
+      ) : (
+        <CubeSlider
+          pagination={false}
+          timeDelay={6000}
+          isDataArray={false}
+          imgData={categoryImg}
+        />
+      )}
+    </>
   );
 };
 export default ProductCategories;

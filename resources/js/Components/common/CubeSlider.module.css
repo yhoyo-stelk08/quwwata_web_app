@@ -1,5 +1,5 @@
 .swiperContainer {
-  @apply w-[300px] lg:w-[200px] xl:w-[300px];
+  @apply w-[370px] lg:w-[200px] xl:w-[300px] md:w-[300px];
 }
 
 .swiperSlide {
