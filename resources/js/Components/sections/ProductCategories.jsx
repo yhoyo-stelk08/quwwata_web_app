@@ -12,7 +12,7 @@ const categoryImg = [
 
 const ProductCategories = () => {
   return (
-    <section className="container flex flex-row gap-4 px-4 mx-auto mt-20 border h-96 max-w-[90%]">
+    <section className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 px-4 mx-auto mt-20 border h-96 max-w-[90%]">
       <div className="max-w-sm border border-white ">
         <img src={laminatedBow} alt="Laminated Bow" width="300px" />
       </div>
