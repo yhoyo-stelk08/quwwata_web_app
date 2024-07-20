@@ -42,7 +42,7 @@ const ProductCategories = () => {
   return (
     <>
       {width > 640 ? (
-        <section className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 px-4 mx-auto mt-20  max-w-[90%]">
+        <section className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 px-4 mx-auto mt-8  max-w-[90%]">
           <CubeSlider
             pagination={false}
             timeDelay={6000}
