@@ -1,3 +1,4 @@
+import useResponsiveWidth from "@/hooks/UseResponsiveWidth";
 import { useRef, useState } from "react";
 import { FaAngleDown, FaAngleUp, FaBars } from "react-icons/fa";
 import logoImg from "../../../images/logo quwwata.png";
@@ -5,6 +6,7 @@ import MegaMenu from "./MegaMenu";
 
 const DesktopMenu = () => {
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   const timeoutIdRef = useRef(null);
 
   const openMegaMenu = () => setMegaMenuOpen(true);
@@ -24,16 +26,11 @@ const DesktopMenu = () => {
     }, 300); // Adjust timeout duration as needed
   };
 
-  const handleMegaMenuMouseEnter = () => {
-    if (timeoutIdRef.current) {
-      clearTimeout(timeoutIdRef.current);
-      timeoutIdRef.current = null;
-    }
+  const toggleMobileDropdown = () => {
+    setMobileDropdownOpen(!mobileDropdownOpen);
   };
 
-  const handleMegaMenuMouseLeave = () => {
-    closeMegaMenu();
-  };
+  const width = useResponsiveWidth();
 
   return (
     <nav className="bg-gradient-to-r from-slate-500 to-slate-950 relative w-full xs:w-auto">
@@ -50,7 +47,6 @@ const DesktopMenu = () => {
           className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
           aria-controls="mega-menu-full"
           aria-expanded={megaMenuOpen ? "true" : "false"}
-          onClick={() => setMegaMenuOpen(!megaMenuOpen)}
         >
           <span className="sr-only">Open main menu</span>
           <FaBars className="h-6 w-6" />
@@ -67,25 +63,72 @@ const DesktopMenu = () => {
                 Home
               </a>
             </li>
-            <li
-              className="relative"
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            >
-              <button
-                id="mega-menu-full-dropdown-button"
-                data-collapse-toggle="mega-menu-full-dropdown"
-                className="flex items-center justify-between w-full py-2 px-3 md:w-auto font-medium menu-link"
+            {width >= 768 ? (
+              <li
+                className="relative"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
               >
-                Product{" "}
-                {megaMenuOpen ? (
-                  <FaAngleUp className="ml-1" />
-                ) : (
-                  <FaAngleDown className="ml-1" />
+                <button
+                  id="mega-menu-full-dropdown-button"
+                  data-collapse-toggle="mega-menu-full-dropdown"
+                  className="flex items-center justify-between w-full py-2 px-3 md:w-auto font-medium menu-link"
+                >
+                  Product{" "}
+                  {megaMenuOpen ? (
+                    <FaAngleUp className="ml-1" />
+                  ) : (
+                    <FaAngleDown className="ml-1" />
+                  )}
+                </button>
+                <MegaMenu isOpen={megaMenuOpen} />
+              </li>
+            ) : (
+              // For Mobile Screen
+              <li>
+                <button
+                  id="product-dropdown-button"
+                  data-dropdown-toggle="product-dropdown"
+                  className="flex items-center justify-between w-full py-2 px-3 md:w-auto font-medium menu-link"
+                  onClick={toggleMobileDropdown}
+                >
+                  Product{" "}
+                  {mobileDropdownOpen ? (
+                    <FaAngleUp className="ml-1" />
+                  ) : (
+                    <FaAngleDown className="ml-1" />
+                  )}
+                </button>
+                {mobileDropdownOpen && (
+                  <ul
+                    id="product-dropdown"
+                    className="flex flex-col mt-2 space-y-2 bg-slate-400 rounded-md p-4"
+                  >
+                    <li>
+                      <a href="#" className="block menu-link">
+                        Laminated Bow
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" className="block menu-link">
+                        Fiber Flat Bow
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" className="block menu-link">
+                        Arrow
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" className="block menu-link">
+                        Accessories
+                      </a>
+                    </li>
+                  </ul>
                 )}
-              </button>
-              <MegaMenu isOpen={megaMenuOpen} />
-            </li>
+              </li>
+            )}
+
             <li>
               <a href="#" className="block menu-link">
                 Gallery
