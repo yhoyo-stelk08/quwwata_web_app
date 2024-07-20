@@ -1,0 +1,11 @@
+.swiperContainer {
+  @apply w-[300px];
+}
+
+.swiperSlide {
+  @apply bg-center bg-cover;
+}
+
+.swiperSlide img {
+  @apply block w-full h-96;
+}
