@@ -7,10 +7,10 @@ const TestimonySection = () => {
 
   return (
     <motion.div
-      className="flex w-full items-center justify-center"
+      className="flex w-full items-center justify-center mt-20"
       ref={ref}
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 50 }}
+      initial={{ opacity: 0, y: 200 }}
+      animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 200 }}
       transition={{ duration: 1 }}
     >
       <div className="h-full w-full p-12 text-center max-w-5xl">
