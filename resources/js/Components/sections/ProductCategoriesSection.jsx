@@ -9,7 +9,7 @@ const ProductCategoriesSection = () => {
 
   return (
     <motion.section
-      className="w-full mx-auto mt-20 xl:mt-36 flex flex-col justify-center items-center"
+      className="w-full mx-auto mt-20 mb-16 xl:mt-36 flex flex-col justify-center items-center"
       ref={ref}
       initial={{ opacity: 0, y: 200 }}
       animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 200 }}
@@ -19,7 +19,7 @@ const ProductCategoriesSection = () => {
         <h1 className="text-center text-slate-200 font-raleway text-6xl">
           Why choose our bow?
         </h1>
-        <p className="text-center text-slate-200 font-raleway italic my-8">
+        <p className="text-center text-slate-200 font-raleway italic my-8 px-8">
           Our bows are more than just a piece of equipment; they are a testament
           to the skill and artistry of ancient bowyers. Each bow is carefully
           handcrafted using high-quality materials, ensuring durability and
