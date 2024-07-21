@@ -17,7 +17,12 @@ use Inertia\Inertia;
 // route to HomePage
 Route::get('/', function () {
     return Inertia::render('HomePage');
-});
+})->name('/');
+
+// route to ProductDetailsPage
+Route::get('/product-details', function () {
+    return Inertia::render('ProductDetailsPage');
+})->name('product-details');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

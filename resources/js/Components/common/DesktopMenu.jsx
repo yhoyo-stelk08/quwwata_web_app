@@ -1,4 +1,5 @@
 import useResponsiveWidth from "@/hooks/UseResponsiveWidth";
+import { Link } from "@inertiajs/react";
 import { useRef, useState } from "react";
 import { FaAngleDown, FaAngleUp, FaBars } from "react-icons/fa";
 import logoImg from "../../../images/logo quwwata.png";
@@ -35,12 +36,15 @@ const DesktopMenu = () => {
   return (
     <nav className="bg-gradient-to-r from-slate-500 to-slate-950 relative w-full xs:w-auto">
       <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
-        <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+        <Link
+          href={route("/")}
+          className="flex items-center space-x-3 rtl:space-x-reverse"
+        >
           <img src={logoImg} className="h-14" alt="Flowbite Logo" />
           <span className="self-center text-sm font-bold font-pacifico whitespace-nowrap text-slate-200">
             Traditional Archery Supply
           </span>
-        </a>
+        </Link>
         <button
           data-collapse-toggle="mega-menu-full"
           type="button"
@@ -59,9 +63,13 @@ const DesktopMenu = () => {
         >
           <ul className="flex flex-col mt-4 font-medium md:flex-row md:mt-0 md:space-x-8 rtl:space-x-reverse">
             <li>
-              <a href="#" className="block menu-link" aria-current="page">
+              <Link
+                href={route("/")}
+                className="block menu-link"
+                aria-current="page"
+              >
                 Home
-              </a>
+              </Link>
             </li>
             {width >= 768 ? (
               <li
