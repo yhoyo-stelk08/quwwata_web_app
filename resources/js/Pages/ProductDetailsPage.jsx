@@ -5,10 +5,10 @@ import AppLayout from "@/Layouts/AppLayout";
 const ProductDetailsPage = () => {
   return (
     <AppLayout>
-      <div className="flex flex-col w-full h-96 mx-auto mt-0">
+      <div className="flex flex-col w-full h-72 xl:h-96 md:h-[400px] mx-auto mt-0">
         <ProductDetailsHeader />
       </div>
-      <div className="flex md:flex-col w-[90%] h-screen mx-auto my-10 border">
+      <div className="flex md:flex-col w-[90%] h-screen mx-auto my-20 mt-0  border">
         <ProductDetails />
       </div>
     </AppLayout>
