@@ -5,13 +5,13 @@ import ProductDetailsOtherDescription from "./ProductDetailsOtherDescription";
 
 const ProductDetails = () => {
   return (
-    <>
+    <div className="grid grid-rows-2 grid-cols-1">
       <div className="flex flex-col lg:flex-row w-full h-full">
         <div className="w-full xl:w-1/2 lg:w-1/2 h-full border">
           <ProductDetailsGallery />
         </div>
         <div className="w-full xl:w-1/2 lg:w-1/2 h-full border">
-          <ProductDetailsOptions />
+          <ProductDetailsOptions productType={"Laminated Bow"} />
         </div>
       </div>
       <div className="flex flex-col lg:flex-row w-full h-full">
@@ -22,7 +22,7 @@ const ProductDetails = () => {
           <ProductDetailsOtherDescription />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 export default ProductDetails;
