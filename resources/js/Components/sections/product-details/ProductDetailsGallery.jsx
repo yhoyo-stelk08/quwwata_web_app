@@ -38,14 +38,14 @@ const ProductDetailsGallery = () => {
   };
 
   return (
-    <div>
+    <div className="xl:mt-12">
       <Slider {...settingsMain}>
         {thumbnails.map((src, index) => (
           <div key={index}>
             <img
               src={src}
               alt={`Bow ${index + 1}`}
-              className="w-full h-96 md:h-80  sm:h-64 xs:h-64 object-fill md:object-cover p-2"
+              className="w-full h-64 xl:h-96 lg:h-80 md:h-80 object-fill md:object-cover p-2"
             />
           </div>
         ))}
