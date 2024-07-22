@@ -104,7 +104,7 @@ const ProductDetailsOptions = ({ productType }) => {
           <div className="flex items-center">
             <button
               onClick={decrementQty}
-              className="w-10 h-10 bg-slate-500 text-white rounded-l-lg flex justify-center items-center ml-2"
+              className="w-10 h-10 bg-slate-900 text-white rounded-l-lg flex justify-center items-center ml-2"
             >
               -
             </button>
@@ -117,7 +117,7 @@ const ProductDetailsOptions = ({ productType }) => {
             />
             <button
               onClick={incrementQty}
-              className="w-10 h-10 bg-slate-500 text-white rounded-r-lg flex justify-center items-center"
+              className="w-10 h-10 bg-slate-900 text-white rounded-r-lg flex justify-center items-center"
             >
               +
             </button>
