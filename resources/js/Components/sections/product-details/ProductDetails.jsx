@@ -7,10 +7,10 @@ const ProductDetails = () => {
   return (
     <>
       <div className="flex flex-col lg:flex-row w-full h-full">
-        <div className="w-full h-full border">
+        <div className="w-full xl:w-1/2 lg:w-1/2 h-full border">
           <ProductDetailsGallery />
         </div>
-        <div className="w-full h-full border">
+        <div className="w-full xl:w-1/2 lg:w-1/2 h-full border">
           <ProductDetailsOptions />
         </div>
       </div>
