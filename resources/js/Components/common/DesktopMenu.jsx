@@ -8,6 +8,7 @@ import MegaMenu from "./MegaMenu";
 const DesktopMenu = () => {
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const timeoutIdRef = useRef(null);
 
   const openMegaMenu = () => setMegaMenuOpen(true);
@@ -31,6 +32,10 @@ const DesktopMenu = () => {
     setMobileDropdownOpen(!mobileDropdownOpen);
   };
 
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
   const width = useResponsiveWidth();
 
   return (
@@ -50,7 +55,8 @@ const DesktopMenu = () => {
           type="button"
           className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
           aria-controls="mega-menu-full"
-          aria-expanded={megaMenuOpen ? "true" : "false"}
+          aria-expanded={mobileMenuOpen ? "true" : "false"}
+          onClick={toggleMobileMenu}
         >
           <span className="sr-only">Open main menu</span>
           <FaBars className="h-6 w-6" />
@@ -58,7 +64,7 @@ const DesktopMenu = () => {
         <div
           id="mega-menu-full"
           className={`${
-            megaMenuOpen ? "block" : "hidden"
+            mobileMenuOpen ? "block" : "hidden"
           } items-center justify-between w-full md:flex md:w-auto md:order-1`}
         >
           <ul className="flex flex-col mt-4 font-medium md:flex-row md:mt-0 md:space-x-8 rtl:space-x-reverse">
@@ -92,7 +98,6 @@ const DesktopMenu = () => {
                 <MegaMenu isOpen={megaMenuOpen} />
               </li>
             ) : (
-              // For Mobile Screen
               <li>
                 <button
                   id="product-dropdown-button"
