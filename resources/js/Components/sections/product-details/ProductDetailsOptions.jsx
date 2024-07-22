@@ -100,8 +100,7 @@ const ProductDetailsOptions = ({ productType }) => {
         </div>
       </div>
       <div className="flex gap-4 pl-2 mt-5 items-center md:items-start">
-        <div className="flex flex-col md:flex-row gap-2 items-center">
-          <h3 className=" text-slate-200 hidden md:block">Quantity : </h3>
+        <div className="flex flex-col xl:flex-col md:flex-row gap-2 ">
           <div className="flex items-center">
             <button
               onClick={decrementQty}
@@ -124,12 +123,10 @@ const ProductDetailsOptions = ({ productType }) => {
             </button>
           </div>
         </div>
-        <div>
-          <button className="flex gap-2 text-white bg-gradient-to-br from-yellow-200 to-orange-600 items-center justify-center p-3 rounded-md">
-            <FaCartArrowDown className="w-6 h-6" />
-            Add To Cart
-          </button>
-        </div>
+        <button className="flex gap-2 text-white bg-gradient-to-br from-yellow-200 to-orange-600 items-center justify-center py-3 px-6 rounded-md">
+          <FaCartArrowDown className="w-6 h-6" />
+          Add To Cart
+        </button>
       </div>
     </div>
   );
