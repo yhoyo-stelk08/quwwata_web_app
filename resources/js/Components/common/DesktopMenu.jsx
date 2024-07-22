@@ -118,9 +118,12 @@ const DesktopMenu = () => {
                     className="flex flex-col mt-2 space-y-2 bg-slate-400 rounded-md p-4"
                   >
                     <li>
-                      <a href="#" className="block menu-link">
+                      <Link
+                        href={route("product-details")}
+                        className="block menu-link"
+                      >
                         Laminated Bow
-                      </a>
+                      </Link>
                     </li>
                     <li>
                       <a href="#" className="block menu-link">
