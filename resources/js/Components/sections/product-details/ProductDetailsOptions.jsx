@@ -99,12 +99,12 @@ const ProductDetailsOptions = ({ productType }) => {
             })}
         </div>
       </div>
-      <div className="flex gap-4 pl-2 mt-5 items-center md:items-start">
+      <div className="flex gap-4 pl-2 mt-5 items-center justify-evenly md:justify-start md:items-start">
         <div className="flex flex-col xl:flex-col md:flex-row gap-2 ">
           <div className="flex items-center">
             <button
               onClick={decrementQty}
-              className="w-10 h-10 bg-slate-900 text-white rounded-l-lg flex justify-center items-center ml-2"
+              className="w-11 h-11 bg-slate-900 text-white rounded-l-lg flex justify-center items-center ml-2"
             >
               -
             </button>
@@ -113,19 +113,19 @@ const ProductDetailsOptions = ({ productType }) => {
               readOnly
               value={qty}
               onChange={handleQtyChange}
-              className="w-20 h-10 text-center bg-slate-400 bg-opacity-80 text-slate-50"
+              className="w-11 h-11 text-center bg-slate-400 bg-opacity-80 text-slate-50"
             />
             <button
               onClick={incrementQty}
-              className="w-10 h-10 bg-slate-900 text-white rounded-r-lg flex justify-center items-center"
+              className="w-11 h-11 bg-slate-900 text-white rounded-r-lg flex justify-center items-center"
             >
               +
             </button>
           </div>
         </div>
-        <button className="flex gap-2 text-white bg-gradient-to-br from-yellow-200 to-orange-600 items-center justify-center py-3 px-6 rounded-md">
+        <button className="flex gap-2 text-white bg-gradient-to-br from-yellow-200 to-orange-600 items-center justify-center py-3 px-6 rounded-md text-xs md:text-base">
           <FaCartArrowDown className="w-6 h-6" />
-          Add To Cart
+          <span className=" hidden xs:block">Add To Cart</span>
         </button>
       </div>
     </div>
