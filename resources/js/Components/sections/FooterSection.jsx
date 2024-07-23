@@ -32,8 +32,8 @@ const FooterSection = () => {
           <Link href="#">Privacy Policy</Link>
           <Link href="#">Term and Condition</Link>
           <Link href="#">Cookie Policy</Link>
-          <Link href="#">About Us</Link>
-          <Link href="#">Contact Us</Link>
+          <Link href="#">About Me</Link>
+          <Link href="#">Contact</Link>
         </div>
         <div className="flex flex-col md:flex-row w-full max-w-7xl border-t border-t-slate-200 items-center justify-between gap-8 p-8 font-raleway  text-slate-200">
           <h3>
