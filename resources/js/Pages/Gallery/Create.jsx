@@ -4,6 +4,7 @@ import { useForm } from "@inertiajs/react";
 const GalleryCreate = ({ auth }) => {
   const { data, setData, post, processing, errors } = useForm({
     title: "",
+    category: "",
     image: null,
   });
 
@@ -62,6 +63,32 @@ const GalleryCreate = ({ auth }) => {
                 </div>
                 <div className="mb-4">
                   <label
+                    className="block text-gray-700 text-sm font-bold mb-2 "
+                    htmlFor="category"
+                  >
+                    Category
+                  </label>
+                  <select
+                    id="category"
+                    name="category"
+                    className="w-full py-2 px-3"
+                    value={data.category}
+                    onChange={handleChange}
+                  >
+                    <option value="">Select Category</option>
+                    <option value="laminated bow">Laminated Bow</option>
+                    <option value="flat bow">Flat Bow</option>
+                    <option value="arrows">Arrows</option>
+                    <option value="accessories">Accessories</option>
+                  </select>
+                  {errors.category && (
+                    <p className="text-red-500 text-xs italic">
+                      {errors.category}
+                    </p>
+                  )}
+                </div>
+                <div className="mb-4">
+                  <label
                     className="block text-gray-700 text-sm font-bold mb-2"
                     htmlFor="image"
                   >
@@ -71,7 +98,7 @@ const GalleryCreate = ({ auth }) => {
                     id="image"
                     name="image"
                     onChange={handleChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="shadow appearance-none border rounded w-full py-0 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     type="file"
                     accept="image/*"
                   />

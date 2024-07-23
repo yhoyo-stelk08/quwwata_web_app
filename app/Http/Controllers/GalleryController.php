@@ -47,6 +47,7 @@ class GalleryController extends Controller
         $gallery = new Gallery();
         $gallery->title = $request->title;
         $gallery->image_name = 'images/gallery/' . $imageName; // Save the relative path to the database
+        $gallery->category = $request->category;
         $gallery->save();
 
         // Redirect with a success message
