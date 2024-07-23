@@ -24,6 +24,11 @@ Route::get('/product-details', function () {
     return Inertia::render('ProductDetailsPage');
 })->name('product-details');
 
+// route to GalleryPage
+Route::get('gallery', function () {
+    return Inertia::render('GalleryPage');
+})->name('gallery');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

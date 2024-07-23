@@ -146,9 +146,9 @@ const DesktopMenu = () => {
             )}
 
             <li>
-              <a href="#" className="block menu-link">
+              <Link href={route("gallery")} className="block menu-link">
                 Gallery
-              </a>
+              </Link>
             </li>
             <li>
               <a href="#" className="block menu-link">
