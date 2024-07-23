@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('title');
             $table->string('image_name');
+            $table->enum('category', ['laminated bow', 'flat bow', 'arrows', 'accessories']);
             $table->timestamps();
         });
     }
