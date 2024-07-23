@@ -1,5 +1,6 @@
 import Gallery from "@/Components/gallery/Gallery";
 import AppLayout from "@/Layouts/AppLayout";
+import axios from "axios";
 import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
@@ -13,8 +14,9 @@ export default function GalleryPage() {
       try {
         const response = await axios.get("/all-gallery-data");
         setGalleries(response.data);
+        console.log(response.data); // Log data to verify
       } catch (error) {
-        console.error("There was error when fetching gallery data : ", error);
+        console.error("There was error when fetching gallery data: ", error);
       }
     };
     galleryData();
@@ -35,8 +37,8 @@ export default function GalleryPage() {
             Gallery
           </motion.h3>
         </div>
-        {/* Galery Content */}
-        <div className="grid grid-cols-4 gap-4 mt-10">
+        {/* Gallery Content */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-10">
           <Gallery galleries={galleries} />
         </div>
       </div>
