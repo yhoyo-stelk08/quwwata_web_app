@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
 
     // Route for managing gallery
     Route::resource('galleries', GalleryController::class);
+    Route::get('all-gallery-data', [GalleryController::class, 'allGalleryData'])->name('all-gallery-data');
 });
 
 require __DIR__ . '/auth.php';
