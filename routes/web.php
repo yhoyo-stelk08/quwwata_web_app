@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\GalleryApiController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -29,6 +30,7 @@ Route::get('/product-details', function () {
 Route::get('gallery', function () {
     return Inertia::render('GalleryPage');
 })->name('gallery');
+Route::get('all-gallery-data', [GalleryApiController::class, 'allGalleryData'])->name('all-gallery-data');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -41,7 +43,6 @@ Route::middleware('auth')->group(function () {
 
     // Route for managing gallery
     Route::resource('galleries', GalleryController::class);
-    Route::get('all-gallery-data', [GalleryController::class, 'allGalleryData'])->name('all-gallery-data');
 });
 
 require __DIR__ . '/auth.php';
