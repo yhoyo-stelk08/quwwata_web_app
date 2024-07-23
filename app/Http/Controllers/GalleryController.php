@@ -19,12 +19,6 @@ class GalleryController extends Controller
         ]);
     }
 
-    public function allGalleryData()
-    {
-        $galleries = Gallery::all();
-        return response()->json($galleries);
-    }
-
     /**
      * Show the form for creating a new resource.
      */
