@@ -14,7 +14,6 @@ export default function GalleryPage() {
       try {
         const response = await axios.get("/all-gallery-data");
         setGalleries(response.data);
-        console.log(response.data); // Log data to verify
       } catch (error) {
         console.error("There was error when fetching gallery data: ", error);
       }
