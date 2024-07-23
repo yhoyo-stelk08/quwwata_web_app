@@ -1,10 +1,11 @@
+import Gallery from "@/Components/gallery/Gallery";
 import AppLayout from "@/Layouts/AppLayout";
 import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 export default function GalleryPage() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: false });
+  const inView = useInView(ref, { once: true });
   const [galleries, setGalleries] = useState([]);
 
   useEffect(() => {
@@ -19,7 +20,6 @@ export default function GalleryPage() {
     galleryData();
   }, []);
 
-  console.log(galleries);
   return (
     <AppLayout>
       <div className="flex flex-col w-[90%] mx-auto my-16">
@@ -36,7 +36,9 @@ export default function GalleryPage() {
           </motion.h3>
         </div>
         {/* Galery Content */}
-        <div className="grid grid-cols-4 gap-4"></div>
+        <div className="grid grid-cols-4 gap-4 mt-10">
+          <Gallery galleries={galleries} />
+        </div>
       </div>
     </AppLayout>
   );
