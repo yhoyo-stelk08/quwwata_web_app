@@ -23,7 +23,7 @@ const FooterSection = () => {
           </h3>
         </motion.div>
         <div className="flex flex-col items-center justify-center my-8 font-raleway">
-          <h3 className="text-slate-200">
+          <h3 className="text-slate-200 text-center">
             For daily updates, follow along on Instagram
           </h3>
           <FaInstagramSquare color="#ccccd0" className="w-10 h-10 my-4" />
