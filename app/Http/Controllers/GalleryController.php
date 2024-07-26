@@ -106,6 +106,18 @@ class GalleryController extends Controller
      */
     public function destroy(Gallery $gallery)
     {
-        //
+        \Log::debug('Entering gallery controller destroy method');
+        try {
+            $gallery->delete();
+            \Log::info('Gallery item deleted successfully', ['galleries data' => $gallery]);
+
+            return redirect()->route('galleries.index')
+                ->with('message', ['type' => 'success', 'body' => 'success deleting gallery data ']);
+        } catch (\Exception $e) {
+            \Log::error('Error occurred in gallery controller destroy method', ['error' => $e->getMessage()]);
+
+            return redirect()->back()
+                ->with('message', ['type' => 'error', 'body' => 'fail deleting gallery data']);
+        }
     }
 }
