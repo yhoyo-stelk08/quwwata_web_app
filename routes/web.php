@@ -30,7 +30,13 @@ Route::get('/product-details', function () {
 Route::get('gallery', function () {
     return Inertia::render('GalleryPage');
 })->name('gallery');
+
 Route::get('all-gallery-data', [GalleryApiController::class, 'allGalleryData'])->name('all-gallery-data');
+
+// route to ContactPage
+Route::get('contact', function () {
+    return Inertia::render('ContactPage');
+})->name('contact');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
