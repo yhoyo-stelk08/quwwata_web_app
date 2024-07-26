@@ -10,4 +10,11 @@ class Gallery extends Model
     use HasFactory;
 
     protected $fillable = ['title', 'image_name', 'category'];
+
+    public function scopeSearch()
+    {
+        return Gallery::where('title', 'like', '%' . request('search') . '%')
+            ->orWhere('image_name', 'like', '%' . request('search') . '%')
+            ->orWhere('category', 'like', '%' . request('search') . '%');
+    }
 }
