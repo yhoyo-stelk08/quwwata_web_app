@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreGalleryRequest;
+use App\Http\Resources\GalleryResource;
 use App\Models\Gallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -12,10 +13,31 @@ class GalleryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        \Log::debug('Entering Gallery Index Method');
+        $query = Gallery::search($request);
+
+        // Add sorting
+        if ($request->has('sort_by') && $request->has('sort_direction')) {
+            $query->orderBy($request->get('sort_by'), $request->get('sort_direction'));
+        } else {
+            // Default sorting
+            $query->orderByDesc('updated_at');
+        }
+
+        $gallery = $query->paginate(10);
+
+        $gallery_data = GalleryResource::collection($gallery);
+
+        // Log the gallery data 
+        \Log::info('Gallery Data', ['Gallery Data' => $gallery_data]);
+
         return inertia('Gallery/Index', [
-            'galleriesData' => Gallery::all()
+            'galleriesData' => $gallery_data,
+            'search' => $request->search ?? "",
+            'sort_by' => $request->sort_by ?? "",
+            'sort_direction' => $request->sort_direction ?? "",
         ]);
     }
 
