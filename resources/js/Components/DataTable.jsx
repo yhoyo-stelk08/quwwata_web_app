@@ -75,7 +75,7 @@ const DataTable = ({
                   <div className="flex flex-col gap-1 items-start justify-start">
                     {showRoute && (
                       <Link
-                        href={route(showRoute, [data.id])}
+                        // href={route(showRoute, [data.id])}
                         className="flex items-center text-indigo-600 hover:text-indigo-900"
                       >
                         <FaEye className="w-3 h-3 mr-2" />
@@ -84,7 +84,7 @@ const DataTable = ({
                     )}
                     {editRoute && (
                       <Link
-                        href={route(editRoute, [data.id])}
+                        // href={route(editRoute, [data.id])}
                         className="flex items-center text-indigo-600 hover:text-indigo-900"
                       >
                         <FaEdit className="w-3 h-3 mr-2" />
