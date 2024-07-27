@@ -7,6 +7,7 @@ trait FormatGallery
     public function formatGalleryOutput($model)
     {
         return [
+            'id' => $model->id,
             'title' => $model->title,
             'image_name' => $model->image_name,
             'category' => $model->category,
