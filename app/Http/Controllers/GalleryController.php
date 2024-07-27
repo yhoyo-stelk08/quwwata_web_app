@@ -90,7 +90,9 @@ class GalleryController extends Controller
      */
     public function edit(Gallery $gallery)
     {
-        //
+        return inertia('Gallery/Edit', [
+            'data_gallery' => new GalleryResource($gallery),
+        ]);
     }
 
     /**
