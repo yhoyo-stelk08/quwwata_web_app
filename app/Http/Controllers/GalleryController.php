@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreGalleryRequest;
+use App\Http\Requests\UpdateGalleryRequest;
 use App\Http\Resources\GalleryResource;
 use App\Models\Gallery;
 use Illuminate\Http\Request;
@@ -98,9 +99,45 @@ class GalleryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Gallery $gallery)
+    public function update(UpdateGalleryRequest $request, Gallery $gallery)
     {
-        //
+        dd($request->all());
+        // \Log::debug('Entering gallery controller update method');
+        // try {
+        //     $gallery->title = $request->title;
+        //     $gallery->category = $request->category;
+
+        //     if ($request->hasFile('image_name')) {
+        //         // Ensure the directory exists
+        //         if (!Storage::exists('public/images/gallery')) {
+        //             Storage::makeDirectory('public/images/gallery');
+        //         }
+
+        //         // Generate a unique name for the image file
+        //         $imageName = time() . '.' . $request->file('image_name')->extension();
+
+        //         // Store the file
+        //         $request->file('image_name')->storeAs('public/images/gallery', $imageName);
+
+        //         // Delete the old image
+        //         Storage::delete('public/' . $gallery->image_name);
+
+        //         // Update the image name
+        //         $gallery->image_name = 'images/gallery/' . $imageName;
+        //     }
+
+        //     $gallery->save();
+
+        //     \Log::info('Gallery item updated successfully', ['galleries data' => $gallery]);
+
+        //     return redirect()->route('galleries.index')
+        //         ->with('message', ['type' => 'success', 'body' => 'Item updated successfully..! ']);
+        // } catch (\Throwable $th) {
+        //     \Log::error('Error occurred in gallery controller update method', ['error' => $th->getMessage()]);
+
+        //     return redirect()->back()
+        //         ->with('message', ['type' => 'error', 'body' => 'fail updating gallery data']);
+        // }
     }
 
     /**
@@ -108,15 +145,19 @@ class GalleryController extends Controller
      */
     public function destroy(Gallery $gallery)
     {
-        \Log::debug('Entering gallery controller destroy method');
         try {
+            // Delete the image
+            Storage::delete('public/' . $gallery->image_name);
+
+            // Delete the gallery item
             $gallery->delete();
-            \Log::info('Gallery item deleted successfully', ['galleries data' => $gallery]);
+
+            \Log::info('Gallery item deleted successfully', ['gallery data' => $gallery]);
 
             return redirect()->route('galleries.index')
                 ->with('message', ['type' => 'success', 'body' => 'Item deleted successfully..! ']);
-        } catch (\Exception $e) {
-            \Log::error('Error occurred in gallery controller destroy method', ['error' => $e->getMessage()]);
+        } catch (\Throwable $th) {
+            \Log::error('Error occurred in gallery controller destroy method', ['error' => $th->getMessage()]);
 
             return redirect()->back()
                 ->with('message', ['type' => 'error', 'body' => 'fail deleting gallery data']);
