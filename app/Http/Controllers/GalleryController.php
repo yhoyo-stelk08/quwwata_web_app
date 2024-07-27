@@ -73,7 +73,7 @@ class GalleryController extends Controller
         $gallery->save();
 
         // Redirect with a success message
-        return redirect()->route('galleries.index')->with('success', 'Gallery item added successfully.');
+        return redirect()->route('galleries.index')->with('message', ['type' => 'success', 'body' => 'Item Added Successfully']);
     }
 
 
@@ -112,7 +112,7 @@ class GalleryController extends Controller
             \Log::info('Gallery item deleted successfully', ['galleries data' => $gallery]);
 
             return redirect()->route('galleries.index')
-                ->with('message', ['type' => 'success', 'body' => 'success deleting gallery data ']);
+                ->with('message', ['type' => 'success', 'body' => 'Item deleted successfully..! ']);
         } catch (\Exception $e) {
             \Log::error('Error occurred in gallery controller destroy method', ['error' => $e->getMessage()]);
 
