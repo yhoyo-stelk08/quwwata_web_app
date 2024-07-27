@@ -1,31 +1,48 @@
-import { useForm } from "@inertiajs/react";
+import { router, useForm } from "@inertiajs/react";
 
 const GalleryForm = ({ gallery_data, submitRoute }) => {
-  console.log("gallery_data : ", gallery_data);
-  const { data, setData, post, put, errors, clearErrors, processing } = useForm(
-    {
-      title: gallery_data?.data?.title || "",
-      image_name: gallery_data?.data?.image_name || "",
-      category: gallery_data?.data?.category || "",
-    }
-  );
+  const { data, setData, errors, clearErrors, processing } = useForm({
+    title: gallery_data?.data?.title || "",
+    image_name: "", // Reset image_name to handle new file upload
+    category: gallery_data?.data?.category || "",
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (gallery_data) {
+    const formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("category", data.category);
+    if (data.image_name instanceof File) {
+      formData.append("image_name", data.image_name);
+    }
+
+    if (gallery_data?.data?.id) {
+      formData.append("_method", "PUT");
+      router.post(
+        route(submitRoute, { gallery: gallery_data.data.id }),
+        formData,
+        {
+          onError: (errors) => {
+            console.log(errors);
+          },
+          preserveState: true,
+        }
+      );
     } else {
-      post(route(submitRoute));
+      router.post(route(submitRoute), formData, {
+        onError: (errors) => {
+          console.log(errors);
+        },
+        preserveState: true,
+      });
     }
   };
 
   const handleChange = (e) => {
-    e.preventDefault();
-
-    setData(
-      e.target.name,
-      e.target.type === "file" ? e.target.files[0] : e.target.value
-    );
+    const { id, type, value, files } = e.target;
+    clearErrors(id);
+    setData(id, type === "file" ? files[0] : value);
   };
 
   return (
@@ -55,7 +72,7 @@ const GalleryForm = ({ gallery_data, submitRoute }) => {
             </div>
             <div className="mb-4">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2 "
+                className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="category"
               >
                 Category
@@ -113,7 +130,7 @@ const GalleryForm = ({ gallery_data, submitRoute }) => {
                 type="submit"
                 disabled={processing}
               >
-                Add to Gallery
+                {gallery_data ? "Update Item" : "Add Item"}
               </button>
             </div>
           </form>
@@ -122,4 +139,5 @@ const GalleryForm = ({ gallery_data, submitRoute }) => {
     </div>
   );
 };
+
 export default GalleryForm;
