@@ -2,7 +2,7 @@ import { Link, router } from "@inertiajs/react";
 import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 import { RxCaretDown, RxCaretUp } from "react-icons/rx";
 
-const DataTable = ({
+export default function DataTable({
   sort_by,
   sort_direction,
   data_table,
@@ -11,10 +11,10 @@ const DataTable = ({
   deleteRoute,
   editRoute,
   showRoute,
-}) => {
+}) {
   const deleteData = (dataId) => {
     if (confirm("Are you sure you want to delete this record?")) {
-      router.delete(route(deleteRoute, dataId), {
+      router.delete(route(deleteRoute, { gallery: dataId }), {
         preserveScroll: true,
       });
     }
@@ -55,7 +55,6 @@ const DataTable = ({
                 </th>
               );
             })}
-
             <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6" />
           </tr>
         </thead>
@@ -63,19 +62,22 @@ const DataTable = ({
           {data_table.data.map((data, index) => {
             return (
               <tr key={index} className="align-top text-left">
-                {Object.keys(data).map((key) => (
-                  <td
-                    key={key}
-                    className="whitespace-pre-wrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
-                  >
-                    {data[key]}
-                  </td>
-                ))}
+                {columnHeader.map((column) => {
+                  const columnKey = column.toLowerCase().replace(/ /g, "_");
+                  return (
+                    <td
+                      key={columnKey}
+                      className="whitespace-pre-wrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
+                    >
+                      {data[columnKey]}
+                    </td>
+                  );
+                })}
                 <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                   <div className="flex flex-col gap-1 items-start justify-start">
                     {showRoute && (
                       <Link
-                        // href={route(showRoute, [data.id])}
+                        href={route(showRoute, { gallery: data.id })}
                         className="flex items-center text-indigo-600 hover:text-indigo-900"
                       >
                         <FaEye className="w-3 h-3 mr-2" />
@@ -84,7 +86,7 @@ const DataTable = ({
                     )}
                     {editRoute && (
                       <Link
-                        // href={route(editRoute, [data.id])}
+                        href={route(editRoute, { gallery: data.id })}
                         className="flex items-center text-indigo-600 hover:text-indigo-900"
                       >
                         <FaEdit className="w-3 h-3 mr-2" />
@@ -109,5 +111,4 @@ const DataTable = ({
       </table>
     </div>
   );
-};
-export default DataTable;
+}
