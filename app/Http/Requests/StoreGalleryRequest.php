@@ -24,7 +24,7 @@ class StoreGalleryRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'category' => 'required|string|in:laminated bow,flat bow,arrows,accessories',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image_name' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }

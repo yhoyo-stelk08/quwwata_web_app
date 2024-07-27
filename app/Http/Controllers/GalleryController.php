@@ -60,10 +60,10 @@ class GalleryController extends Controller
         }
 
         // Generate a unique name for the image file
-        $imageName = time() . '.' . $request->file('image')->extension();
+        $imageName = time() . '.' . $request->file('image_name')->extension();
 
         // Store the file
-        $request->file('image')->storeAs('public/images/gallery', $imageName);
+        $request->file('image_name')->storeAs('public/images/gallery', $imageName);
 
         // Create a new Gallery instance and save the data
         $gallery = new Gallery();

@@ -1,27 +1,23 @@
-import { useForm } from "@inertiajs/react";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import GalleryForm from "./GalleryForm";
 
-function formatDate(dateString) {
-  const date = new Date(dateString);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-
-  return `${year}-${month}-${day}`;
-}
-
-const GalleryEdit = ({ submitRoute, data_gallery }) => {
-  const { data, setData, post, put, errors, clearErrors, processing } = useForm(
-    {
-      title: data?.data?.title || "",
-      image_name: data?.data?.image_name || "",
-      category: data?.data?.category || "",
-    }
+const GalleryEdit = ({ auth, data_gallery }) => {
+  return (
+    <AuthenticatedLayout
+      user={auth.user}
+      header={
+        <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+          Update Gallery Items
+        </h2>
+      }
+    >
+      <div className="py-12">
+        <GalleryForm
+          submitRoute={"galleries.update"}
+          gallery_data={data_gallery}
+        />
+      </div>
+    </AuthenticatedLayout>
   );
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
-
-  return <div>GalleryEdit</div>;
 };
 export default GalleryEdit;

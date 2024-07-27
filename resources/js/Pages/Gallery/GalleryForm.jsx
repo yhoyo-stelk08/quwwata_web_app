@@ -80,20 +80,31 @@ const GalleryForm = ({ gallery_data, submitRoute }) => {
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="image"
+                htmlFor="image_name"
               >
                 Image
               </label>
+              {gallery_data?.data?.image_name && (
+                <div className="mb-2">
+                  <img
+                    src={`/storage/${gallery_data.data.image_name}`}
+                    alt="Current Image"
+                    className="max-h-40"
+                  />
+                </div>
+              )}
               <input
-                id="image"
-                name="image"
+                id="image_name"
+                name="image_name"
                 onChange={handleChange}
                 className="shadow appearance-none border rounded w-full py-0 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="file"
                 accept="image/*"
               />
-              {errors.image && (
-                <p className="text-red-500 text-xs italic">{errors.image}</p>
+              {errors.image_name && (
+                <p className="text-red-500 text-xs italic">
+                  {errors.image_name}
+                </p>
               )}
             </div>
             <div className="flex items-center justify-between">
