@@ -14,9 +14,15 @@ const ProductForm = ({ product_data, submitRoute }) => {
   });
 
   const editor = useRef(null);
+  const [fileError, setFileError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (data.product_images.length !== 8) {
+      setFileError("Please upload exactly 8 images.");
+      return;
+    }
 
     // Ensure the long_description is updated with the editor's content
     setData("long_description", editor.current.value);
@@ -208,6 +214,9 @@ const ProductForm = ({ product_data, submitRoute }) => {
                 multiple
                 accept="image/*"
               />
+              {fileError && (
+                <p className="text-red-500 text-xs italic">{fileError}</p>
+              )}
               {errors.product_images && (
                 <p className="text-red-500 text-xs italic">
                   {errors.product_images}
