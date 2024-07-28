@@ -5,15 +5,38 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProductsRequest;
 use App\Http\Requests\UpdateProductsRequest;
 use App\Models\Products;
+use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        \Log::debug('Entering Products Index Method');
+        $query = Products::with('product_images')->search($request);
+
+        // Add sorting
+        if ($request->has('sort_by') && $request->has('sort_direction')) {
+            $query->orderBy($request->get('sort_by'), $request->get('sort_direction'));
+        } else {
+            // Default sorting
+            $query->orderByDesc('updated_at');
+        }
+
+        $products = $query->paginate(10);
+
+        // Log the products data
+        \Log::info('Products Data', ['Products Data' => $products]);
+
+        return inertia('Products/Index', [
+            'productsData' => $products,
+            'search' => $request->search ?? "",
+            'sort_by' => $request->sort_by ?? "",
+            'sort_direction' => $request->sort_direction ?? "",
+        ]);
+
     }
 
     /**
