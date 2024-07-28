@@ -1,5 +1,5 @@
 import { Link, router } from "@inertiajs/react";
-import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import { RxCaretDown, RxCaretUp } from "react-icons/rx";
 
 export default function DataTable({
@@ -75,15 +75,6 @@ export default function DataTable({
                 })}
                 <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                   <div className="flex flex-col gap-1 items-start justify-start">
-                    {showRoute && (
-                      <Link
-                        href={route(showRoute, { gallery: data.id })}
-                        className="flex items-center text-indigo-600 hover:text-indigo-900"
-                      >
-                        <FaEye className="w-3 h-3 mr-2" />
-                        Detail
-                      </Link>
-                    )}
                     {editRoute && (
                       <Link
                         href={route(editRoute, { gallery: data.id })}
