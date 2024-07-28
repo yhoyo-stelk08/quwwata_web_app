@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\api\GalleryApiController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +52,9 @@ Route::middleware('auth')->group(function () {
 
     // Route for managing gallery
     Route::resource('galleries', GalleryController::class);
+
+    // Route for managing products
+    Route::resource('products', ProductsController::class);
 });
 
 require __DIR__ . '/auth.php';
