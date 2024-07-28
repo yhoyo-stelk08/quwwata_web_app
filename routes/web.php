@@ -22,8 +22,10 @@ Route::get('/', function () {
 })->name('/');
 
 // route to ProductDetailsPage
-Route::get('/product-details', function () {
-    return Inertia::render('ProductDetailsPage');
+Route::get('/product-details/{category}', function ($category) {
+    return Inertia::render('ProductDetailsPage', [
+        'category' => $category,
+    ]);
 })->name('product-details');
 
 // route to GalleryPage
