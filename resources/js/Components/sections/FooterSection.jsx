@@ -26,14 +26,16 @@ const FooterSection = () => {
           <h3 className="text-slate-200 text-center">
             For daily updates, follow along on Instagram
           </h3>
-          <FaInstagramSquare color="#ccccd0" className="w-10 h-10 my-4" />
+          <a href="https://www.instagram.com/quwwataarchery/" target="_blank">
+            <FaInstagramSquare color="#ccccd0" className="w-10 h-10 my-4" />
+          </a>
         </div>
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 p-8 font-raleway  text-slate-200">
           <Link href="#">Privacy Policy</Link>
           <Link href="#">Term and Condition</Link>
           <Link href="#">Cookie Policy</Link>
           <Link href="#">About Me</Link>
-          <Link href="#">Contact</Link>
+          <Link href={route("contact")}>Contact</Link>
         </div>
         <div className="flex flex-col md:flex-row w-full max-w-7xl border-t border-t-slate-200 items-center justify-between gap-8 p-8 font-raleway  text-slate-200">
           <h3>
