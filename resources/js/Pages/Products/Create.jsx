@@ -12,7 +12,7 @@ export default function ProductCreate({ auth }) {
       }
     >
       <div className="py-12">
-        <ProductForm />
+        <ProductForm submitRoute={"manage-products.store"} />
       </div>
     </AuthenticatedLayout>
   );
