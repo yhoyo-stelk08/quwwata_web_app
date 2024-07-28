@@ -7,9 +7,10 @@ const CubeSlider = ({
   imgData,
   isDataArray,
   isAutoPlay,
+  className,
 }) => {
   return (
-    <div className="relative xs:mt-10 flex justify-center">
+    <div className={`relative xs:mt-10 flex justify-center ${className}`}>
       {isAutoPlay ? "" : ""}
       <swiper-container
         class={styles.swiperContainer}
