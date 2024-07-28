@@ -1,6 +1,6 @@
 import { useForm } from "@inertiajs/react";
 import JoditEditor from "jodit-react";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
 const ProductForm = ({ product_data, submitRoute }) => {
   const { data, setData, post, errors, clearErrors, processing } = useForm({
@@ -14,15 +14,12 @@ const ProductForm = ({ product_data, submitRoute }) => {
   });
 
   const editor = useRef(null);
-  const [fileError, setFileError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (data.product_images.length !== 8) {
-      setFileError("Please upload exactly 8 images.");
-      return;
-    }
+    // Ensure the long_description is updated with the editor's content
+    setData("long_description", editor.current.value);
 
     const formData = new FormData();
     formData.append("name", data.name);
@@ -60,16 +57,6 @@ const ProductForm = ({ product_data, submitRoute }) => {
     const { id, type, value, files } = e.target;
     clearErrors(id);
     setData(id, type === "file" ? files : value);
-  };
-
-  const handleEditorChange = (newContent) => {
-    setData("long_description", newContent);
-  };
-
-  const editorConfig = {
-    buttons:
-      "bold,italic,underline,strikethrough,ul,ol,font,fontsize,paragraph,lineHeight,classSpan,spellcheck,cut,copy,paste,selectall,copyformat,hr,link",
-    height: 400,
   };
 
   return (
@@ -192,10 +179,12 @@ const ProductForm = ({ product_data, submitRoute }) => {
               <JoditEditor
                 ref={editor}
                 value={data.long_description}
-                config={editorConfig}
-                tabIndex={1}
-                // onBlur={handleEditorChange}
-                onChange={handleEditorChange}
+                onBlur={(newContent) => setData("long_description", newContent)}
+                config={{
+                  buttons:
+                    "bold,italic,underline,strikethrough,ul,ol,font,fontsize,paragraph,lineHeight,classSpan,spellcheck,cut,copy,paste,selectall,copyformat,hr,link",
+                  height: 300, // set desired height here
+                }}
               />
               {errors.long_description && (
                 <p className="text-red-500 text-xs italic">
@@ -219,9 +208,6 @@ const ProductForm = ({ product_data, submitRoute }) => {
                 multiple
                 accept="image/*"
               />
-              {fileError && (
-                <p className="text-red-500 text-xs italic">{fileError}</p>
-              )}
               {errors.product_images && (
                 <p className="text-red-500 text-xs italic">
                   {errors.product_images}
