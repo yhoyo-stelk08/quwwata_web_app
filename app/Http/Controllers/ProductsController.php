@@ -112,9 +112,12 @@ class ProductsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Products $products)
+    public function show(Products $manage_product)
     {
-        //
+        $manage_product->load('product_images');
+        return inertia('Products/Show', [
+            'product' => new ProductResource($manage_product),
+        ]);
     }
 
     /**
