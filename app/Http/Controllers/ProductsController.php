@@ -46,8 +46,6 @@ class ProductsController extends Controller
         ]);
     }
 
-
-
     /**
      * Show the form for creating a new resource.
      */
@@ -134,10 +132,69 @@ class ProductsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductsRequest $request, Products $products)
+    public function update(UpdateProductsRequest $request, Products $manage_product)
     {
-        //
+        \Log::debug('Update method called for product ID:', [$manage_product->id]);
+
+        try {
+            // Ensure the directory exists
+            if (!Storage::exists('public/images/product_images')) {
+                Storage::makeDirectory('public/images/product_images');
+            }
+
+            // Validate request data
+            $validated_data = $request->validated();
+            \Log::debug('Validated data', $validated_data);
+
+            // Remove product_images from validated data as it's not a column in the products table
+            unset($validated_data['product_images']);
+
+            // Update the product
+            $manage_product->update($validated_data);
+            \Log::debug('Product updated', $manage_product->toArray());
+
+            // Handle product images
+            if ($request->hasFile('product_images')) {
+                // Delete old images
+                foreach ($manage_product->product_images as $image) {
+                    \Log::debug('Deleting old image with path:', [$image->path]);
+                    Storage::delete('public/' . $image->path);
+                    $image->delete();
+                }
+
+                // Store new images
+                foreach ($request->file('product_images') as $file) {
+                    \Log::debug('Processing file', ['file' => $file->getClientOriginalName()]);
+
+                    // Generate a unique name for each image file
+                    $imageName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                    \Log::debug('Generated image name', ['imageName' => $imageName]);
+
+                    // Store the file with the unique name
+                    $path = $file->storeAs('public/images/product_images', $imageName);
+                    \Log::debug('File stored at path', ['path' => $path]);
+
+                    // Create a new product image record
+                    $productImage = ProductImage::create([
+                        'image_name' => $imageName,
+                        'path' => 'images/product_images/' . $imageName, // Adjusting path to be relative
+                        'product_id' => $manage_product->id,
+                    ]);
+                    \Log::debug('Product image created', $productImage->toArray());
+                }
+            }
+
+            return redirect()->route('manage-products.index')
+                ->with('message', ['type' => 'success', 'body' => 'Product updated successfully']);
+        } catch (\Throwable $th) {
+            \Log::error('Error updating product', ['error' => $th]);
+
+            // Redirect with an error message
+            return redirect()->route('manage-products.index')
+                ->with('message', ['type' => 'error', 'body' => 'Failed updating product data']);
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.

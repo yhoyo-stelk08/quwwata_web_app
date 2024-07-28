@@ -1,4 +1,4 @@
-import { useForm } from "@inertiajs/react";
+import { router, useForm } from "@inertiajs/react";
 import JoditEditor from "jodit-react";
 import { useRef, useState } from "react";
 
@@ -43,12 +43,27 @@ const ProductForm = ({ product_data, submitRoute }) => {
 
     if (product_data?.data?.id) {
       formData.append("_method", "PUT");
-      post(route(submitRoute, { product: product_data.data.id }), formData, {
-        forceFormData: true,
-        onError: (errors) => {
-          console.log(errors);
-        },
-      });
+      router.post(
+        route(submitRoute, { manage_product: product_data.data.id }),
+        formData,
+        {
+          forceFormData: true,
+          onError: (errors) => {
+            console.log(errors);
+          },
+        }
+      );
+
+      // post(
+      //   route(submitRoute, { manage_product: product_data.data.id }),
+      //   formData,
+      //   {
+      //     forceFormData: true,
+      //     onError: (errors) => {
+      //       console.log(errors);
+      //     },
+      //   }
+      // );
     } else {
       post(route(submitRoute), formData, {
         forceFormData: true,
