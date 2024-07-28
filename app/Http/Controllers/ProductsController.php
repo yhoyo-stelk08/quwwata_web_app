@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductsRequest;
 use App\Http\Requests\UpdateProductsRequest;
+use App\Http\Resources\ProductResource;
 use App\Models\Products;
 use Illuminate\Http\Request;
 
@@ -27,11 +28,13 @@ class ProductsController extends Controller
 
         $products = $query->paginate(10);
 
+        $products_data = ProductResource::collection($products);
+
         // Log the products data
         \Log::info('Products Data', ['Products Data' => $products]);
 
         return inertia('Products/Index', [
-            'productsData' => $products,
+            'productsData' => $products_data,
             'search' => $request->search ?? "",
             'sort_by' => $request->sort_by ?? "",
             'sort_direction' => $request->sort_direction ?? "",
