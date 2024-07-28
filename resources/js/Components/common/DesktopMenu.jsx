@@ -126,19 +126,19 @@ const DesktopMenu = () => {
                       </Link>
                     </li>
                     <li>
-                      <a href="#" className="block menu-link">
+                      <Link href="#" className="block menu-link">
                         Fiber Flat Bow
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="#" className="block menu-link">
+                      <Link href="#" className="block menu-link">
                         Arrow
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="#" className="block menu-link">
+                      <Link href="#" className="block menu-link">
                         Accessories
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 )}
@@ -151,14 +151,14 @@ const DesktopMenu = () => {
               </Link>
             </li>
             <li>
-              <a href="#" className="block menu-link">
+              <Link href="#" className="block menu-link">
                 About Me
-              </a>
+              </Link>
             </li>
             <li>
-              <a href={route("contact")} className="block menu-link">
+              <Link href={route("contact")} className="block menu-link">
                 Contact
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
