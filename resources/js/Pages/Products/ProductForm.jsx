@@ -1,4 +1,6 @@
 import { useForm } from "@inertiajs/react";
+import JoditEditor from "jodit-react";
+import { useRef, useState } from "react";
 
 const ProductForm = ({ product_data, submitRoute }) => {
   const { data, setData, post, errors, clearErrors, processing } = useForm({
@@ -11,8 +13,16 @@ const ProductForm = ({ product_data, submitRoute }) => {
     product_images: [],
   });
 
+  const editor = useRef(null);
+  const [fileError, setFileError] = useState("");
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (data.product_images.length !== 8) {
+      setFileError("Please upload exactly 8 images.");
+      return;
+    }
 
     const formData = new FormData();
     formData.append("name", data.name);
@@ -45,11 +55,23 @@ const ProductForm = ({ product_data, submitRoute }) => {
       });
     }
   };
+
   const handleChange = (e) => {
     const { id, type, value, files } = e.target;
     clearErrors(id);
     setData(id, type === "file" ? files : value);
   };
+
+  const handleEditorChange = (newContent) => {
+    setData("long_description", newContent);
+  };
+
+  const editorConfig = {
+    buttons:
+      "bold,italic,underline,strikethrough,ul,ol,font,fontsize,paragraph,lineHeight,classSpan,spellcheck,cut,copy,paste,selectall,copyformat,hr,link",
+    height: 400,
+  };
+
   return (
     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
       <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -167,14 +189,13 @@ const ProductForm = ({ product_data, submitRoute }) => {
               >
                 Long Description
               </label>
-              <textarea
-                id="long_description"
-                name="long_description"
+              <JoditEditor
+                ref={editor}
                 value={data.long_description}
-                rows={7}
-                onChange={handleChange}
-                className="shadow resize-none appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                placeholder="Enter Long Description"
+                config={editorConfig}
+                tabIndex={1}
+                // onBlur={handleEditorChange}
+                onChange={handleEditorChange}
               />
               {errors.long_description && (
                 <p className="text-red-500 text-xs italic">
@@ -198,6 +219,9 @@ const ProductForm = ({ product_data, submitRoute }) => {
                 multiple
                 accept="image/*"
               />
+              {fileError && (
+                <p className="text-red-500 text-xs italic">{fileError}</p>
+              )}
               {errors.product_images && (
                 <p className="text-red-500 text-xs italic">
                   {errors.product_images}
@@ -219,4 +243,5 @@ const ProductForm = ({ product_data, submitRoute }) => {
     </div>
   );
 };
+
 export default ProductForm;
