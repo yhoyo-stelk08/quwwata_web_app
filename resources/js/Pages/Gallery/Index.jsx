@@ -151,7 +151,7 @@ export default function GalleryIndex({
                     columnHeader={columnHeader}
                     deleteRoute="galleries.destroy"
                     editRoute="galleries.edit"
-                    showRoute="galleries.show"
+                    objectKey={"gallery"}
                   />
                   <div>
                     <Pagination
