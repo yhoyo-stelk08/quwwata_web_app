@@ -86,14 +86,14 @@ export default function ProductIndex({
   ]);
 
   useEffect(() => {
-    // prevent the infinite loop caused by visiting galleryUrl
+    // prevent the infinite loop caused by visiting productUrl
     if (isInitialRender.current) {
       isInitialRender.current = false;
       return;
     }
 
     // manual visit the gallery url whenever it changed
-    router.visit(galleryUrl, {
+    router.visit(productUrl, {
       preserveScroll: true,
       preserveState: true,
       replace: true,
@@ -153,6 +153,7 @@ export default function ProductIndex({
                     deleteRoute="manage-products.destroy"
                     editRoute="manage-products.edit"
                     showRoute="manage-products.show"
+                    objectKey="manage_product"
                   />
                   <div>
                     <Pagination
