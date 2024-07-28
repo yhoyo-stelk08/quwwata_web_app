@@ -10,7 +10,7 @@ class ProductApiController extends Controller
 {
     public function allProductData()
     {
-        $products = Products::all();
+        $products = Products::with('product_images')->get();
         return response()->json($products);
     }
 }

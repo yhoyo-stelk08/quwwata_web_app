@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\GalleryApiController;
+use App\Http\Controllers\api\ProductApiController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
@@ -43,6 +44,7 @@ Route::get('/dashboard', function () {
 
 // API route
 Route::get('all-gallery-data', [GalleryApiController::class, 'allGalleryData'])->name('all-gallery-data');
+Route::get('all-products', [ProductApiController::class, 'allProductData'])->name('all-products');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
