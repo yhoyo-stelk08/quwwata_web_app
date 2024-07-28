@@ -78,6 +78,7 @@ const ProductCategories = () => {
         </section>
       ) : (
         <CubeSlider
+          className={"mx-10"}
           pagination={false}
           timeDelay={6000}
           isDataArray={false}
