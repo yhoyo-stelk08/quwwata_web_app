@@ -13,7 +13,7 @@ export default function ProductIndex({
   sort_direction,
   productsData,
 }) {
-  console.log(productsData.meta);
+  // console.log(productsData);
   const [searchTerm, setSearchTerm] = useState(search || "");
   const isInitialRender = useRef(true);
   const [pageNumber, setPageNumber] = useState("");
