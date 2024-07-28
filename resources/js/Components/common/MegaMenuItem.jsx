@@ -1,10 +1,10 @@
 import { Link } from "@inertiajs/react";
 
-const MegaMenuItem = ({ title, description }) => {
+const MegaMenuItem = ({ title, description, link }) => {
   return (
     <li>
       <Link
-        href={route("product-details")}
+        href={link}
         className="block p-3 rounded-lg hover:bg-gradient-to-t hover:from-slate-500 hover:to-white transition-all duration-300 transform scale-100 hover:scale-110"
       >
         <div className="font-semibold text-slate-950">{title}</div>

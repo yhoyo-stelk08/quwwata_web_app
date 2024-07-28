@@ -119,24 +119,39 @@ const DesktopMenu = () => {
                   >
                     <li>
                       <Link
-                        href={route("product-details")}
+                        href={route("product-details", {
+                          category: "laminated-bow",
+                        })}
                         className="block menu-link"
                       >
                         Laminated Bow
                       </Link>
                     </li>
                     <li>
-                      <Link href="#" className="block menu-link">
+                      <Link
+                        href={route("product-details", {
+                          category: "flat-bow",
+                        })}
+                        className="block menu-link"
+                      >
                         Fiber Flat Bow
                       </Link>
                     </li>
                     <li>
-                      <Link href="#" className="block menu-link">
+                      <Link
+                        href={route("product-details", { category: "arrows" })}
+                        className="block menu-link"
+                      >
                         Arrow
                       </Link>
                     </li>
                     <li>
-                      <Link href="#" className="block menu-link">
+                      <Link
+                        href={route("product-details", {
+                          category: "bow-accessories",
+                        })}
+                        className="block menu-link"
+                      >
                         Accessories
                       </Link>
                     </li>
