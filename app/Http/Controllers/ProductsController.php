@@ -18,7 +18,9 @@ class ProductsController extends Controller
     public function index(Request $request)
     {
         \Log::debug('Entering Products Index Method');
-        $query = Products::with('product_images')->search($request);
+
+        // Eager load product_images and apply search and sorting
+        $query = Products::with('product_images');
 
         // Add sorting
         if ($request->has('sort_by') && $request->has('sort_direction')) {
@@ -28,12 +30,13 @@ class ProductsController extends Controller
             $query->orderByDesc('updated_at');
         }
 
+        // Paginate the results
         $products = $query->paginate(10);
+        \Log::debug('Products Query Result', $products->toArray());
 
+        // Transform the products data using ProductResource
         $products_data = ProductResource::collection($products);
-
-        // Log the products data
-        \Log::info('Products Data', ['Products Data' => $products]);
+        \Log::debug('Transformed Products Data', $products_data->toArray($request));
 
         return inertia('Products/Index', [
             'productsData' => $products_data,
@@ -41,8 +44,9 @@ class ProductsController extends Controller
             'sort_by' => $request->sort_by ?? "",
             'sort_direction' => $request->sort_direction ?? "",
         ]);
-
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -57,6 +61,8 @@ class ProductsController extends Controller
      */
     public function store(StoreProductsRequest $request)
     {
+        \Log::debug('Store method called');
+
         // Ensure the directory exists
         if (!Storage::exists('public/images/product_images')) {
             Storage::makeDirectory('public/images/product_images');
@@ -64,30 +70,42 @@ class ProductsController extends Controller
 
         // Validate request data
         $validated_data = $request->validated();
+        \Log::debug('Validated data', $validated_data);
+
+        // Remove product_images from validated data as it's not a column in the products table
+        unset($validated_data['product_images']);
 
         // Create the product
         $product = Products::create($validated_data);
+        \Log::debug('Product created', $product->toArray());
 
         // Handle product images
         if ($request->hasFile('product_images')) {
             foreach ($request->file('product_images') as $file) {
+                \Log::debug('Processing file', ['file' => $file->getClientOriginalName()]);
+
                 // Generate a unique name for each image file
                 $imageName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                \Log::debug('Generated image name', ['imageName' => $imageName]);
 
                 // Store the file with the unique name
                 $path = $file->storeAs('public/images/product_images', $imageName);
+                \Log::debug('File stored at path', ['path' => $path]);
 
                 // Create a new product image record
-                ProductImage::create([
+                $productImage = ProductImage::create([
                     'image_name' => $imageName,
                     'path' => 'images/product_images/' . $imageName, // Adjusting path to be relative
                     'product_id' => $product->id,
                 ]);
+                \Log::debug('Product image created', $productImage->toArray());
             }
         }
 
         return redirect()->route('manage-products.index')->with('message', 'Product added successfully.');
     }
+
+
 
 
     /**
