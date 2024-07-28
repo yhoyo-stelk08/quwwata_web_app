@@ -120,9 +120,12 @@ class ProductsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Products $products)
+    public function edit(Products $manage_product)
     {
-        //
+        $manage_product->load('product_images');
+        return inertia('Products/Edit', [
+            'product_data' => new ProductResource($manage_product),
+        ]);
     }
 
     /**
