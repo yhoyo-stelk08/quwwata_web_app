@@ -15,8 +15,14 @@ export default function DataTable({
 }) {
   const deleteData = (dataId) => {
     if (confirm("Are you sure you want to delete this record?")) {
-      router.delete(route(deleteRoute, { gallery: dataId }), {
+      router.delete(route(deleteRoute, { [objectKey]: dataId }), {
         preserveScroll: true,
+        onError: (errors) => {
+          console.log(errors);
+        },
+        onSuccess: () => {
+          console.log("Product deleted successfully");
+        },
       });
     }
   };
