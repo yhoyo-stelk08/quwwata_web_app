@@ -1,6 +1,6 @@
 import { useForm } from "@inertiajs/react";
 import JoditEditor from "jodit-react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const ProductForm = ({ product_data, submitRoute }) => {
   const { data, setData, post, errors, clearErrors, processing } = useForm({
