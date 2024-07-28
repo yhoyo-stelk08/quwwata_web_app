@@ -83,10 +83,11 @@ const DesktopMenu = () => {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                <button
+                <Link
                   id="mega-menu-full-dropdown-button"
                   data-collapse-toggle="mega-menu-full-dropdown"
                   className="flex items-center justify-between w-full py-2 px-3 md:w-auto font-medium menu-link"
+                  href={route("products")}
                 >
                   Product{" "}
                   {megaMenuOpen ? (
@@ -94,7 +95,7 @@ const DesktopMenu = () => {
                   ) : (
                     <FaAngleDown className="ml-1" />
                   )}
-                </button>
+                </Link>
                 <MegaMenu isOpen={megaMenuOpen} />
               </li>
             ) : (
