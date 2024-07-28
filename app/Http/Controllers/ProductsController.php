@@ -102,7 +102,8 @@ class ProductsController extends Controller
             }
         }
 
-        return redirect()->route('manage-products.index')->with('message', 'Product added successfully.');
+        return redirect()->route('manage-products.index')
+            ->with('message', ['type' => 'success', 'body' => 'Item Added Successfully']);
     }
 
 
@@ -135,8 +136,31 @@ class ProductsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Products $products)
+    public function destroy(Products $manage_product)
     {
-        //
+        try {
+            \Log::debug('Deleting product with ID:', [$manage_product->id]);
+
+            // Delete the images associated with the product
+            foreach ($manage_product->product_images as $image) {
+                \Log::debug('Deleting image with path:', [$image->path]);
+                Storage::delete('public/' . $image->path);
+                $image->delete();
+            }
+
+            // Delete the product
+            $manage_product->delete();
+
+            \Log::debug('Product deleted successfully.');
+
+            // Redirect with a success message
+            return redirect()->route('manage-products.index')
+                ->with('message', ['type' => 'success', 'body' => 'Product deleted successfully..!']);
+        } catch (\Throwable $th) {
+            \Log::error('Error deleting product', ['error' => $th]);
+            // Redirect with an error message
+            return redirect()->route('manage-products.index')
+                ->with('message', ['type' => 'error', 'body' => 'Failed deleting product data']);
+        }
     }
 }
