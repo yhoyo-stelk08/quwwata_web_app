@@ -8,19 +8,16 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-// Route::get('/', function () {
-//     return Inertia::render('Welcome', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//     ]);
-// });
 
 // route to HomePage
 Route::get('/', function () {
     return Inertia::render('HomePage');
 })->name('/');
+
+// route to ProductPage
+Route::get('/products', function () {
+    return Inertia::render('ProductsPage');
+})->name('products');
 
 // route to ProductDetailsPage
 Route::get('/product-details/{category}', function ($category) {
@@ -34,7 +31,6 @@ Route::get('gallery', function () {
     return Inertia::render('GalleryPage');
 })->name('gallery');
 
-Route::get('all-gallery-data', [GalleryApiController::class, 'allGalleryData'])->name('all-gallery-data');
 
 // route to ContactPage
 Route::get('contact', function () {
@@ -45,6 +41,9 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// API route
+Route::get('all-gallery-data', [GalleryApiController::class, 'allGalleryData'])->name('all-gallery-data');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -54,7 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('galleries', GalleryController::class);
 
     // Route for managing products
-    Route::resource('products', ProductsController::class);
+    Route::resource('manage-products', ProductsController::class);
 });
 
 require __DIR__ . '/auth.php';
