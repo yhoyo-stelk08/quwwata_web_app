@@ -34,7 +34,7 @@ const MegaMenu = ({ isOpen }) => {
           <MegaMenuItem
             title={"Flat Fiber Bow"}
             description={
-              "New flat fiber bow made with new materials, more flexible than the E-fiberglass. Very accurate and smooth to draw"
+              "Durable Flat Fiber Bow offering precision, strength, and reliable performance."
             }
           />
         </ul>
