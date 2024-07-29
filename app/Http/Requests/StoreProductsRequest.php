@@ -25,10 +25,12 @@ class StoreProductsRequest extends FormRequest
             'name' => 'required|string|max:255',
             'price' => 'required|numeric',
             'draw_weight' => 'required|numeric',
+            'category' => 'required|in:laminated-bow,flat-bow,arrows,accessories',
             'arrow_pass' => 'required|string|max:255',
             'short_description' => 'required|string|max:255',
             'long_description' => 'required|string',
             'product_images.*' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'cover_image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }
