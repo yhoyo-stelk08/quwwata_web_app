@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->string('short_description');
             $table->string('arrow_pass');
             $table->text('long_description');
+            $table->string('cover_image')->nullable();
             $table->timestamps();
         });
     }
