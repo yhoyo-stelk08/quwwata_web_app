@@ -10,11 +10,19 @@ const ProductForm = ({ product_data, submitRoute }) => {
     arrow_pass: product_data?.data?.arrow_pass || "",
     short_description: product_data?.data?.short_description || "",
     long_description: product_data?.data?.long_description || "",
+    category: product_data?.data?.category || "laminated-bow",
+    cover_image: null, // Change to null
     product_images: [],
   });
 
   const editor = useRef(null);
   const [fileError, setFileError] = useState("");
+  const categoryObject = {
+    "laminated-bow": "Laminated Bow",
+    "flat-bow": "Fiberglass Flat Bow",
+    arrows: "Arrows",
+    accessories: "Bow Accessories",
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,6 +40,10 @@ const ProductForm = ({ product_data, submitRoute }) => {
     formData.append("price", data.price);
     formData.append("draw_weight", data.draw_weight);
     formData.append("arrow_pass", data.arrow_pass);
+    formData.append("category", data.category);
+    if (data.cover_image) {
+      formData.append("cover_image", data.cover_image[0]); // Append the cover image file
+    }
     formData.append("short_description", data.short_description);
     formData.append("long_description", data.long_description);
 
@@ -53,19 +65,8 @@ const ProductForm = ({ product_data, submitRoute }) => {
           },
         }
       );
-
-      // post(
-      //   route(submitRoute, { manage_product: product_data.data.id }),
-      //   formData,
-      //   {
-      //     forceFormData: true,
-      //     onError: (errors) => {
-      //       console.log(errors);
-      //     },
-      //   }
-      // );
     } else {
-      post(route(submitRoute), formData, {
+      router.post(route(submitRoute), formData, {
         forceFormData: true,
         onError: (errors) => {
           console.log(errors);
@@ -124,6 +125,28 @@ const ProductForm = ({ product_data, submitRoute }) => {
               {errors.price && (
                 <p className="text-red-500 text-xs italic">{errors.price}</p>
               )}
+            </div>
+            <div className="mb-4">
+              <label
+                htmlFor="category"
+                className="block text-gray-700 text-sm font-bold mb-2"
+              >
+                Category
+              </label>
+              <select
+                id="category"
+                name="category"
+                value={data.category}
+                onChange={handleChange}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              >
+                <option value="">Select Category</option>
+                {Object.entries(categoryObject).map(([key, value]) => (
+                  <option key={key} value={key}>
+                    {value}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="mb-4">
               <label
@@ -187,6 +210,30 @@ const ProductForm = ({ product_data, submitRoute }) => {
               {errors.short_description && (
                 <p className="text-red-500 text-xs italic">
                   {errors.short_description}
+                </p>
+              )}
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="cover_image"
+              >
+                Cover Image
+              </label>
+              <input
+                id="cover_image"
+                name="cover_image"
+                onChange={handleChange}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                type="file"
+                accept="image/*"
+              />
+              {fileError && (
+                <p className="text-red-500 text-xs italic">{fileError}</p>
+              )}
+              {errors.cover_image && (
+                <p className="text-red-500 text-xs italic">
+                  {errors.cover_image}
                 </p>
               )}
             </div>
