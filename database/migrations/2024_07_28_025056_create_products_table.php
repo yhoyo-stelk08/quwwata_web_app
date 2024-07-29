@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('name');
             $table->integer('price')->default(0);
             $table->integer('draw_weight')->default(0);
+            $table->enum('category', ['laminated-bow', 'flat-bow', 'arrows', 'accessories']);
             $table->string('short_description');
             $table->string('arrow_pass');
             $table->text('long_description');
