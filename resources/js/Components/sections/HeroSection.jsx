@@ -62,7 +62,7 @@ const HeroSection = () => {
           </Link>
           <Link
             className="inline-block mt-4 md:mt-2 rounded-xl text-slate-200 py-1 px-4 font-bold bg-gradient-to-br from-slate-600 to-slate-200 hover:bg-gradient-to-r hover:from-slate-800 hover:to-slate-300 md:text-base"
-            href="#"
+            href={route("products")}
           >
             Explore Our Collections
           </Link>
