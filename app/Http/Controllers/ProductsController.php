@@ -57,10 +57,9 @@ class ProductsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    // Store a newly created resource in storage.
     public function store(StoreProductsRequest $request)
     {
-        \Log::debug('Store method called');
-
         // Ensure the directory exists
         if (!Storage::exists('public/images/product_images')) {
             Storage::makeDirectory('public/images/product_images');
@@ -68,44 +67,38 @@ class ProductsController extends Controller
 
         // Validate request data
         $validated_data = $request->validated();
-        \Log::debug('Validated data', $validated_data);
+
+        // Handle cover image
+        if ($request->hasFile('cover_image')) {
+            $coverImage = $request->file('cover_image');
+            $coverImageName = time() . '_' . uniqid() . '.' . $coverImage->getClientOriginalExtension();
+            $coverImagePath = $coverImage->storeAs('public/images/product_images', $coverImageName);
+            $validated_data['cover_image'] = 'images/product_images/' . $coverImageName;
+        }
 
         // Remove product_images from validated data as it's not a column in the products table
         unset($validated_data['product_images']);
 
         // Create the product
         $product = Products::create($validated_data);
-        \Log::debug('Product created', $product->toArray());
 
         // Handle product images
         if ($request->hasFile('product_images')) {
             foreach ($request->file('product_images') as $file) {
-                \Log::debug('Processing file', ['file' => $file->getClientOriginalName()]);
-
-                // Generate a unique name for each image file
                 $imageName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-                \Log::debug('Generated image name', ['imageName' => $imageName]);
-
-                // Store the file with the unique name
                 $path = $file->storeAs('public/images/product_images', $imageName);
-                \Log::debug('File stored at path', ['path' => $path]);
 
-                // Create a new product image record
-                $productImage = ProductImage::create([
+                ProductImage::create([
                     'image_name' => $imageName,
-                    'path' => 'images/product_images/' . $imageName, // Adjusting path to be relative
+                    'path' => 'images/product_images/' . $imageName,
                     'product_id' => $product->id,
                 ]);
-                \Log::debug('Product image created', $productImage->toArray());
             }
         }
 
         return redirect()->route('manage-products.index')
             ->with('message', ['type' => 'success', 'body' => 'Item Added Successfully']);
     }
-
-
-
 
     /**
      * Display the specified resource.
@@ -148,6 +141,19 @@ class ProductsController extends Controller
 
             // Remove product_images from validated data as it's not a column in the products table
             unset($validated_data['product_images']);
+
+            // Handle cover image
+            if ($request->hasFile('cover_image')) {
+                // Delete the old cover image
+                if ($manage_product->cover_image) {
+                    Storage::delete('public/' . $manage_product->cover_image);
+                }
+
+                $coverImage = $request->file('cover_image');
+                $coverImageName = time() . '_' . uniqid() . '.' . $coverImage->getClientOriginalExtension();
+                $coverImage->storeAs('public/images/product_images', $coverImageName);
+                $validated_data['cover_image'] = 'images/product_images/' . $coverImageName;
+            }
 
             // Update the product
             $manage_product->update($validated_data);
@@ -207,8 +213,14 @@ class ProductsController extends Controller
             // Delete the images associated with the product
             foreach ($manage_product->product_images as $image) {
                 \Log::debug('Deleting image with path:', [$image->path]);
-                Storage::delete('public/' . $image->path);
+                Storage::delete('public/' . $image->path); // Ensure the correct path
                 $image->delete();
+            }
+
+            // Delete the cover image if it exists
+            if ($manage_product->cover_image) {
+                \Log::debug('Deleting cover image with path:', [$manage_product->cover_image]);
+                Storage::delete('public/' . $manage_product->cover_image);
             }
 
             // Delete the product
@@ -221,9 +233,11 @@ class ProductsController extends Controller
                 ->with('message', ['type' => 'success', 'body' => 'Product deleted successfully..!']);
         } catch (\Throwable $th) {
             \Log::error('Error deleting product', ['error' => $th]);
+
             // Redirect with an error message
             return redirect()->route('manage-products.index')
                 ->with('message', ['type' => 'error', 'body' => 'Failed deleting product data']);
         }
     }
+
 }
