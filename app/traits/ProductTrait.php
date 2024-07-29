@@ -13,6 +13,8 @@ trait ProductTrait
             'long_description' => $model->long_description,
             'arrow_pass' => $model->arrow_pass,
             'price' => $model->price,
+            'category' => $model->category,
+            'cover_image' => $model->cover_image,
             'draw_weight' => $model->draw_weight,
             'product_images' => $model->product_images->map(function ($image) {
                 return [
