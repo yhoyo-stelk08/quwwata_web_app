@@ -27,7 +27,7 @@ const ProductForm = ({ product_data, submitRoute }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (data.product_images.length !== 8) {
+    if (data.product_images.length !== 8 && !product_data) {
       setFileError("Please upload exactly 8 images.");
       return;
     }
