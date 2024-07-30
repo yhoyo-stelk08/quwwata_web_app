@@ -20,9 +20,7 @@ const ProductDetailsPage = ({ category, name, id }) => {
       }
     };
     fetchProductData();
-  }, []);
-
-  console.log(productData);
+  }, [id]);
 
   return (
     <AppLayout>
@@ -30,7 +28,11 @@ const ProductDetailsPage = ({ category, name, id }) => {
         <ProductDetailsHeader title={name} category={category} />
       </div>
       <div className="flex flex-col w-[90%] mx-auto my-20 mt-10 ">
-        <ProductDetails />
+        {productData ? (
+          <ProductDetails productData={productData} />
+        ) : (
+          <div>Loading...</div> // Or a loading spinner
+        )}
       </div>
     </AppLayout>
   );
