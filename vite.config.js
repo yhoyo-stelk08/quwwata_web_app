@@ -10,4 +10,21 @@ export default defineConfig({
     }),
     react(),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "react-vendor": [
+            "react",
+            "react-dom",
+            "axios",
+            "jodit",
+            "jodit-react",
+          ], // Split vendor libraries
+          "product-form": ["resources/js/Pages/Products/ProductForm.jsx"], // Split specific component
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000, // Adjust the chunk size warning limit if needed
+  },
 });
