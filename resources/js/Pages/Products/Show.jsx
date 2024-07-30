@@ -28,6 +28,9 @@ const ProductShow = ({ product, auth }) => {
           <strong>Arrow Pass Color:</strong> {product.data.arrow_pass}
         </div>
         <div className="mb-4">
+          <strong>Category:</strong> {product.data.category}
+        </div>
+        <div className="mb-4">
           <strong>Short Description:</strong>
           <p>{product.data.short_description}</p>
         </div>
