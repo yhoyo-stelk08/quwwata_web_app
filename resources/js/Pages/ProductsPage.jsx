@@ -10,7 +10,7 @@ export default function ProductsPage() {
       try {
         // fetching product data from backend
         const response = await axios.get("/all-products");
-        console.log(response.data);
+        // console.log(response.data);
         setAllProducts(response.data);
       } catch (error) {
         console.error("There was an error when fetching product data: ", error);
@@ -25,22 +25,23 @@ export default function ProductsPage() {
           {allProducts.map((data) => (
             <div
               key={data.id}
-              className="max-w-sm flex flex-col justify-between bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+              className="max-w-sm flex flex-col justify-between bg-gradient-to-b from-slate-100 to-slate-900 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
             >
+              {console.log("data: ", data)}
               <Link href="#">
                 <img
-                  className="rounded-t-lg"
-                  src={`/storage/${data.product_images[0].path}`}
+                  className="rounded-t-lg h-[500px] object-cover w-full"
+                  src={`/storage/${data.cover_image}`}
                   alt={data.name}
                 />
               </Link>
               <div className="p-5 flex-grow">
                 <Link href="#">
-                  <h5 className="mb-2 text-2xl md:text-xl font-bold tracking-tight text-gray-900 dark:text-white font-roboto_condensed">
+                  <h5 className="mb-2 text-2xl md:text-xl font-bold tracking-tight text-slate-200 dark:text-white font-roboto_condensed">
                     {data.name}
                   </h5>
                 </Link>
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 italic">
+                <p className="mb-3 font-normal text-slate-200 dark:text-gray-400 italic">
                   {data.short_description}
                 </p>
               </div>
@@ -48,7 +49,7 @@ export default function ProductsPage() {
                 <Link
                   // href={`/products/${data.id}`}
                   href="#"
-                  className="text-blue-500 hover:underline mt-2"
+                  className="text-slate-200 transition-all duration-200  md:hover:text-lg mt-2"
                 >
                   See Details
                 </Link>
