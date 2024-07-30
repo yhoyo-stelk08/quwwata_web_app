@@ -35,7 +35,7 @@ const ProductCard = ({ data }) => {
             {data.name}
           </h5>
         </Link>
-        <p className="mb-3 font-normal text-slate-200 dark:text-gray-400 italic">
+        <p className="mb-3 font-normal text-slate-200 dark:text-gray-400 italic text-wrap">
           {data.short_description}
         </p>
       </div>
