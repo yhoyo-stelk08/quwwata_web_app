@@ -1,4 +1,6 @@
 import { Link } from "@inertiajs/react";
+import { memo } from "react";
+
 const ProductCard = ({ data }) => {
   console.log("data: ", data);
   return (
@@ -25,7 +27,6 @@ const ProductCard = ({ data }) => {
       </div>
       <div className="px-5 py-2">
         <Link
-          // href={`/products/${data.id}`}
           href="#"
           className="text-slate-200 transition-all duration-200  md:hover:text-lg mt-2"
         >
@@ -43,4 +44,5 @@ const ProductCard = ({ data }) => {
     </div>
   );
 };
-export default ProductCard;
+
+export default memo(ProductCard);

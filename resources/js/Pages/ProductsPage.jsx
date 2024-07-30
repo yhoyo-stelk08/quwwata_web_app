@@ -1,75 +1,160 @@
+import TabTheme from "@/Components/common/TabTheme";
+import ProductCard from "@/Components/sections/product-details/ProductCard";
 import AppLayout from "@/Layouts/AppLayout";
-import { Link } from "@inertiajs/react";
+import { usePage } from "@inertiajs/react";
 import axios from "axios";
-import { useInView } from "framer-motion";
+import { Tabs } from "flowbite-react";
+import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
-export default function ProductsPage({ category }) {
-  console.log(category);
+export default function ProductsPage() {
+  const { props } = usePage();
+  const { category } = props;
   const [allProducts, setAllProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const tabsRef = useRef(null); // Use TabsRef
   const ref = useRef(null);
   const inView = useInView(ref, { triggerOnce: true });
-  const [filteredProducts, setFilteredProducts] = useState([]);
 
+  // Fetch all products on component mount
   useEffect(() => {
     const fetchProductData = async () => {
       try {
-        // fetching product data from backend
         const response = await axios.get("/api/all-products");
-        // console.log(response.data);
         setAllProducts(response.data);
+        setFilteredProducts(response.data);
       } catch (error) {
         console.error("There was an error when fetching product data: ", error);
       }
     };
     fetchProductData();
   }, []);
+
+  // Set the active tab and filtered products based on the category prop
+  useEffect(() => {
+    let tabIndex = 0;
+    if (category) {
+      switch (category) {
+        case "laminated-bow":
+          tabIndex = 1;
+          break;
+        case "flat-bow":
+          tabIndex = 2;
+          break;
+        case "arrows":
+          tabIndex = 3;
+          break;
+        case "accessories":
+          tabIndex = 4;
+          break;
+        default:
+          tabIndex = 0;
+          break;
+      }
+      const filtered = allProducts.filter(
+        (product) => product.category === category
+      );
+      setFilteredProducts(filtered);
+    } else {
+      setFilteredProducts(allProducts);
+    }
+    if (tabsRef.current) {
+      tabsRef.current.setActiveTab(tabIndex);
+    }
+  }, [category, allProducts]);
+
+  const handleTabChange = (index) => {
+    let newCategory = "";
+    switch (index) {
+      case 1:
+        newCategory = "laminated-bow";
+        break;
+      case 2:
+        newCategory = "flat-bow";
+        break;
+      case 3:
+        newCategory = "arrows";
+        break;
+      case 4:
+        newCategory = "accessories";
+        break;
+      default:
+        newCategory = "";
+        break;
+    }
+    const filtered = allProducts.filter(
+      (product) => product.category === newCategory
+    );
+    setFilteredProducts(filtered.length ? filtered : allProducts);
+  };
+
   return (
     <AppLayout>
-      <div className="container mx-auto mt-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-4 mx-10">
-          {allProducts.map((data) => (
-            <div
-              key={data.id}
-              className="max-w-sm flex flex-col justify-between bg-gradient-to-b from-slate-100 to-slate-900 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-            >
-              {console.log("data: ", data)}
-              <Link href="#">
-                <img
-                  className="rounded-t-lg h-[500px] object-cover w-full"
-                  src={`/storage/${data.cover_image}`}
-                  alt={data.name}
-                />
-              </Link>
-              <div className="p-5 flex-grow">
-                <Link href="#">
-                  <h5 className="mb-2 text-2xl md:text-xl font-bold tracking-tight text-slate-200 dark:text-white font-roboto_condensed">
-                    {data.name}
-                  </h5>
-                </Link>
-                <p className="mb-3 font-normal text-slate-200 dark:text-gray-400 italic">
-                  {data.short_description}
-                </p>
+      <div className="flex flex-col w-[90%] mx-auto my-16">
+        <div className="flex w-full mx-auto justify-center items-center">
+          <motion.h3
+            className="text-slate-200 text-3xl md:text-5xl lg:text-6xl font-raleway tracking-widest"
+            initial={{ x: "50vw" }}
+            animate={inView ? { x: 0 } : {}}
+            transition={{ duration: 1 }}
+            ref={ref}
+          >
+            Our Collections
+          </motion.h3>
+        </div>
+        <div className="gap-2 mt-10 overflow-x-auto whitespace-nowrap">
+          <Tabs
+            aria-label="Tabs with underline"
+            variant="underline"
+            className="gap-4 transition-all duration-300 justify-start md:justify-center"
+            theme={TabTheme}
+            ref={tabsRef} // Reference to the Tabs
+            onActiveTabChange={handleTabChange}
+          >
+            <Tabs.Item title="All" className="inline-block">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mx-10">
+                {filteredProducts.map((data) => (
+                  <ProductCard data={data} key={data.id} />
+                ))}
               </div>
-              <div className="px-5 py-2">
-                <Link
-                  // href={`/products/${data.id}`}
-                  href="#"
-                  className="text-slate-200 transition-all duration-200  md:hover:text-lg mt-2"
-                >
-                  See Details
-                </Link>
+            </Tabs.Item>
+            <Tabs.Item title="Laminated Bow" className="inline-block">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mx-10">
+                {filteredProducts
+                  .filter((product) => product.category === "laminated-bow")
+                  .map((data) => (
+                    <ProductCard data={data} key={data.id} />
+                  ))}
               </div>
-              <div className="p-5">
-                <p className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-t from-yellow-200 to-yellow-300">
-                  {data.price.toLocaleString("ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  })}
-                </p>
+            </Tabs.Item>
+            <Tabs.Item title="Flat Bow" className="inline-block">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mx-10">
+                {filteredProducts
+                  .filter((product) => product.category === "flat-bow")
+                  .map((data) => (
+                    <ProductCard data={data} key={data.id} />
+                  ))}
               </div>
-            </div>
-          ))}
+            </Tabs.Item>
+            <Tabs.Item title="Arrows" className="inline-block">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mx-10">
+                {filteredProducts
+                  .filter((product) => product.category === "arrows")
+                  .map((data) => (
+                    <ProductCard data={data} key={data.id} />
+                  ))}
+              </div>
+            </Tabs.Item>
+            <Tabs.Item title="Accessories" className="inline-block">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mx-10">
+                {filteredProducts
+                  .filter((product) => product.category === "accessories")
+                  .map((data) => (
+                    <ProductCard data={data} key={data.id} />
+                  ))}
+              </div>
+            </Tabs.Item>
+          </Tabs>
         </div>
       </div>
     </AppLayout>
