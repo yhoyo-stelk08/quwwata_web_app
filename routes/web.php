@@ -26,8 +26,9 @@ Route::get('/products/{category}', function ($category) {
 })->name('products-category');
 
 // route to ProductDetailsPage
-Route::get('/product-details/{category}', function ($category) {
+Route::get('/product-details/{category}/{id}', function ($category, $id) {
     return Inertia::render('ProductDetailsPage', [
+        'id' => $id,
         'category' => $category,
     ]);
 })->name('product-details');
