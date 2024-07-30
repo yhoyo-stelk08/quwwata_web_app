@@ -26,14 +26,14 @@ const MegaMenu = ({ isOpen }) => {
       <div className="grid max-w-screen-xl px-4 py-5 mx-auto text-gray-900 dark:text-white sm:grid-cols-2 md:grid-cols-2 md:px-6 bg-gradient-to-t from-slate-500 to-white dark:bg-gray-800 border-gray-200 shadow-sm border-y dark:border-gray-600 absolute left-1/2 transform -translate-x-1/2 w-full sm:w-[400px] md:w-[600px] lg:w-[600px] xl:w-[800px] 2xl:w-[800px] mt-9 rounded-2xl opacity-100">
         <ul aria-labelledby="mega-menu-full-dropdown-button" className="mx-2">
           <MegaMenuItem
-            link={route("product-details", { category: "laminated-bow" })}
+            link={route("products-category", { category: "laminated-bow" })}
             title={" Laminated Bow"}
             description={
               "New laminated bow made with new materials, more flexible than the E-fiberglass. Very accurate and smooth to draw"
             }
           />
           <MegaMenuItem
-            link={route("product-details", { category: "flat-bow" })}
+            link={route("products-category", { category: "flat-bow" })}
             title={"Flat Fiber Bow"}
             description={
               "Durable Flat Fiber Bow offering precision, strength, and reliable performance."
@@ -42,14 +42,14 @@ const MegaMenu = ({ isOpen }) => {
         </ul>
         <ul className="mx-2">
           <MegaMenuItem
-            link={route("product-details", { category: "arrows" })}
+            link={route("products-category", { category: "arrows" })}
             title={"Arrow"}
             description={
               "A very straight bamboo with a large leaf. Makes a dense screen and is a slow spreading bamboo that prefers shady locations"
             }
           />
           <MegaMenuItem
-            link={route("product-details", { category: "accessories" })}
+            link={route("products-category", { category: "accessories" })}
             title={"Accessories"}
             description={"Custom Strings, Fletching Jig, and Other Accessories"}
           />
