@@ -1,11 +1,15 @@
 import { Link } from "@inertiajs/react";
+import { motion } from "framer-motion";
 import { memo } from "react";
 
 const ProductCard = ({ data }) => {
   console.log("data: ", data);
   return (
-    <div
+    <motion.div
       key={data.id}
+      initial={{ scale: 0.2 }}
+      animate={{ scale: 1 }}
+      transition={{ duration: 0.5 }}
       className="max-w-sm flex flex-col justify-between bg-gradient-to-b from-slate-100 to-slate-900 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
     >
       <Link href="#">
@@ -28,7 +32,7 @@ const ProductCard = ({ data }) => {
       <div className="px-5 py-2">
         <Link
           href="#"
-          className="text-slate-200 transition-all duration-200  md:hover:text-lg mt-2"
+          className="text-slate-200 transition-all duration-100  hover:text-blue-600 mt-2"
         >
           See Details
         </Link>
@@ -41,7 +45,7 @@ const ProductCard = ({ data }) => {
           })}
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
