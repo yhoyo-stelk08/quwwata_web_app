@@ -27,7 +27,7 @@ export default function ProductsPage() {
     fetchProductData();
   }, []);
 
-  // Set the active tab and filtered products based on the category prop
+  // Set the active tab and filtered products based on the menu choosen
   useEffect(() => {
     let tabIndex = 0;
     if (category) {
@@ -60,6 +60,7 @@ export default function ProductsPage() {
     }
   }, [category, allProducts]);
 
+  // handleTabChange function to filter products based on the selected tab manually
   const handleTabChange = (index) => {
     let newCategory = "";
     switch (index) {
