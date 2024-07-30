@@ -4,7 +4,6 @@ import AppLayout from "@/Layouts/AppLayout";
 import { usePage } from "@inertiajs/react";
 import axios from "axios";
 import { Tabs } from "flowbite-react";
-import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 export default function ProductsPage() {
@@ -13,8 +12,6 @@ export default function ProductsPage() {
   const [allProducts, setAllProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const tabsRef = useRef(null); // Use TabsRef
-  const ref = useRef(null);
-  const inView = useInView(ref, { triggerOnce: true });
 
   // Fetch all products on component mount
   useEffect(() => {
@@ -92,15 +89,9 @@ export default function ProductsPage() {
     <AppLayout>
       <div className="flex flex-col w-[90%] mx-auto my-16">
         <div className="flex w-full mx-auto justify-center items-center">
-          <motion.h3
-            className="text-slate-200 text-3xl md:text-5xl lg:text-6xl font-raleway tracking-widest"
-            initial={{ x: "50vw" }}
-            animate={inView ? { x: 0 } : {}}
-            transition={{ duration: 1 }}
-            ref={ref}
-          >
+          <h3 className="text-slate-200 text-3xl md:text-5xl lg:text-6xl font-raleway tracking-widest">
             Our Collections
-          </motion.h3>
+          </h3>
         </div>
         <div className="gap-2 mt-10 overflow-x-auto whitespace-nowrap">
           <Tabs
