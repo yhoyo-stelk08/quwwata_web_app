@@ -13,4 +13,10 @@ class ProductApiController extends Controller
         $products = Products::with('product_images')->get();
         return response()->json($products);
     }
+
+    public function ProductPerCategory(string $category): object
+    {
+        $products = Products::with('product_images')->where('category', $category)->get();
+        return response()->json($products);
+    }
 }
