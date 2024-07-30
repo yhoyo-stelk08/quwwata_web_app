@@ -13,10 +13,13 @@ const poundage = [
 
 const customColor = ["Black", "Red", "Green", "White"];
 
-const ProductDetailsOptions = ({ productType }) => {
+const ProductDetailsOptions = ({ productType, productData }) => {
   const [drawWeight, setDrawWeight] = useState(null);
   const [colorOption, setColorOption] = useState(null);
   const [qty, setQty] = useState(1);
+  const { name: productName, price, short_description } = productData;
+
+  console.log("productData in Product Details Option: ", productData);
 
   const handleLbsClick = (poundage) => {
     setDrawWeight((prev) => poundage);
@@ -41,13 +44,16 @@ const ProductDetailsOptions = ({ productType }) => {
   return (
     <div className="flex flex-col w-full h-full p-2 py-4 md:py-10 gap-2">
       <h1 className="font-medium font-roboto_condensed mt-4 text-4xl md:text-6xl lg:text-5xl xl:text-6xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-yellow-800 to-yellow-200">
-        Turkish Laminated Bow
+        {productName}
       </h1>
       <h3 className="font-quicksand font-bold text-2xl text-slate-200 pl-2 mt-2">
-        Rp. 3.500.000
+        {price.toLocaleString("ID", {
+          style: "currency",
+          currency: "IDR",
+        })}
       </h3>
       <h3 className="font-quicksand font-medium text-lg text-slate-200 pl-2 italic mt-4">
-        A traditional, powerful, handcrafted bow with layered wood and bamboo.
+        {short_description}
       </h3>
       <div>
         <h3 className="text-slate-200 pl-2 mt-4">
