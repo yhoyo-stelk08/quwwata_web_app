@@ -12,7 +12,12 @@ const ProductCard = ({ data }) => {
       transition={{ duration: 0.5 }}
       className="max-w-sm flex flex-col justify-between bg-gradient-to-b from-slate-100 to-slate-900 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
     >
-      <Link href="#">
+      <Link
+        href={route("product-details", {
+          category: data.category,
+          id: data.id,
+        })}
+      >
         <img
           className="rounded-t-lg h-[500px] object-cover w-full"
           src={`/storage/${data.cover_image}`}
@@ -20,7 +25,12 @@ const ProductCard = ({ data }) => {
         />
       </Link>
       <div className="p-5 flex-grow">
-        <Link href="#">
+        <Link
+          href={route("product-details", {
+            category: data.category,
+            id: data.id,
+          })}
+        >
           <h5 className="mb-2 text-2xl md:text-xl font-bold tracking-tight text-slate-200 dark:text-white font-roboto_condensed">
             {data.name}
           </h5>
@@ -31,7 +41,10 @@ const ProductCard = ({ data }) => {
       </div>
       <div className="px-5 py-2">
         <Link
-          href="#"
+          href={route("product-details", {
+            category: data.category,
+            id: data.id,
+          })}
           className="text-slate-200 transition-all duration-100  hover:text-blue-600 mt-2"
         >
           See Details
