@@ -31,7 +31,7 @@ const ProductCard = ({ data }) => {
             id: data.id,
           })}
         >
-          <h5 className="mb-2 text-2xl md:text-xl font-bold tracking-tight text-slate-200 dark:text-white font-roboto_condensed">
+          <h5 className="mb-2 text-2xl text-wrap md:text-xl font-bold tracking-tight text-slate-200 dark:text-white font-roboto_condensed">
             {data.name}
           </h5>
         </Link>
