@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\api\GalleryApiController;
-use App\Http\Controllers\api\ProductApiController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
@@ -19,6 +17,13 @@ Route::get('/', function () {
 Route::get('/products', function () {
     return Inertia::render('ProductsPage');
 })->name('products');
+
+// route to ProductPage per Category
+Route::get('/products/{category}', function ($category) {
+    return Inertia::render('ProductsPage', [
+        'category' => $category,
+    ]);
+})->name('products-category');
 
 // route to ProductDetailsPage
 Route::get('/product-details/{category}', function ($category) {
@@ -41,10 +46,6 @@ Route::get('contact', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
-// API route
-Route::get('all-gallery-data', [GalleryApiController::class, 'allGalleryData'])->name('all-gallery-data');
-Route::get('all-products', [ProductApiController::class, 'allProductData'])->name('all-products');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

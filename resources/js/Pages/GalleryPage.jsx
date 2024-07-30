@@ -17,7 +17,7 @@ export default function GalleryPage() {
     const fetchGalleryData = async () => {
       try {
         // fetching gallery data from backend
-        const response = await axios.get("/all-gallery-data");
+        const response = await axios.get("/api/all-gallery-data");
         setAllGalleries(response.data);
         setFilteredGalleries(response.data); // Initialize with all galleries
       } catch (error) {

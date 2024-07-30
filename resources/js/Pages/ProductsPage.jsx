@@ -1,15 +1,21 @@
 import AppLayout from "@/Layouts/AppLayout";
 import { Link } from "@inertiajs/react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useInView } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
-export default function ProductsPage() {
+export default function ProductsPage({ category }) {
+  console.log(category);
   const [allProducts, setAllProducts] = useState([]);
+  const ref = useRef(null);
+  const inView = useInView(ref, { triggerOnce: true });
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
   useEffect(() => {
     const fetchProductData = async () => {
       try {
         // fetching product data from backend
-        const response = await axios.get("/all-products");
+        const response = await axios.get("/api/all-products");
         // console.log(response.data);
         setAllProducts(response.data);
       } catch (error) {
