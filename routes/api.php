@@ -13,3 +13,4 @@ Route::get('/user', function (Request $request) {
 Route::get('all-gallery-data', [GalleryApiController::class, 'allGalleryData'])->name('all-gallery-data');
 Route::get('all-products', [ProductApiController::class, 'allProductData'])->name('all-products');
 Route::get('products-categories/{category}', [ProductApiController::class, 'ProductPerCategory'])->name('products-categories');
+Route::get('products-details/{id}', [ProductApiController::class, 'ProductDetails'])->name('products-details');
