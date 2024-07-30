@@ -16,14 +16,14 @@ const TabTheme = {
           base: "",
           active: {
             on: "bg-gray-100 text-slate-600 dark:bg-gray-800 dark:text-slate-500",
-            off: "text-slate-500 hover:bg-gray-50 hover:text-slate-100 dark:text-slate-400 dark:hover:bg-gray-800 dark:hover:text-slate-300",
+            off: "text-gray-500 hover:bg-gray-50 hover:text-slate-100 dark:text-slate-400 dark:hover:bg-gray-800 dark:hover:text-slate-300",
           },
         },
         underline: {
           base: "",
           active: {
             on: "border-b-2 border-slate-200 text-slate-200",
-            off: "border-b-2 border-transparent text-slate-500 hover:text-slate-100 hover:border-b-slate-200 dark:text-slate-400 dark:hover:text-slate-300",
+            off: "border-b-2 border-transparent text-gray-500 hover:text-slate-100 hover:border-b-slate-200 dark:text-slate-400 dark:hover:text-slate-300",
           },
         },
         pills: {
