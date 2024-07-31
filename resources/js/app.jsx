@@ -6,6 +6,7 @@ import "./bootstrap";
 import { createInertiaApp } from "@inertiajs/react";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { createRoot } from "react-dom/client";
+import { CartProvider } from "react-use-cart";
 // import flowbite
 import { initFlowbite } from "flowbite";
 // import function to register Swiper custom elements
@@ -26,7 +27,11 @@ createInertiaApp({
   setup({ el, App, props }) {
     const root = createRoot(el);
 
-    root.render(<App {...props} />);
+    root.render(
+      <CartProvider>
+        <App {...props} />
+      </CartProvider>
+    );
   },
   progress: {
     color: "#4B5563",
