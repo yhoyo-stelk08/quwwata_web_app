@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
@@ -50,6 +51,9 @@ Route::get('contact', function () {
 Route::get('privacy-policy', function () {
     return Inertia::render('PrivacyPolicyPage');
 })->name('privacy-policy');
+
+// route to cart page
+Route::get('cart/{product_id}', [CartController::class, 'checkout'])->name('checkout');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

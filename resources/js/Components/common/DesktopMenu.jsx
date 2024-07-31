@@ -82,13 +82,13 @@ const DesktopMenu = () => {
           mobileMenuOpen ? "flex-wrap " : ""
         }`}
       >
-        <div className="flex items-center justify-between w-full space-x-4 rtl:space-x-reverse">
+        <div className="flex items-center justify-between w-full md:w-1/2 max-w-screen-sm space-x-4 rtl:space-x-reverse">
           <Link
             href={route("/")}
-            className="flex items-center space-x-3 rtl:space-x-reverse"
+            className="flex items-center space-x-3  rtl:space-x-reverse"
           >
             <img src={logoImg} className="h-14" alt="Quwwata Logo" />
-            <span className="self-center hidden md:block text-sm font-bold font-pacifico whitespace-nowrap text-slate-200">
+            <span className="self-center hidden lg:block text-sm font-bold font-pacifico whitespace-nowrap text-slate-200">
               Traditional Archery Supply
             </span>
           </Link>
@@ -123,7 +123,7 @@ const DesktopMenu = () => {
           id="mega-menu-full"
           className={`${
             mobileMenuOpen ? "block" : "hidden"
-          } flex-grow items-center justify-between w-full md:flex md:w-auto md:order-1`}
+          } flex-grow items-center justify-between w-full md:w-1/2 md:flex md:order-1`}
         >
           <ul className="flex flex-col mt-4 font-medium md:items-center md:flex-row md:mt-0 md:space-x-8 rtl:space-x-reverse">
             <li>
@@ -227,7 +227,7 @@ const DesktopMenu = () => {
               </Link>
             </li>
             <li>
-              <Link href="#" className="block menu-link">
+              <Link href="#" className="block menu-link text-nowrap">
                 About Me
               </Link>
             </li>
