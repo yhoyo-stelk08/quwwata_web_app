@@ -1,3 +1,4 @@
+import { Link } from "@inertiajs/react";
 import styles from "./CubeSlider.module.css";
 
 const CubeSlider = ({
@@ -9,6 +10,16 @@ const CubeSlider = ({
   isAutoPlay,
   className,
 }) => {
+  let link;
+  if (title === "Laminated Bow") {
+    link = route("products-category", { category: "laminated-bow" });
+  } else if (title === "Fiber Flat Bow") {
+    link = route("products-category", { category: "flat-bow" });
+  } else if (title === "Arrows") {
+    link = route("products-category", { category: "arrows" });
+  } else {
+    link = route("products-category", { category: "accessories" });
+  }
   return (
     <div className={`relative xs:mt-10 flex justify-center ${className}`}>
       {isAutoPlay ? "" : ""}
@@ -36,7 +47,9 @@ const CubeSlider = ({
                 />
                 <div className="absolute inset-0 flex items-center justify-center text-white bg-black bg-opacity-50">
                   {title ? (
-                    <h2 className="text-xl font-bold">{title}</h2>
+                    <Link href={link}>
+                      <h2 className="text-xl font-bold">{title}</h2>
+                    </Link>
                   ) : null}
                 </div>
               </div>
