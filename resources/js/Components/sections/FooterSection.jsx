@@ -31,9 +31,7 @@ const FooterSection = () => {
           </a>
         </div>
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 p-8 font-raleway  text-slate-200">
-          <Link href="#">Privacy Policy</Link>
-          <Link href="#">Term and Condition</Link>
-          <Link href="#">Cookie Policy</Link>
+          <Link href={route("privacy-policy")}>Privacy Policy</Link>
           <Link href="#">About Me</Link>
           <Link href={route("contact")}>Contact</Link>
         </div>
@@ -41,11 +39,17 @@ const FooterSection = () => {
           <h3>
             Powered By <b>F.L.I.R.T</b> Stack
           </h3>
-          <h3>
+          <h3 className="text-center">
             Copyright &copy; {new Date().getFullYear()} Quwwata. All Rights
           </h3>
           <h3>
-            Design By <b>yhoyo-stelk08</b>
+            Design By{" "}
+            <a
+              href="https://www.linkedin.com/in/eko-prasetyo-9a4a46278/"
+              target="_blank"
+            >
+              <b>yhoyo-stelk08</b>
+            </a>
           </h3>
         </div>
       </div>

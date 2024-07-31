@@ -41,11 +41,15 @@ Route::get('gallery', function () {
     return Inertia::render('GalleryPage');
 })->name('gallery');
 
-
 // route to ContactPage
 Route::get('contact', function () {
     return Inertia::render('ContactPage');
 })->name('contact');
+
+// route to cookie policy page
+Route::get('privacy-policy', function () {
+    return Inertia::render('PrivacyPolicyPage');
+})->name('privacy-policy');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
