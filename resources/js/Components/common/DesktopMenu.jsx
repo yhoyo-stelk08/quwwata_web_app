@@ -79,13 +79,13 @@ const DesktopMenu = () => {
     <nav className="bg-gradient-to-r from-slate-500 to-slate-950 relative w-full xs:w-auto">
       <div
         className={`flex justify-between items-center mx-auto max-w-screen-xl p-4 ${
-          mobileMenuOpen ? "flex-wrap " : ""
+          mobileMenuOpen ? "flex-wrap" : ""
         }`}
       >
-        <div className="flex items-center justify-between w-full md:w-1/2 max-w-screen-sm space-x-4 rtl:space-x-reverse">
+        <div className="flex items-center justify-between w-full md:w-1/2 space-x-4 rtl:space-x-reverse">
           <Link
             href={route("/")}
-            className="flex items-center space-x-3  rtl:space-x-reverse"
+            className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <img src={logoImg} className="h-14" alt="Quwwata Logo" />
             <span className="self-center hidden lg:block text-sm font-bold font-pacifico whitespace-nowrap text-slate-200">
@@ -264,6 +264,15 @@ const DesktopMenu = () => {
             </div>
           </div>
         </div>
+        {cartDropdownOpen && width < 768 && (
+          <div
+            ref={cartRef}
+            className="absolute right-0 top-14 mt-2 w-full bg-white border border-gray-300 rounded-lg shadow-lg z-50 md:hidden"
+            id="cart-dropdown"
+          >
+            <Cart />
+          </div>
+        )}
       </div>
     </nav>
   );
