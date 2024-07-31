@@ -1,7 +1,14 @@
+import Cart from "@/Components/Cart";
 import useResponsiveWidth from "@/hooks/UseResponsiveWidth";
 import { Link } from "@inertiajs/react";
-import { useRef, useState } from "react";
-import { FaAngleDown, FaAngleUp, FaBars } from "react-icons/fa";
+import { useEffect, useRef, useState } from "react";
+import {
+  FaAngleDown,
+  FaAngleUp,
+  FaBars,
+  FaShoppingCart,
+  FaUser,
+} from "react-icons/fa";
 import logoImg from "../../../images/logo quwwata.png";
 import MegaMenu from "./MegaMenu";
 
@@ -9,7 +16,10 @@ const DesktopMenu = () => {
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [cartDropdownOpen, setCartDropdownOpen] = useState(false);
   const timeoutIdRef = useRef(null);
+  const cartRef = useRef(null);
+  const cartButtonRef = useRef(null);
 
   const openMegaMenu = () => setMegaMenuOpen(true);
   const closeMegaMenu = () => setMegaMenuOpen(false);
@@ -25,7 +35,7 @@ const DesktopMenu = () => {
   const handleMouseLeave = () => {
     timeoutIdRef.current = setTimeout(() => {
       closeMegaMenu();
-    }, 300); // Adjust timeout duration as needed
+    }, 300);
   };
 
   const toggleMobileDropdown = () => {
@@ -36,38 +46,86 @@ const DesktopMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
+  const toggleCartDropdown = () => {
+    setCartDropdownOpen(!cartDropdownOpen);
+  };
+
   const width = useResponsiveWidth();
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        cartRef.current &&
+        !cartRef.current.contains(event.target) &&
+        cartButtonRef.current &&
+        !cartButtonRef.current.contains(event.target)
+      ) {
+        setCartDropdownOpen(false);
+      }
+    };
+
+    if (cartDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [cartDropdownOpen]);
 
   return (
     <nav className="bg-gradient-to-r from-slate-500 to-slate-950 relative w-full xs:w-auto">
-      <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
-        <Link
-          href={route("/")}
-          className="flex items-center space-x-3 rtl:space-x-reverse"
-        >
-          <img src={logoImg} className="h-14" alt="Flowbite Logo" />
-          <span className="self-center text-sm font-bold font-pacifico whitespace-nowrap text-slate-200">
-            Traditional Archery Supply
-          </span>
-        </Link>
-        <button
-          data-collapse-toggle="mega-menu-full"
-          type="button"
-          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-          aria-controls="mega-menu-full"
-          aria-expanded={mobileMenuOpen ? "true" : "false"}
-          onClick={toggleMobileMenu}
-        >
-          <span className="sr-only">Open main menu</span>
-          <FaBars className="h-6 w-6" />
-        </button>
+      <div
+        className={`flex justify-between items-center mx-auto max-w-screen-xl p-4 ${
+          mobileMenuOpen ? "flex-wrap " : ""
+        }`}
+      >
+        <div className="flex items-center justify-between w-full space-x-4 rtl:space-x-reverse">
+          <Link
+            href={route("/")}
+            className="flex items-center space-x-3 rtl:space-x-reverse"
+          >
+            <img src={logoImg} className="h-14" alt="Quwwata Logo" />
+            <span className="self-center hidden md:block text-sm font-bold font-pacifico whitespace-nowrap text-slate-200">
+              Traditional Archery Supply
+            </span>
+          </Link>
+          <div className="flex items-center md:hidden space-x-4">
+            <Link className="text-slate-200">
+              <FaUser className="h-5 w-5" />
+            </Link>
+            <button
+              ref={cartButtonRef}
+              type="button"
+              aria-controls="cart-dropdown"
+              aria-expanded={cartDropdownOpen ? "true" : "false"}
+              onClick={toggleCartDropdown}
+              className="relative z-10"
+            >
+              <FaShoppingCart color="white" className="w-5 h-5" />
+            </button>
+            <button
+              data-collapse-toggle="mega-menu-full"
+              type="button"
+              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              aria-controls="mega-menu-full"
+              aria-expanded={mobileMenuOpen ? "true" : "false"}
+              onClick={toggleMobileMenu}
+            >
+              <span className="sr-only">Open main menu</span>
+              <FaBars className="h-6 w-6" />
+            </button>
+          </div>
+        </div>
         <div
           id="mega-menu-full"
           className={`${
             mobileMenuOpen ? "block" : "hidden"
-          } items-center justify-between w-full md:flex md:w-auto md:order-1`}
+          } flex-grow items-center justify-between w-full md:flex md:w-auto md:order-1`}
         >
-          <ul className="flex flex-col mt-4 font-medium md:flex-row md:mt-0 md:space-x-8 rtl:space-x-reverse">
+          <ul className="flex flex-col mt-4 font-medium md:items-center md:flex-row md:mt-0 md:space-x-8 rtl:space-x-reverse">
             <li>
               <Link
                 href={route("/")}
@@ -174,11 +232,37 @@ const DesktopMenu = () => {
               </Link>
             </li>
             <li>
-              <Link href={route("contact")} className="block menu-link">
+              <Link href={route("contact")} className="block menu-link mr-8">
                 Contact
               </Link>
             </li>
           </ul>
+          <div className="relative items-center hidden md:flex space-x-4">
+            <Link className="text-slate-200">
+              <FaUser className="h-5 w-5" />
+            </Link>
+            <div className="relative flex items-center">
+              <button
+                ref={cartButtonRef}
+                type="button"
+                aria-controls="cart-dropdown"
+                aria-expanded={cartDropdownOpen ? "true" : "false"}
+                onClick={toggleCartDropdown}
+                className="relative z-10"
+              >
+                <FaShoppingCart color="white" className="w-5 h-5" />
+              </button>
+              {cartDropdownOpen && (
+                <div
+                  ref={cartRef}
+                  className="absolute right-0 top-0 mt-14 w-[450px] bg-white border border-gray-300 rounded-lg shadow-lg z-50"
+                  id="cart-dropdown"
+                >
+                  <Cart />
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </nav>
