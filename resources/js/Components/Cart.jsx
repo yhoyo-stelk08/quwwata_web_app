@@ -1,4 +1,4 @@
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import { FaArrowRight, FaTrash } from "react-icons/fa";
 import { useCart } from "react-use-cart";
 
@@ -71,6 +71,20 @@ const Cart = () => {
     ));
   }
 
+  const handleCheckout = () => {
+    const orderItems = items.map((item) => ({
+      id: item.id,
+      quantity: item.quantity,
+      arrow_pass: item.arrow_pass,
+      draw_weight: item.draw_weight,
+      itemTotal: item.itemTotal,
+    }));
+
+    router.post(route("checkout"), {
+      order_item: orderItems,
+    });
+  };
+
   return (
     <div className="">
       <h3 className="text-xl tracking-wide font-quicksand py-6 pl-4">
@@ -78,14 +92,26 @@ const Cart = () => {
       </h3>
       {contentCart}
       {!isEmpty && (
-        <div className="flex justify-between items-center mt-4 mx-4">
-          <span className="text-sm text-slate-500 font-bold">Grand Total:</span>
-          <span className="text-sm text-slate-500 font-bold">
-            {cartTotal.toLocaleString("ID", {
-              style: "currency",
-              currency: "IDR",
-            })}
-          </span>
+        <div>
+          <div className="flex justify-between items-center mt-4 mx-4">
+            <span className="text-sm text-slate-500 font-bold">
+              Grand Total:
+            </span>
+            <span className="text-sm text-slate-500 font-bold">
+              {cartTotal.toLocaleString("ID", {
+                style: "currency",
+                currency: "IDR",
+              })}
+            </span>
+          </div>
+          <div className="mt-3 mx-4 flex items-center justify-center">
+            <button
+              className="w-full bg-gradient-to-br from-yellow-200 to-orange-600 hover:to-orange-500 hover:text-slate-50 active:to-orange-600 text-slate-200 rounded-lg py-2"
+              onClick={handleCheckout}
+            >
+              Checkout
+            </button>
+          </div>
         </div>
       )}
 
