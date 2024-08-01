@@ -15,9 +15,9 @@ const poundage = [
 const customColor = ["Black", "Red", "Green", "White"];
 
 const ProductDetailsOptions = ({ productType, productData }) => {
-  const { addItem } = useCart();
-  const [drawWeight, setDrawWeight] = useState(null);
-  const [colorOption, setColorOption] = useState(null);
+  const { addItem, items } = useCart();
+  const [drawWeight, setDrawWeight] = useState(productData.draw_weight);
+  const [colorOption, setColorOption] = useState(productData.arrow_pass);
   const { name: productName, price, short_description } = productData;
   const [orderItem, setOrderItem] = useState({ ...productData });
 
@@ -35,6 +35,18 @@ const ProductDetailsOptions = ({ productType, productData }) => {
       ...prevValue,
       arrow_pass: color,
     }));
+  };
+
+  const addToCart = () => {
+    const uniqueItem = {
+      ...orderItem,
+      id: `${orderItem.id}-${drawWeight}-${colorOption}`,
+      product_id: orderItem.id,
+      draw_weight: drawWeight,
+      arrow_pass: colorOption,
+    };
+
+    addItem(uniqueItem);
   };
 
   return (
@@ -104,7 +116,7 @@ const ProductDetailsOptions = ({ productType, productData }) => {
       <div className="flex gap-4 pl-2 mt-5 items-center justify-start xl:justify-end md:items-center">
         <button
           className="flex gap-2 text-white bg-gradient-to-br from-yellow-200 to-orange-600  hover:to-orange-400  active:to-orange-600 items-center justify-center py-3 px-6 ml-2 md:mr-4 rounded-md text-xs md:text-base"
-          onClick={() => addItem(orderItem)}
+          onClick={addToCart}
         >
           <FaCartArrowDown className="w-6 h-6" />
           <span className=" hidden xs:block">Add To Cart</span>
