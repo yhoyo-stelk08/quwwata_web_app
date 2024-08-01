@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaCartArrowDown } from "react-icons/fa";
+import { useCart } from "react-use-cart";
 
 const poundage = [
   "25 lbs",
@@ -14,31 +15,26 @@ const poundage = [
 const customColor = ["Black", "Red", "Green", "White"];
 
 const ProductDetailsOptions = ({ productType, productData }) => {
+  const { addItem } = useCart();
   const [drawWeight, setDrawWeight] = useState(null);
   const [colorOption, setColorOption] = useState(null);
-  const [qty, setQty] = useState(1);
   const { name: productName, price, short_description } = productData;
-
-  console.log("productData in Product Details Option: ", productData);
+  const [orderItem, setOrderItem] = useState({ ...productData });
 
   const handleLbsClick = (poundage) => {
     setDrawWeight((prev) => poundage);
+    setOrderItem((prevValue) => ({
+      ...prevValue,
+      draw_weight: poundage,
+    }));
   };
 
   const handleColorClick = (color) => {
     setColorOption((prev) => color);
-  };
-
-  const handleQtyChange = (e) => {
-    setQty((prev) => e.target.value);
-  };
-
-  const incrementQty = () => {
-    setQty((prevQty) => prevQty + 1);
-  };
-
-  const decrementQty = () => {
-    setQty((prevQty) => Math.max(prevQty - 1, 0)); // prevent quantity from going below 0
+    setOrderItem((prevValue) => ({
+      ...prevValue,
+      arrow_pass: color,
+    }));
   };
 
   return (
@@ -105,31 +101,11 @@ const ProductDetailsOptions = ({ productType, productData }) => {
             })}
         </div>
       </div>
-      <div className="flex gap-4 pl-2 mt-5 items-center justify-evenly md:justify-start md:items-start">
-        <div className="flex flex-col xl:flex-col md:flex-row gap-2 ">
-          <div className="flex items-center">
-            <button
-              onClick={decrementQty}
-              className="w-11 h-11 bg-slate-900 text-white rounded-l-lg flex justify-center items-center ml-2"
-            >
-              -
-            </button>
-            <input
-              type="text"
-              readOnly
-              value={qty}
-              onChange={handleQtyChange}
-              className="w-11 h-11 text-center bg-slate-400 bg-opacity-80 text-slate-50"
-            />
-            <button
-              onClick={incrementQty}
-              className="w-11 h-11 bg-slate-900 text-white rounded-r-lg flex justify-center items-center"
-            >
-              +
-            </button>
-          </div>
-        </div>
-        <button className="flex gap-2 text-white bg-gradient-to-br from-yellow-200 to-orange-600 items-center justify-center py-3 px-6 rounded-md text-xs md:text-base">
+      <div className="flex gap-4 pl-2 mt-5 items-center justify-start xl:justify-end md:items-center">
+        <button
+          className="flex gap-2 text-white bg-gradient-to-br from-yellow-200 to-orange-600  hover:to-orange-400  active:to-orange-600 items-center justify-center py-3 px-6 ml-2 md:mr-4 rounded-md text-xs md:text-base"
+          onClick={() => addItem(orderItem)}
+        >
           <FaCartArrowDown className="w-6 h-6" />
           <span className=" hidden xs:block">Add To Cart</span>
         </button>
