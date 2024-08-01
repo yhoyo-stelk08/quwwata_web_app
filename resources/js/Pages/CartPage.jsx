@@ -1,8 +1,18 @@
 import Cart from "@/Components/Cart";
 import AppLayout from "@/Layouts/AppLayout";
+import { router } from "@inertiajs/react";
+import { useCart } from "react-use-cart";
 
-export default function CartPage({ orderItems }) {
-  console.log(orderItems);
+export default function CartPage() {
+  const { cartTotal, items } = useCart();
+  console.log(cartTotal);
+
+  const handleProceedToCheckout = () => {
+    router.post(route("checkout"), {
+      orderItems: items,
+    });
+  };
+
   return (
     <AppLayout>
       <div className="flex flex-col w-[90%] mx-auto my-16">
@@ -13,9 +23,26 @@ export default function CartPage({ orderItems }) {
           </h3>
         </div>
         {/* Cart Content */}
-        <div className="flex flex-col md:flex-row gap-8 max-w-6xl mx-auto mt-10 bg-slate-100">
-          <div>
+        <div className="grid grid-cols-1 md:grid-cols-2 max-w-6xl mx-auto mt-14 gap-8">
+          <div className="bg-gradient-to-b from-slate-600 to-slate-800">
             <Cart proceedToCheckout={true} />
+          </div>
+          <div>
+            <div className="flex flex-col w-full h-fit p-2 py-4 md:py-10 gap-2 bg-gradient-to-b from-slate-600 to-slate-800 ">
+              <h3 className="font-quicksand font-bold text-2xl text-slate-200 pl-2 mt-2">
+                Total :{" "}
+                {cartTotal.toLocaleString("ID", {
+                  style: "currency",
+                  currency: "IDR",
+                })}
+              </h3>
+              <button
+                className="bg-slate-500 hover:bg-slate-400 active:bg-slate-500 text-white font-semibold py-2 px-4 rounded-lg mt-4"
+                onClick={handleProceedToCheckout}
+              >
+                Proceed to Checkout
+              </button>
+            </div>
           </div>
         </div>
       </div>
