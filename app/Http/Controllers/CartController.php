@@ -9,13 +9,13 @@ class CartController extends Controller
 {
     public function index()
     {
-        return inertia('CartPage');
+        return inertia('CheckoutPage');
     }
 
     public function checkout($product_id)
     {
         $product = Products::findOrFail($product_id);
-        return inertia('CartPage', [
+        return inertia('CheckoutPage', [
             'product' => $product,
         ]);
     }
