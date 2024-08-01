@@ -9,6 +9,7 @@ import {
   FaShoppingCart,
   FaUser,
 } from "react-icons/fa";
+import { useCart } from "react-use-cart";
 import logoImg from "../../../images/logo quwwata.png";
 import MegaMenu from "./MegaMenu";
 
@@ -23,6 +24,8 @@ const DesktopMenu = () => {
 
   const openMegaMenu = () => setMegaMenuOpen(true);
   const closeMegaMenu = () => setMegaMenuOpen(false);
+
+  const { totalItems } = useCart(); // Get total items from useCart
 
   const handleMouseEnter = () => {
     if (timeoutIdRef.current) {
@@ -105,6 +108,15 @@ const DesktopMenu = () => {
               className="relative z-10"
             >
               <FaShoppingCart color="white" className="w-5 h-5" />
+              {totalItems > 0 ? (
+                <span className="absolute -bottom-2 -right-4 inline-flex items-center justify-center px-2 py-1 text-[10px] font-medium leading-none text-red-100 bg-red-600 rounded-full">
+                  {totalItems}
+                </span>
+              ) : (
+                <span className="absolute -bottom-2 -right-4 inline-flex items-center justify-center px-2 py-1 text-[10px] font-medium leading-none text-red-100 bg-red-600 rounded-full">
+                  0
+                </span>
+              )}
             </button>
             <button
               data-collapse-toggle="mega-menu-full"
@@ -251,6 +263,15 @@ const DesktopMenu = () => {
                 className="relative z-10"
               >
                 <FaShoppingCart color="white" className="w-5 h-5" />
+                {totalItems > 0 ? (
+                  <span className="absolute -bottom-2 -right-4 inline-flex items-center justify-center px-2 py-1 text-[10px] font-medium leading-none text-red-100 bg-red-600 rounded-full">
+                    {totalItems}
+                  </span>
+                ) : (
+                  <span className="absolute -bottom-2 -right-4 inline-flex items-center justify-center px-2 py-1 text-[10px] font-medium leading-none text-red-100 bg-red-600 rounded-full">
+                    0
+                  </span>
+                )}
               </button>
               {cartDropdownOpen && (
                 <div
