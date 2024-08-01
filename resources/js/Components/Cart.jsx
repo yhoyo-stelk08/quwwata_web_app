@@ -28,13 +28,33 @@ const Cart = ({ proceedToCheckout }) => {
               alt={item.name}
               className="h-16 w-16 object-cover"
             />
-            <div className="ml-4">
-              <h4 className="font-quicksand text-slate-600">{item.name}</h4>
-              <p className="text-sm text-slate-500">Qty: {item.quantity}</p>
-              <p className="text-sm text-slate-500">
+            <div className={`ml-4 `}>
+              <h4
+                className={`font-quicksand ${
+                  proceedToCheckout ? "text-orange-500 " : "text-slate-600 "
+                }`}
+              >
+                {item.name}
+              </h4>
+              <p
+                className={`text-sm ${
+                  proceedToCheckout ? "text-slate-200" : "text-slate-500"
+                }`}
+              >
+                Qty: {item.quantity}
+              </p>
+              <p
+                className={`text-sm ${
+                  proceedToCheckout ? "text-slate-200" : "text-slate-500"
+                }`}
+              >
                 Arrow Pass: {item.arrow_pass}
               </p>
-              <p className="text-sm text-slate-500">
+              <p
+                className={`text-sm ${
+                  proceedToCheckout ? "text-slate-200" : "text-slate-500"
+                }`}
+              >
                 Draw Weight: {item.draw_weight}
               </p>
             </div>
@@ -46,7 +66,13 @@ const Cart = ({ proceedToCheckout }) => {
             >
               -
             </button>
-            <span>{item.quantity}</span>
+            <span
+              className={`${
+                proceedToCheckout ? "text-slate-200" : "text-slate-500"
+              }`}
+            >
+              {item.quantity}
+            </span>
             <button
               onClick={() => updateItemQuantity(item.id, item.quantity + 1)}
               className="px-2 py-1 bg-slate-200 rounded"
@@ -63,8 +89,18 @@ const Cart = ({ proceedToCheckout }) => {
           </div>
         </div>
         <div className="flex justify-between items-center mt-2">
-          <span className="text-sm text-slate-500">Sub Total:</span>
-          <span className="text-sm text-slate-500">
+          <span
+            className={`text-sm ${
+              proceedToCheckout ? "text-slate-200" : "text-slate-500"
+            }`}
+          >
+            Sub Total:
+          </span>
+          <span
+            className={`text-sm ${
+              proceedToCheckout ? "text-slate-200" : "text-slate-500"
+            }`}
+          >
             {(item.quantity * item.price).toLocaleString("ID", {
               style: "currency",
               currency: "IDR",
@@ -92,8 +128,12 @@ const Cart = ({ proceedToCheckout }) => {
 
   return (
     <>
-      <h3 className="text-xl tracking-wide font-quicksand py-6 pl-4">
-        Cart ({totalItems})
+      <h3
+        className={`text-xl tracking-wide font-quicksand py-6 pl-4 ${
+          proceedToCheckout ? "text-slate-100" : ""
+        }`}
+      >
+        Cart Items : ({totalItems})
       </h3>
       {contentCart}
       {!proceedToCheckout && !isEmpty && (
