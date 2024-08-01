@@ -16,7 +16,7 @@ class CartController extends Controller
     public function checkout(Request $request)
     {
         $orderItems = $request->input('orderItems');
-        dd($orderItems); // This should now output the order items
+        // dd($orderItems);
         return inertia('CheckoutPage', [
             'orderItems' => $orderItems,
         ]);
