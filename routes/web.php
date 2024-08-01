@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\Gateway\PaypalController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -54,6 +55,11 @@ Route::get('privacy-policy', function () {
 
 // route to cart page
 Route::post('checkout', [CartController::class, 'checkout'])->name('checkout');
+
+// route to paypal 
+Route::post('paypal/payment', [PaypalController::class, 'payment'])->name('paypal.payment');
+Route::get('paypal/success', [PaypalController::class, 'success'])->name('paypal.success');
+Route::get('paypal/cancel', [PaypalController::class, 'cancel'])->name('paypal.cancel');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
