@@ -20,15 +20,15 @@ const Cart = ({ proceedToCheckout }) => {
     );
   } else {
     contentCart = items.map((item) => (
-      <div key={item.id} className="flex flex-col p-4 border-b">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center">
-            <img
-              src={`/storage/${item.cover_image}`}
-              alt={item.name}
-              className="h-16 w-16 object-cover"
-            />
-            <div className={`ml-4 `}>
+      <div key={item.id} className="flex flex-col  p-4 border-b">
+        <div className="flex flex-col md:flex-row justify-start md:justify-between items-start md:items-center">
+          <div className="flex flex-col md:flex-row items-center">
+            <div className="flex items-center justify-between gap-4">
+              <img
+                src={`/storage/${item.cover_image}`}
+                alt={item.name}
+                className="h-16 w-16 object-cover"
+              />
               <h4
                 className={`font-quicksand ${
                   proceedToCheckout ? "text-orange-500 " : "text-slate-600 "
@@ -36,30 +36,32 @@ const Cart = ({ proceedToCheckout }) => {
               >
                 {item.name}
               </h4>
-              <p
-                className={`text-sm ${
-                  proceedToCheckout ? "text-slate-200" : "text-slate-500"
-                }`}
-              >
-                Qty: {item.quantity}
-              </p>
-              <p
-                className={`text-sm ${
-                  proceedToCheckout ? "text-slate-200" : "text-slate-500"
-                }`}
-              >
-                Arrow Pass: {item.arrow_pass}
-              </p>
-              <p
-                className={`text-sm ${
-                  proceedToCheckout ? "text-slate-200" : "text-slate-500"
-                }`}
-              >
-                Draw Weight: {item.draw_weight}
-              </p>
+              <div className={`ml-4  w-full`}>
+                <p
+                  className={`text-sm ${
+                    proceedToCheckout ? "text-slate-200" : "text-slate-500"
+                  }`}
+                >
+                  Qty: {item.quantity}
+                </p>
+                <p
+                  className={`text-sm ${
+                    proceedToCheckout ? "text-slate-200" : "text-slate-500"
+                  }`}
+                >
+                  Arrow Pass: {item.arrow_pass}
+                </p>
+                <p
+                  className={`text-sm ${
+                    proceedToCheckout ? "text-slate-200" : "text-slate-500"
+                  }`}
+                >
+                  Draw Weight: {item.draw_weight}
+                </p>
+              </div>
             </div>
           </div>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center my-2 space-x-2">
             <button
               onClick={() => updateItemQuantity(item.id, item.quantity - 1)}
               className="px-2 py-1 bg-slate-200 rounded"
