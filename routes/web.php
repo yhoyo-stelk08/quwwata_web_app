@@ -53,7 +53,7 @@ Route::get('privacy-policy', function () {
 })->name('privacy-policy');
 
 // route to cart page
-Route::get('cart/{product_id}', [CartController::class, 'checkout'])->name('checkout');
+Route::post('checkout', [CartController::class, 'checkout'])->name('checkout');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
