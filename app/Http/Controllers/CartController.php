@@ -7,16 +7,13 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    public function index()
+    public function cart(Request $request)
     {
-        return inertia('CheckoutPage');
-    }
-
-    public function checkout($product_id)
-    {
-        $product = Products::findOrFail($product_id);
-        return inertia('CheckoutPage', [
-            'product' => $product,
+        $orderItems = $request->input('order_item');
+        // dd($orderItems);
+        $product = Products::findMany(array_column($orderItems, 'product_id'));
+        return inertia('CartPage', [
+            'orderItems' => $orderItems,
         ]);
     }
 }
