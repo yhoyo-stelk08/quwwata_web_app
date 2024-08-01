@@ -13,13 +13,10 @@ export default function CartPage({ orderItems }) {
           </h3>
         </div>
         {/* Cart Content */}
-        <div className="flex flex-col md:flex-row gap-8 max-w-6xl mx-auto mt-10">
-          {/* Product Div */}
+        <div className="flex flex-col md:flex-row gap-8 max-w-6xl mx-auto mt-10 bg-slate-100">
           <div>
-            <Cart />
+            <Cart proceedToCheckout={true} />
           </div>
-          {/* Total Div */}
-          <div>Total Div</div>
         </div>
       </div>
     </AppLayout>
