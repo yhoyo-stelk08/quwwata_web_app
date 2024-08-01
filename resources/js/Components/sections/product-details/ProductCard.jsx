@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { memo } from "react";
 
 const ProductCard = ({ data }) => {
-  console.log("data: ", data);
   return (
     <motion.div
       key={data.id}
