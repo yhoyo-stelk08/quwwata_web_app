@@ -56,6 +56,9 @@ Route::get('privacy-policy', function () {
 // route to cart page
 Route::post('cart', [CartController::class, 'cart'])->name('cart');
 
+// route to checkout page
+Route::post('checkout', [CartController::class, 'checkout'])->name('checkout');
+
 // route to paypal 
 Route::post('paypal/payment', [PaypalController::class, 'payment'])->name('paypal.payment');
 Route::get('paypal/success', [PaypalController::class, 'success'])->name('paypal.success');
