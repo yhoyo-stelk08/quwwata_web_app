@@ -123,7 +123,7 @@ const DesktopMenu = () => {
           id="mega-menu-full"
           className={`${
             mobileMenuOpen ? "block" : "hidden"
-          } flex-grow items-center justify-between w-full md:w-1/2 md:flex md:order-1`}
+          } flex-grow items-center justify-between w-full md:w-auto md:flex md:order-1`}
         >
           <ul className="flex flex-col mt-4 font-medium md:items-center md:flex-row md:mt-0 md:space-x-8 rtl:space-x-reverse">
             <li>
