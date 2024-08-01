@@ -2,7 +2,7 @@ import { Link, router } from "@inertiajs/react";
 import { FaArrowRight, FaTrash } from "react-icons/fa";
 import { useCart } from "react-use-cart";
 
-const Cart = () => {
+const Cart = ({ proceedToCheckout }) => {
   const {
     isEmpty,
     removeItem,
@@ -11,7 +11,6 @@ const Cart = () => {
     items,
     cartTotal,
   } = useCart();
-
   let contentCart = "";
   if (isEmpty) {
     contentCart = (
@@ -20,7 +19,6 @@ const Cart = () => {
       </div>
     );
   } else {
-    console.log(items);
     contentCart = items.map((item) => (
       <div key={item.id} className="flex flex-col p-4 border-b">
         <div className="flex justify-between items-center">
@@ -33,6 +31,12 @@ const Cart = () => {
             <div className="ml-4">
               <h4 className="font-quicksand text-slate-600">{item.name}</h4>
               <p className="text-sm text-slate-500">Qty: {item.quantity}</p>
+              <p className="text-sm text-slate-500">
+                Arrow Pass: {item.arrow_pass}
+              </p>
+              <p className="text-sm text-slate-500">
+                Draw Weight: {item.draw_weight}
+              </p>
             </div>
           </div>
           <div className="flex items-center space-x-2">
@@ -75,23 +79,24 @@ const Cart = () => {
     const orderItems = items.map((item) => ({
       id: item.id,
       quantity: item.quantity,
+      product_id: item.product_id,
       arrow_pass: item.arrow_pass,
       draw_weight: item.draw_weight,
       itemTotal: item.itemTotal,
     }));
 
-    router.post(route("checkout"), {
+    router.post(route("cart"), {
       order_item: orderItems,
     });
   };
 
   return (
-    <div className="">
+    <>
       <h3 className="text-xl tracking-wide font-quicksand py-6 pl-4">
         Cart ({totalItems})
       </h3>
       {contentCart}
-      {!isEmpty && (
+      {!proceedToCheckout && !isEmpty && (
         <div>
           <div className="flex justify-between items-center mt-4 mx-4">
             <span className="text-sm text-slate-500 font-bold">
@@ -109,22 +114,24 @@ const Cart = () => {
               className="w-full bg-gradient-to-br from-yellow-200 to-orange-600 hover:to-orange-500 hover:text-slate-50 active:to-orange-600 text-slate-200 rounded-lg py-2"
               onClick={handleCheckout}
             >
-              Checkout
+              Go To Cart
             </button>
           </div>
         </div>
       )}
 
-      <div className="flex items-center justify-center text-center w-full p-4 font-quicksand tracking-wide text-slate-500">
-        <Link
-          className="w-full py-2 flex items-center justify-center text-slate-400"
-          href={route("products")}
-        >
-          Continue shopping
-          <FaArrowRight className="ml-1 w-4 h-4" />
-        </Link>
-      </div>
-    </div>
+      {!proceedToCheckout && (
+        <div className="flex items-center justify-center text-center w-full p-4 font-quicksand tracking-wide text-slate-500">
+          <Link
+            className="w-full py-2 flex items-center justify-center text-slate-400"
+            href={route("products")}
+          >
+            Continue shopping
+            <FaArrowRight className="ml-1 w-4 h-4" />
+          </Link>
+        </div>
+      )}
+    </>
   );
 };
 export default Cart;
