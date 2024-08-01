@@ -276,7 +276,7 @@ const DesktopMenu = () => {
               {cartDropdownOpen && (
                 <div
                   ref={cartRef}
-                  className="absolute right-0 top-0 mt-14 w-[450px] bg-white border border-gray-300 rounded-lg shadow-lg z-50"
+                  className="absolute right-0 top-0 mt-14 w-[500px] bg-white border border-gray-300 rounded-lg shadow-lg z-50"
                   id="cart-dropdown"
                 >
                   <Cart />
