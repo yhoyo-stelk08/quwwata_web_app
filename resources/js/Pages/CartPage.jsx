@@ -5,7 +5,6 @@ import { useCart } from "react-use-cart";
 
 export default function CartPage() {
   const { cartTotal, items } = useCart();
-  console.log(cartTotal);
 
   const handleProceedToCheckout = () => {
     router.post(route("checkout"), {
@@ -23,7 +22,7 @@ export default function CartPage() {
           </h3>
         </div>
         {/* Cart Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 max-w-6xl mx-auto mt-14 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 max-w-6xl mx-auto mt-14 gap-8">
           <div className="bg-gradient-to-b from-slate-600 to-slate-800">
             <Cart proceedToCheckout={true} />
           </div>
