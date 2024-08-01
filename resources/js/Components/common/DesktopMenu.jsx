@@ -291,7 +291,7 @@ const DesktopMenu = () => {
             className="absolute right-0 top-14 mt-2 w-full bg-white border border-gray-300 rounded-lg shadow-lg z-50 md:hidden"
             id="cart-dropdown"
           >
-            <Cart />
+            <Cart proceedToCheckout={false} />
           </div>
         )}
       </div>
