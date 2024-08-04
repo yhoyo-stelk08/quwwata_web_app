@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Products;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -45,11 +44,11 @@ class ProductSeeder extends Seeder
                                         </p><p style="">Max draw : 29 inch
                                         </p><p style="">Recomended arrow gpp : 10 gpp
                                         </p><p style=""><br></p><p style="">
-                                                    
-                                                    
+
+
                                         Warranty : 6 months (normal use/no dry fire)
                                         </p><p style=""><br></p><p style="">
-                                                    
+
                                         Free : Sarung bow</p>',
                 'cover_image' => 'images/product_images/1722338958_66a8ce8ed57d6.jpeg',
                 'created_at' => Carbon::now(),
@@ -88,6 +87,6 @@ class ProductSeeder extends Seeder
             ],
         ];
 
-
+        DB::table('products')->insert($products);
     }
 }
