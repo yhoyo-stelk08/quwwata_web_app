@@ -23,7 +23,9 @@ export default function CheckoutPage({ orderItems }) {
               {/* Form */}
               <div className="my-2 py-2 w-full">
                 <div className="mb-4 text-slate-200">
-                  <label htmlFor="email">Email Address</label>
+                  <label htmlFor="email">
+                    Email Address<span className="text-red-500">*</span>
+                  </label>
                   <input
                     type="email"
                     id="email"
@@ -35,7 +37,9 @@ export default function CheckoutPage({ orderItems }) {
                 </div>
                 <div className="mb-4 text-slate-200 grid grid-cols-2 gap-4">
                   <div className="flex flex-col">
-                    <label htmlFor="first_name">First Name</label>
+                    <label htmlFor="first_name">
+                      First Name <span className="text-red-500">*</span>
+                    </label>
                     <input
                       type="text"
                       id="first_name"
@@ -46,7 +50,9 @@ export default function CheckoutPage({ orderItems }) {
                     />
                   </div>
                   <div className="flex flex-col">
-                    <label htmlFor="last_name">Last Name</label>
+                    <label htmlFor="last_name">
+                      Last Name <span className="text-red-500">*</span>
+                    </label>
                     <input
                       type="text"
                       id="last_name"
@@ -58,7 +64,9 @@ export default function CheckoutPage({ orderItems }) {
                   </div>
                 </div>
                 <div className="mb-4 text-slate-200 flex flex-col">
-                  <label htmlFor="phone_number">Phone Number</label>
+                  <label htmlFor="phone_number">
+                    Phone Number <span className="text-red-500">*</span>
+                  </label>
                   <input
                     type="text"
                     id="phone_number"
@@ -69,7 +77,9 @@ export default function CheckoutPage({ orderItems }) {
                   />
                 </div>
                 <div className="mb-4 text-slate-200 flex flex-col">
-                  <label htmlFor="address">Street Address</label>
+                  <label htmlFor="address">
+                    Street Address <span className="text-red-500">*</span>
+                  </label>
                   <textarea
                     id="address"
                     name="address"
@@ -79,7 +89,9 @@ export default function CheckoutPage({ orderItems }) {
                   />
                 </div>
                 <div className="mb-4 text-slate-200 flex flex-col">
-                  <label htmlFor="zip_code">Zip Code</label>
+                  <label htmlFor="zip_code">
+                    Zip Code <span className="text-red-500">*</span>
+                  </label>
                   <input
                     type="text"
                     id="zip_code"
@@ -90,7 +102,9 @@ export default function CheckoutPage({ orderItems }) {
                   />
                 </div>
                 <div className="mb-4 text-slate-200 flex flex-col">
-                  <label htmlFor="city">City</label>
+                  <label htmlFor="city">
+                    City <span className="text-red-500">*</span>
+                  </label>
                   <input
                     type="text"
                     id="city"
@@ -101,7 +115,9 @@ export default function CheckoutPage({ orderItems }) {
                   />
                 </div>
                 <div className="mb-4 text-slate-200 flex flex-col">
-                  <label htmlFor="country">Country</label>
+                  <label htmlFor="country">
+                    Country <span className="text-red-500">*</span>
+                  </label>
                   <input
                     type="text"
                     id="country"
@@ -112,7 +128,20 @@ export default function CheckoutPage({ orderItems }) {
                   />
                 </div>
                 <div className="mb-4 text-slate-200 flex flex-col">
-                  <label htmlFor="remark">Order Notes</label>
+                  <label htmlFor="province">
+                    Province <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="province"
+                    name="province"
+                    className="w-full p-2 border border-gray-300 rounded my-1"
+                    placeholder="Province"
+                    required
+                  />
+                </div>
+                <div className="mb-4 text-slate-200 flex flex-col">
+                  <label htmlFor="remark">Order Notes </label>
                   <textarea
                     id="remark"
                     name="remark"
