@@ -8,7 +8,7 @@ import Select from "react-select";
 export default function CheckoutPage({ orderItems }) {
   console.log("orderItems: ", orderItems);
 
-  const { data, setData, errors, clearErrors, processing } = useForm({
+  const { data, setData, post, errors, clearErrors, processing } = useForm({
     email: "",
     first_name: "",
     last_name: "",
@@ -50,7 +50,7 @@ export default function CheckoutPage({ orderItems }) {
     fetchCountryList();
   }, []);
 
-  // fetch cities based on country value
+  // fetch cities, province and dial_code based on country value
   useEffect(() => {
     const fetchCityList = async () => {
       try {
@@ -118,6 +118,22 @@ export default function CheckoutPage({ orderItems }) {
     }
   }, [data.country]);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("email", data.email);
+    formData.append("first_name", data.first_name);
+    formData.append("last_name", data.last_name);
+    formData.append("phone_number", data.phone_number);
+    formData.append("address", data.address);
+    formData.append("country", data.country);
+    formData.append("province", data.province);
+    formData.append("city", data.city);
+    formData.append("zip_code", data.zip_code);
+    formData.append("remark", data.remark);
+  };
+
   return (
     <AppLayout>
       <div className="flex flex-col w-[90%] mx-auto my-16">
@@ -152,6 +168,9 @@ export default function CheckoutPage({ orderItems }) {
                     value={data.email}
                     onChange={(e) => setData("email", e.target.value)}
                   />
+                  {errors.email && (
+                    <span className="text-red-500 text-sm">{errors.email}</span>
+                  )}
                 </div>
                 <div className="mb-4 text-slate-200 grid grid-cols-2 gap-4">
                   <div className="flex flex-col">
@@ -168,6 +187,11 @@ export default function CheckoutPage({ orderItems }) {
                       value={data.first_name}
                       onChange={(e) => setData("first_name", e.target.value)}
                     />
+                    {errors.first_name && (
+                      <span className="text-red-500 text-sm">
+                        {errors.first_name}
+                      </span>
+                    )}
                   </div>
                   <div className="flex flex-col">
                     <label htmlFor="last_name">
@@ -183,6 +207,11 @@ export default function CheckoutPage({ orderItems }) {
                       value={data.last_name}
                       onChange={(e) => setData("last_name", e.target.value)}
                     />
+                    {errors.last_name && (
+                      <span className="text-red-500 text-sm">
+                        {errors.last_name}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="mb-4 text-slate-200 flex flex-col">
@@ -201,6 +230,11 @@ export default function CheckoutPage({ orderItems }) {
                       (option) => option.value === data.country
                     )}
                   />
+                  {errors.country && (
+                    <span className="text-red-500 text-sm">
+                      {errors.country}
+                    </span>
+                  )}
                 </div>
                 <div className="mb-4 text-slate-200 flex flex-col">
                   <label htmlFor="province">
@@ -218,6 +252,11 @@ export default function CheckoutPage({ orderItems }) {
                       (option) => option.value === data.province
                     )}
                   />
+                  {errors.province && (
+                    <span className="text-red-500 text-sm">
+                      {errors.province}
+                    </span>
+                  )}
                 </div>
                 <div className="mb-4 text-slate-200 flex flex-col">
                   <label htmlFor="city">
@@ -235,6 +274,9 @@ export default function CheckoutPage({ orderItems }) {
                       (option) => option.value === data.city
                     )}
                   />
+                  {errors.city && (
+                    <span className="text-red-500 text-sm">{errors.city}</span>
+                  )}
                 </div>
                 <div className="mb-4 text-slate-200 flex flex-col">
                   <label htmlFor="zip_code">
@@ -250,6 +292,11 @@ export default function CheckoutPage({ orderItems }) {
                     value={data.zip_code}
                     onChange={(e) => setData("zip_code", e.target.value)}
                   />
+                  {errors.zip_code && (
+                    <span className="text-red-500 text-sm">
+                      {errors.zip_code}
+                    </span>
+                  )}
                 </div>
                 <div className="mb-4 text-slate-200 flex flex-col">
                   <label htmlFor="phone_number">
@@ -266,11 +313,16 @@ export default function CheckoutPage({ orderItems }) {
                     id="phone_number"
                     name="phone_number"
                     className="w-full p-2 border border-gray-300 rounded my-1"
-                    placeholder="Phone Number"
+                    placeholder="Phone Number Without Country Dial Code"
                     required
                     value={data.phone_number}
                     onChange={(e) => setData("phone_number", e.target.value)}
                   />
+                  {errors.phone_number && (
+                    <span className="text-red-500 text-sm">
+                      {errors.phone_number}
+                    </span>
+                  )}
                 </div>
                 <div className="mb-4 text-slate-200 flex flex-col">
                   <label htmlFor="address">
@@ -285,6 +337,11 @@ export default function CheckoutPage({ orderItems }) {
                     value={data.address}
                     onChange={(e) => setData("address", e.target.value)}
                   />
+                  {errors.address && (
+                    <span className="text-red-500 text-sm">
+                      {errors.address}
+                    </span>
+                  )}
                 </div>
                 <div className="mb-4 text-slate-200 flex flex-col">
                   <label htmlFor="remark">Order Notes </label>
@@ -296,6 +353,11 @@ export default function CheckoutPage({ orderItems }) {
                     value={data.remark}
                     onChange={(e) => setData("remark", e.target.value)}
                   />
+                  {
+                    errors.remark && (
+                      <span className="text-red-500 text-sm">{errors.remark}</span>
+                    )
+                  }
                 </div>
               </div>
             </div>
