@@ -134,6 +134,12 @@ export default function CheckoutPage({ orderItems }) {
     formData.append("remark", data.remark);
   };
 
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    clearErrors();
+    setData(id, value);
+  };
+
   return (
     <AppLayout>
       <div className="flex flex-col w-[90%] mx-auto my-16">
@@ -162,11 +168,11 @@ export default function CheckoutPage({ orderItems }) {
                     type="email"
                     id="email"
                     name="email"
-                    className="w-full p-2 border border-gray-300 rounded my-1"
+                    className="w-full p-2 border border-gray-300 rounded my-1 text-slate-900"
                     placeholder="Email Address"
                     required
                     value={data.email}
-                    onChange={(e) => setData("email", e.target.value)}
+                    onChange={handleChange}
                   />
                   {errors.email && (
                     <span className="text-red-500 text-sm">{errors.email}</span>
@@ -181,11 +187,11 @@ export default function CheckoutPage({ orderItems }) {
                       type="text"
                       id="first_name"
                       name="first_name"
-                      className="w-full p-2 border border-gray-300 rounded my-1"
+                      className="w-full p-2 border border-gray-300 rounded my-1 text-slate-900"
                       placeholder="First Name"
                       required
                       value={data.first_name}
-                      onChange={(e) => setData("first_name", e.target.value)}
+                      onChange={handleChange}
                     />
                     {errors.first_name && (
                       <span className="text-red-500 text-sm">
@@ -201,11 +207,11 @@ export default function CheckoutPage({ orderItems }) {
                       type="text"
                       id="last_name"
                       name="last_name"
-                      className="w-full p-2 border border-gray-300 rounded my-1"
+                      className="w-full p-2 border border-gray-300 rounded my-1 text-slate-900"
                       placeholder="Last Name"
                       required
                       value={data.last_name}
-                      onChange={(e) => setData("last_name", e.target.value)}
+                      onChange={handleChange}
                     />
                     {errors.last_name && (
                       <span className="text-red-500 text-sm">
@@ -223,6 +229,7 @@ export default function CheckoutPage({ orderItems }) {
                     isClearable
                     isSearchable
                     className="text-slate-900"
+                    id="country"
                     onChange={(selected) =>
                       setData("country", selected ? selected.value : "")
                     }
@@ -244,6 +251,7 @@ export default function CheckoutPage({ orderItems }) {
                     options={provinceOptions}
                     isClearable
                     isSearchable
+                    id="province"
                     className="text-slate-900"
                     onChange={(selected) =>
                       setData("province", selected ? selected.value : "")
@@ -266,6 +274,7 @@ export default function CheckoutPage({ orderItems }) {
                     options={cityOptions}
                     isClearable
                     isSearchable
+                    id="city"
                     className="text-slate-900"
                     onChange={(selected) =>
                       setData("city", selected ? selected.value : "")
@@ -286,11 +295,11 @@ export default function CheckoutPage({ orderItems }) {
                     type="text"
                     id="zip_code"
                     name="zip_code"
-                    className="w-full p-2 border border-gray-300 rounded my-1"
+                    className="w-full p-2 border border-gray-300 rounded my-1 text-slate-900"
                     placeholder="Zip Code"
                     required
                     value={data.zip_code}
-                    onChange={(e) => setData("zip_code", e.target.value)}
+                    onChange={handleChange}
                   />
                   {errors.zip_code && (
                     <span className="text-red-500 text-sm">
@@ -312,11 +321,11 @@ export default function CheckoutPage({ orderItems }) {
                     type="text"
                     id="phone_number"
                     name="phone_number"
-                    className="w-full p-2 border border-gray-300 rounded my-1"
+                    className="w-full p-2 border border-gray-300 rounded my-1 text-slate-900"
                     placeholder="Phone Number Without Country Dial Code"
                     required
                     value={data.phone_number}
-                    onChange={(e) => setData("phone_number", e.target.value)}
+                    onChange={handleChange}
                   />
                   {errors.phone_number && (
                     <span className="text-red-500 text-sm">
@@ -335,7 +344,7 @@ export default function CheckoutPage({ orderItems }) {
                     rows={6}
                     required
                     value={data.address}
-                    onChange={(e) => setData("address", e.target.value)}
+                    onChange={handleChange}
                   />
                   {errors.address && (
                     <span className="text-red-500 text-sm">
@@ -351,13 +360,13 @@ export default function CheckoutPage({ orderItems }) {
                     className="resize-none rounded text-slate-800"
                     rows={6}
                     value={data.remark}
-                    onChange={(e) => setData("remark", e.target.value)}
+                    onChange={handleChange}
                   />
-                  {
-                    errors.remark && (
-                      <span className="text-red-500 text-sm">{errors.remark}</span>
-                    )
-                  }
+                  {errors.remark && (
+                    <span className="text-red-500 text-sm">
+                      {errors.remark}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
