@@ -1,14 +1,15 @@
 import BillingDetailsForm from "@/Components/BillingDetailsForm";
 import Cart from "@/Components/Cart";
 import AppLayout from "@/Layouts/AppLayout";
-import { useForm } from "@inertiajs/react";
+import { router, useForm } from "@inertiajs/react";
 import axios from "axios";
 import React, { useCallback, useEffect, useRef } from "react";
+import { useCart } from "react-use-cart";
 
 const CheckoutPage = ({ orderItems }) => {
   console.log("orderItems: ", orderItems);
 
-  const { data, setData, post, errors, clearErrors, processing } = useForm({
+  const { data, setData, errors, clearErrors, processing } = useForm({
     email: "",
     first_name: "",
     last_name: "",
@@ -19,8 +20,9 @@ const CheckoutPage = ({ orderItems }) => {
     city: "",
     zip_code: "",
     remark: "",
+    orderItems: orderItems || [],
   });
-
+  const { emptyCart } = useCart();
   const countryOptions = useRef([]);
   const cityOptions = useRef([]);
   const provinceOptions = useRef([]);
@@ -99,11 +101,16 @@ const CheckoutPage = ({ orderItems }) => {
     const formData = {
       ...data,
       phone_number: countryDialCode.current + data.phone_number,
+      orderItems: orderItems,
     };
 
-    console.log("formData: ", formData);
+    console.log("formData being sent: ", formData);
 
-    post(route("checkout.order"), formData, {
+    // empty the cart
+    emptyCart();
+
+    router.post(route("checkout.order"), formData, {
+      forceFormData: true,
       onError: (errors) => {
         console.log(errors);
       },
