@@ -19,6 +19,11 @@ class Products extends Model
         return $this->hasMany(ProductImage::class, 'product_id', 'id');
     }
 
+    public function orders()
+    {
+        return $this->hasMany(Orders::class);
+    }
+
     public function scopeSearch(Builder $query, $search): Builder
     {
         if ($search) {
