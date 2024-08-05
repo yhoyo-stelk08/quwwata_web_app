@@ -21,6 +21,8 @@ return new class extends Migration {
             $table->decimal('total', 10, 2);
             $table->enum('status', ['pending', 'processing', 'completed', 'declined'])->default('pending');
             $table->string('order_notes')->nullable();
+            $table->string('draw_weight');
+            $table->string('arrow_pass');
             $table->timestamps();
 
 
