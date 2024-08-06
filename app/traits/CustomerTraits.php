@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits;
+namespace App\traits;
 
 trait CustomerTraits
 {
@@ -16,7 +16,7 @@ trait CustomerTraits
             'province' => $model->province,
             'city' => $model->city,
             'zip_code' => $model->zip_code,
-            'phone' => $model->phone,
+            'phone_number' => $model->phone_number,
             'address' => $model->address,
             'created_at' => $this->formatDate($model->created_at),
             'updated_at' => $this->formatDate($model->updated_at),
