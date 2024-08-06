@@ -51,9 +51,9 @@ const ProductCard = ({ data }) => {
       </div>
       <div className="p-5">
         <p className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-t from-yellow-200 to-yellow-300">
-          {data.price.toLocaleString("ID", {
+          {data.price.toLocaleString("en-US", {
             style: "currency",
-            currency: "IDR",
+            currency: "USD",
           })}
         </p>
       </div>

@@ -30,9 +30,9 @@ export default function CartPage() {
             <div className="flex flex-col w-full h-fit p-2 py-4 md:py-10 gap-2 bg-gradient-to-b from-slate-600 to-slate-800 ">
               <h3 className="font-quicksand font-bold text-2xl text-slate-200 pl-2 mt-2">
                 Total :{" "}
-                {cartTotal.toLocaleString("ID", {
+                {cartTotal.toLocaleString("en-US", {
                   style: "currency",
-                  currency: "IDR",
+                  currency: "USD",
                 })}
               </h3>
               <button

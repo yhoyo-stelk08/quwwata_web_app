@@ -103,9 +103,9 @@ const Cart = ({ proceedToCheckout }) => {
               proceedToCheckout ? "text-slate-200" : "text-slate-500"
             }`}
           >
-            {(item.quantity * item.price).toLocaleString("ID", {
+            {(item.quantity * item.price).toLocaleString("en-US", {
               style: "currency",
-              currency: "IDR",
+              currency: "USD",
             })}
           </span>
         </div>

@@ -55,9 +55,9 @@ const ProductDetailsOptions = ({ productType, productData }) => {
         {productName}
       </h1>
       <h3 className="font-quicksand font-bold text-2xl text-slate-200 pl-2 mt-2">
-        {price.toLocaleString("ID", {
+        {price.toLocaleString("en-US", {
           style: "currency",
-          currency: "IDR",
+          currency: "USD",
         })}
       </h3>
       <h3 className="font-quicksand font-medium text-lg text-slate-200 pl-2 italic mt-4">
