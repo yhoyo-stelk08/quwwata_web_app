@@ -17,7 +17,7 @@ class ProductSeeder extends Seeder
         $products = [
             [
                 'name' => 'Quwwata Laminated Turkish Bow',
-                'price' => 3800000,
+                'price' => 240,
                 'draw_weight' => 40,
                 'category' => 'laminated-bow',
                 'short_description' => 'A traditional, powerful, handcrafted bow with layered wood and bamboo with turkish model.',
@@ -29,7 +29,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'name' => 'Quwwata Laminated Assyrian Bow',
-                'price' => 3800000,
+                'price' => 240,
                 'draw_weight' => 40,
                 'category' => 'laminated-bow',
                 'short_description' => 'A traditional, powerful, handcrafted bow with layered wood and bamboo with assyrian model.',
@@ -56,7 +56,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'name' => 'Quwwata Fiber Flat Bow',
-                'price' => 700000,
+                'price' => 45,
                 'draw_weight' => 40,
                 'category' => 'flat-bow',
                 'short_description' => 'Fiberglass flat bow',
@@ -68,7 +68,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'name' => 'Petung Bamboo Arrows',
-                'price' => 400000,
+                'price' => 25,
                 'draw_weight' => 40,
                 'category' => 'arrows',
                 'short_description' => 'Straight bamboo arrow',
