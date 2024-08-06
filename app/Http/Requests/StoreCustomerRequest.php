@@ -33,6 +33,8 @@ class StoreCustomerRequest extends FormRequest
             'phone_number' => 'required|string',
             'remark' => 'string|nullable',
             'orderItems' => 'required|array',
+            'payment_method' => 'required|string',
+            'totalAmount' => 'required|numeric',
         ];
     }
 
