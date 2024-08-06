@@ -7,7 +7,7 @@ import React, { useCallback, useEffect, useRef } from "react";
 import { useCart } from "react-use-cart";
 
 const CheckoutPage = ({ orderItems }) => {
-  console.log("orderItems: ", orderItems);
+  // console.log("orderItems: ", orderItems);
 
   const { data, setData, errors, clearErrors, processing } = useForm({
     email: "",
@@ -21,8 +21,10 @@ const CheckoutPage = ({ orderItems }) => {
     zip_code: "",
     remark: "",
     orderItems: orderItems || [],
+    totalAmount: 0,
   });
-  const { emptyCart } = useCart();
+  const { emptyCart, cartTotal } = useCart();
+  // console.log("cartTotal: ", cartTotal);
   const countryOptions = useRef([]);
   const cityOptions = useRef([]);
   const provinceOptions = useRef([]);
@@ -102,12 +104,11 @@ const CheckoutPage = ({ orderItems }) => {
       ...data,
       phone_number: countryDialCode.current + data.phone_number,
       orderItems: orderItems,
+      payment_method: "paypal",
+      totalAmount: cartTotal,
     };
 
-    console.log("formData being sent: ", formData);
-
-    // empty the cart
-    emptyCart();
+    // console.log("formData being sent: ", formData);
 
     router.post(route("checkout.order"), formData, {
       forceFormData: true,
@@ -115,6 +116,17 @@ const CheckoutPage = ({ orderItems }) => {
         console.log(errors);
       },
     });
+
+    router.post(route("paypal.payment"), { total: cartTotal });
+
+    // const goToPayment = () => {
+    //   router.post(route("paypal.payment"), { total: cartTotal });
+    // };
+
+    // goToPayment();
+
+    // empty the cart
+    emptyCart();
   };
 
   const handleChange = useCallback(
@@ -167,7 +179,7 @@ const CheckoutPage = ({ orderItems }) => {
                 <div>
                   <button
                     type="submit"
-                    className="bg-orange-400 hover:bg-orange-600 py-2 px-4 rounded text-white"
+                    className="bg-orange-400 hover:bg-orange-600 py-2 px-4 my-5 rounded text-white"
                   >
                     Place Order
                   </button>

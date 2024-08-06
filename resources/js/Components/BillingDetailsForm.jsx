@@ -13,7 +13,7 @@ const BillingDetailsForm = React.memo(
     countryDialCode,
   }) => {
     return (
-      <div className="w-full mx-auto px-2 flex flex-col items-center bg-gradient-to-b from-slate-600 to-slate-800 rounded">
+      <div className="w-full mx-auto px-6 flex flex-col items-center bg-gradient-to-b from-slate-600 to-slate-800 rounded">
         {/* Header */}
         <div className="w-full py-2 my-2 flex items-center justify-center">
           <span className="text-slate-200 text-xl font-bold">
@@ -31,7 +31,7 @@ const BillingDetailsForm = React.memo(
               id="email"
               name="email"
               className="w-full p-2 border border-gray-300 rounded my-1 text-slate-900"
-              placeholder="Email Address"
+              placeholder="Please Provide Your Active Email Address"
               required
               value={data.email}
               onChange={handleChange}
