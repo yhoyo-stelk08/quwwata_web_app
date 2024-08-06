@@ -4,11 +4,10 @@ import AppLayout from "@/Layouts/AppLayout";
 import { router, useForm } from "@inertiajs/react";
 import axios from "axios";
 import React, { useCallback, useEffect, useRef } from "react";
+import { FaPaypal, FaStripe } from "react-icons/fa";
 import { useCart } from "react-use-cart";
 
 const CheckoutPage = ({ orderItems }) => {
-  // console.log("orderItems: ", orderItems);
-
   const { data, setData, errors, clearErrors, processing } = useForm({
     email: "",
     first_name: "",
@@ -24,7 +23,6 @@ const CheckoutPage = ({ orderItems }) => {
     totalAmount: 0,
   });
   const { emptyCart, cartTotal } = useCart();
-  // console.log("cartTotal: ", cartTotal);
   const countryOptions = useRef([]);
   const cityOptions = useRef([]);
   const provinceOptions = useRef([]);
@@ -108,8 +106,6 @@ const CheckoutPage = ({ orderItems }) => {
       totalAmount: cartTotal,
     };
 
-    // console.log("formData being sent: ", formData);
-
     router.post(route("checkout.order"), formData, {
       forceFormData: true,
       onError: (errors) => {
@@ -118,12 +114,6 @@ const CheckoutPage = ({ orderItems }) => {
     });
 
     router.post(route("paypal.payment"), { total: cartTotal });
-
-    // const goToPayment = () => {
-    //   router.post(route("paypal.payment"), { total: cartTotal });
-    // };
-
-    // goToPayment();
 
     // empty the cart
     emptyCart();
@@ -175,6 +165,38 @@ const CheckoutPage = ({ orderItems }) => {
                 </h3>
                 <div className="border border-blue-500 w-full">
                   <Cart proceedToCheckout={true} />
+                </div>
+                <div className="w-full p-4">
+                  <ul>
+                    <li className="flex gap-2 items-center">
+                      <input
+                        type="radio"
+                        id="payment_method"
+                        name="payment_method"
+                      />
+                      <label
+                        htmlFor="payment_method"
+                        className="flex gap-1 items-center justify-start text-slate-200"
+                      >
+                        <FaPaypal color="blue" />
+                        Paypal
+                      </label>
+                    </li>
+                    <li className="flex gap-2 items-center">
+                      <input
+                        type="radio"
+                        id="payment_method"
+                        name="payment_method"
+                      />
+                      <label
+                        htmlFor="payment_method"
+                        className="flex gap-1 items-center justify-start text-slate-200"
+                      >
+                        <FaStripe color="blue" />
+                        Stripe
+                      </label>
+                    </li>
+                  </ul>
                 </div>
                 <div>
                   <button
