@@ -23,6 +23,7 @@ return new class extends Migration {
             $table->string('order_notes')->nullable();
             $table->string('draw_weight');
             $table->string('arrow_pass');
+            $table->string('payment_method');
             $table->timestamps();
 
 
