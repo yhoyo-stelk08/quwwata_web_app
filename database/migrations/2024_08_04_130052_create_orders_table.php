@@ -13,39 +13,11 @@ return new class extends Migration {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customer_id')->constrained()->onDelete('cascade');
-            $table->string('order_number')->unique();
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->integer('quantity');
-            $table->decimal('sub_total', 10, 2);
-            $table->decimal('discount', 10, 2)->default(0);
-            $table->decimal('total', 10, 2);
-            $table->enum('status', ['pending', 'processing', 'completed', 'declined'])->default('pending');
-            $table->string('order_notes')->nullable();
-            $table->string('draw_weight');
-            $table->string('arrow_pass');
-            $table->string('payment_method');
+            $table->enum('status', ['pending', 'processing', 'completed', 'declined'])->default('pending'); // Order status
+            $table->string('order_notes')->nullable(); // Notes for the order
+            $table->string('payment_method'); // Payment method used
+            $table->string('transaction_id')->nullable(); // Transaction ID from the payment gateway
             $table->timestamps();
-
-
-            // $table->string('billing_method');
-            // $table->string('billing_status');
-            // $table->text('billing_details')->nullable();
-            // $table->string('currency');
-            // $table->decimal('exchange_rate', 10, 2)->default(1);
-            // $table->decimal('total_weight', 10, 2);
-
-            // $table->string('payment_method');
-            // $table->string('payment_status');
-            // $table->text('payment_details')->nullable();
-            // $table->text('notes')->nullable();
-            // $table->timestamp('paid_at')->nullable();
-            // $table->timestamp('shipped_at')->nullable();
-            // $table->timestamp('completed_at')->nullable();
-            // $table->timestamp('declined_at')->nullable();
-            // $table->timestamp('canceled_at')->nullable();
-            // $table->timestamp('refunded_at')->nullable();
-            // $table->timestamp('archived_at')->nullable();
-
         });
     }
 
