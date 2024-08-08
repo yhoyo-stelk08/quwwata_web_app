@@ -20,6 +20,7 @@ const CheckoutPage = ({ orderItems }) => {
     zip_code: "",
     remark: "",
     orderItems: orderItems || [],
+    payment_method: "",
     totalAmount: 0,
   });
   const { emptyCart, cartTotal } = useCart();
@@ -102,21 +103,25 @@ const CheckoutPage = ({ orderItems }) => {
       ...data,
       phone_number: countryDialCode.current + data.phone_number,
       orderItems: orderItems,
-      payment_method: "paypal",
       totalAmount: cartTotal,
     };
 
-    router.post(route("checkout.order"), formData, {
+    const response = router.post(route("checkout.order"), formData, {
       forceFormData: true,
       onError: (errors) => {
         console.log(errors);
       },
     });
 
-    router.post(route("paypal.payment"), { total: cartTotal });
+    // console.log("response: ", response);
+    // if (data.payment_method === "paypal") {
+    //   router.post(route("paypal.payment"), { total: cartTotal });
+    // } else if (data.payment_method === "stripe") {
+    //   router.post(route("stripe.payment"), { total: cartTotal });
+    // }
 
     // empty the cart
-    emptyCart();
+    // emptyCart();
   };
 
   const handleChange = useCallback(
@@ -173,6 +178,8 @@ const CheckoutPage = ({ orderItems }) => {
                         type="radio"
                         id="payment_method"
                         name="payment_method"
+                        onChange={handleChange}
+                        value={"paypal"}
                       />
                       <label
                         htmlFor="payment_method"
@@ -187,6 +194,8 @@ const CheckoutPage = ({ orderItems }) => {
                         type="radio"
                         id="payment_method"
                         name="payment_method"
+                        onChange={handleChange}
+                        value={"stripe"}
                       />
                       <label
                         htmlFor="payment_method"
