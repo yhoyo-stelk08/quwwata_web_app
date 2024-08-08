@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Gateway\PaypalController;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Models\Customer;
-use App\Models\Orders;
+use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 
 class CartController extends Controller
 {
@@ -41,23 +42,39 @@ class CartController extends Controller
 
         $customer = Customer::create($validated_data);
 
+        $order = new Order([
+            'customer_id' => $customer->id,
+            'status' => 'pending',
+            'order_notes' => $remark,
+            'payment_method' => $payment_method,
+        ]);
+        $order->save();
+
+        // handle order items
         foreach ($orderItems as $orderItem) {
-            $order = new Orders([
-                'customer_id' => $customer->id,
+            OrderItem::create([
+                'order_id' => $order->id,
                 'product_id' => $orderItem['product_id'],
                 'quantity' => $orderItem['quantity'],
                 'sub_total' => $orderItem['quantity'] * $orderItem['price'],
                 'discount' => 0,
                 'total' => $orderItem['itemTotal'],
-                'status' => 'pending',
-                'order_notes' => $remark,
                 'draw_weight' => $orderItem['draw_weight'],
                 'arrow_pass' => $orderItem['arrow_pass'],
-                'payment_method' => $payment_method,
             ]);
-            $order->save();
         }
 
-        return redirect()->route('paypal.payment', ['total' => $totalAmount]);
+        return $this->redirectToPaymentGateway($payment_method, $order);
+    }
+
+    private function redirectToPaymentGateway($payment_method, $order)
+    {
+        $totalAmount = $order->orderItems->sum('total');
+
+        if ($payment_method == 'stripe') {
+            return redirect()->route('stripe.payment', ['total' => $totalAmount, 'order_id' => $order->id]);
+        } else if ($payment_method == 'paypal') {
+            return app(PaypalController::class)->payment(new Request(['total' => $totalAmount, 'order_id' => $order->id]));
+        }
     }
 }
