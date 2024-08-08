@@ -3,6 +3,7 @@
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\Gateway\PaypalController;
+use App\Http\Controllers\Gateway\StripeController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -60,10 +61,16 @@ Route::post('cart', [CartController::class, 'cart'])->name('cart');
 Route::post('checkout', [CartController::class, 'checkout'])->name('checkout');
 Route::post('checkout/order', [CartController::class, 'order'])->name('checkout.order');
 
-// route to paypal 
+// route to paypal payment gateway
 Route::post('paypal/payment', [PaypalController::class, 'payment'])->name('paypal.payment');
 Route::get('paypal/success', [PaypalController::class, 'success'])->name('paypal.success');
 Route::get('paypal/cancel', [PaypalController::class, 'cancel'])->name('paypal.cancel');
+Route::get('paypal/receipt/{transactionId}', [PaypalController::class, 'getReceipt'])->name('paypal.receipt');
+
+// route to stripe payment gateway
+Route::post('stripe/payment', [StripeController::class, 'payment'])->name('stripe.payment');
+Route::get('stripe/success', [StripeController::class, 'success'])->name('stripe.success');
+Route::get('stripe/cancel', [StripeController::class, 'cancel'])->name('stripe.cancel');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
