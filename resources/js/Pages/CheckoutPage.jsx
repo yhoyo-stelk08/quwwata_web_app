@@ -121,7 +121,7 @@ const CheckoutPage = ({ orderItems }) => {
     // }
 
     // empty the cart
-    // emptyCart();
+    emptyCart();
   };
 
   const handleChange = useCallback(
