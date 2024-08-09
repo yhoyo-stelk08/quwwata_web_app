@@ -2,10 +2,14 @@ import BillingDetailsForm from "@/Components/BillingDetailsForm";
 import Cart from "@/Components/Cart";
 import AppLayout from "@/Layouts/AppLayout";
 import { router, useForm } from "@inertiajs/react";
+import { loadStripe } from "@stripe/stripe-js";
+// import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { FaPaypal, FaStripe } from "react-icons/fa";
 import { useCart } from "react-use-cart";
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
 const CheckoutPage = ({ orderItems }) => {
   const { data, setData, errors, clearErrors, processing } = useForm({
@@ -28,6 +32,27 @@ const CheckoutPage = ({ orderItems }) => {
   const cityOptions = useRef([]);
   const provinceOptions = useRef([]);
   const countryDialCode = useRef("");
+  const [clientSecret, setClientSecret] = useState("");
+
+  // fetch stripe client secret from API
+  useEffect(() => {
+    if (data.payment_method === "stripe") {
+      axios
+        .get("/api/create-payment-intent", {
+          params: {
+            amount: data.totalAmount, // Make sure to pass the correct amount
+          },
+        })
+        .then((response) => {
+          setClientSecret(response.data.clientSecret);
+        })
+        .catch((error) => {
+          console.error("Error creating payment intent:", error);
+        });
+    }
+  }, [data.payment_method]);
+
+  console.log("clientSecret", clientSecret);
 
   // Fetch country list from API
   useEffect(() => {
