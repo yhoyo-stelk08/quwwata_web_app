@@ -23,7 +23,7 @@ const CheckoutPage = ({ orderItems }) => {
     payment_method: "",
     totalAmount: 0,
   });
-  const { emptyCart, cartTotal } = useCart();
+  const { cartTotal } = useCart();
   const countryOptions = useRef([]);
   const cityOptions = useRef([]);
   const provinceOptions = useRef([]);
@@ -112,16 +112,6 @@ const CheckoutPage = ({ orderItems }) => {
         console.log(errors);
       },
     });
-
-    // console.log("response: ", response);
-    // if (data.payment_method === "paypal") {
-    //   router.post(route("paypal.payment"), { total: cartTotal });
-    // } else if (data.payment_method === "stripe") {
-    //   router.post(route("stripe.payment"), { total: cartTotal });
-    // }
-
-    // empty the cart
-    emptyCart();
   };
 
   const handleChange = useCallback(

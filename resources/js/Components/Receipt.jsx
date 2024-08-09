@@ -1,5 +1,15 @@
 import { Link } from "@inertiajs/react";
+import { useEffect } from "react";
+import { useCart } from "react-use-cart";
+
 const Receipt = ({ transactionId, amount, order }) => {
+  const { emptyCart } = useCart();
+
+  // empty the cart after the transaction
+  useEffect(() => {
+    emptyCart();
+  }, []);
+
   return (
     <div className="flex flex-col items-center justify-center py-8 bg-green-50">
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg text-center">
@@ -23,7 +33,7 @@ const Receipt = ({ transactionId, amount, order }) => {
           ))}
         </ul>
         <Link
-          href="/"
+          href={route("products")}
           className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700"
         >
           Continue Shopping
