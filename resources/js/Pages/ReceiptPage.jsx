@@ -1,10 +1,10 @@
 import Receipt from "@/Components/Receipt";
 import AppLayout from "@/Layouts/AppLayout";
 
-export default function ReceiptPage() {
+export default function ReceiptPage({ transactionId, amount, order }) {
   return (
     <AppLayout>
-      <Receipt />
+      <Receipt transactionId={transactionId} amount={amount} order={order} />
     </AppLayout>
   );
 }
