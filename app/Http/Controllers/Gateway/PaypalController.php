@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Gateway;
 
 use App\Http\Controllers\Controller;
+use App\Mail\PaymentSuccessMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use App\Models\Order;
@@ -66,6 +68,7 @@ class PaypalController extends Controller
         if (isset($response['status']) && $response['status'] == 'COMPLETED') {
             $capture = $response['purchase_units'][0]['payments']['captures'][0];
             $transactionId = $capture['id'];
+            $amount = $capture['amount']['value'];
 
             // Find the order by ID and update it with the transaction ID and status
             $order = Order::find($orderId);
@@ -74,11 +77,21 @@ class PaypalController extends Controller
                 $order->status = 'completed';
                 $order->save();
                 Log::info("Order updated: ", $order->toArray());
+
+                // Send the payment success email to the customer
+                Mail::to($order->customer->email)->send(new PaymentSuccessMail($order, $transactionId, $amount));
+
+                Log::info("Order updated and email sent: ", $order->toArray());
             } else {
                 Log::error("Order not found with ID: $orderId");
             }
 
-            return redirect()->route('paypal.receipt', ['transactionId' => $transactionId]);
+            // return redirect()->route('paypal.receipt', ['transactionId' => $transactionId]);
+            return Inertia::render('ReceiptPage', [
+                'transactionId' => $transactionId,
+                'amount' => $amount,
+                'order' => $order
+            ]);
         }
 
         return redirect()->route('/')->with('error', 'Payment failed.');
@@ -104,12 +117,12 @@ class PaypalController extends Controller
         $provider->setApiCredentials(config('paypal'));
         $provider->getAccessToken();
 
-        $response = $provider->showOrderDetails($transactionId);
+        $response = $provider->showCapturedPaymentDetails($transactionId);
 
         Log::info('PayPal Order Details Response:', $response);
 
         if (isset($response['id']) && $response['status'] == 'COMPLETED') {
-            return Inertia::render('Receipt', [
+            return Inertia::render('ReceiptPage', [
                 'transaction' => $response
             ]);
         }
