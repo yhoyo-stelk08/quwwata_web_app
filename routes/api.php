@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\StripePaymentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\GalleryApiController;
@@ -14,3 +15,5 @@ Route::get('all-gallery-data', [GalleryApiController::class, 'allGalleryData'])-
 Route::get('all-products', [ProductApiController::class, 'allProductData'])->name('all-products');
 Route::get('products-categories/{category}', [ProductApiController::class, 'ProductPerCategory'])->name('products-categories');
 Route::get('products-details/{id}', [ProductApiController::class, 'ProductDetails'])->name('products-details');
+
+Route::get('create-payment-intent', [StripePaymentController::class, 'createPaymentIntent'])->name('create-payment-intent');
