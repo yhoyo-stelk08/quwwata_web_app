@@ -6,7 +6,7 @@ use App\Http\Requests\StoreProductsRequest;
 use App\Http\Requests\UpdateProductsRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\ProductImage;
-use App\Models\Products;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -20,7 +20,7 @@ class ProductsController extends Controller
         \Log::debug('Entering Products Index Method');
 
         // Eager load product_images and apply search and sorting
-        $query = Products::with('product_images');
+        $query = Product::with('product_images');
 
         // Add sorting
         if ($request->has('sort_by') && $request->has('sort_direction')) {
@@ -80,7 +80,7 @@ class ProductsController extends Controller
         unset($validated_data['product_images']);
 
         // Create the product
-        $product = Products::create($validated_data);
+        $product = Product::create($validated_data);
 
         // Handle product images
         if ($request->hasFile('product_images')) {
@@ -103,7 +103,7 @@ class ProductsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Products $manage_product)
+    public function show(Product $manage_product)
     {
         $manage_product->load('product_images');
         return inertia('Products/Show', [
@@ -114,7 +114,7 @@ class ProductsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Products $manage_product)
+    public function edit(Product $manage_product)
     {
         $manage_product->load('product_images');
         return inertia('Products/Edit', [
@@ -125,7 +125,7 @@ class ProductsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductsRequest $request, Products $manage_product)
+    public function update(UpdateProductsRequest $request, Product $manage_product)
     {
         \Log::debug('Update method called for product ID:', [$manage_product->id]);
 
@@ -205,7 +205,7 @@ class ProductsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Products $manage_product)
+    public function destroy(Product $manage_product)
     {
         try {
             \Log::debug('Deleting product with ID:', [$manage_product->id]);

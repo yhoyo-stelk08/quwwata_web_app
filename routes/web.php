@@ -31,7 +31,7 @@ Route::get('/products/{category}', function ($category) {
 // route to ProductDetailsPage
 Route::get('/product-details/{category}/{id}', function ($category, $id) {
     // Fetch the product name from the database based on the id
-    $product = \App\Models\Products::find($id);
+    $product = \App\Models\Product::find($id);
     return Inertia::render('ProductDetailsPage', [
         'id' => $id,
         'category' => $category,

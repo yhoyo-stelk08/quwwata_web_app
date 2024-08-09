@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Products extends Model
+class Product extends Model
 {
     use HasFactory;
 
@@ -19,9 +19,9 @@ class Products extends Model
         return $this->hasMany(ProductImage::class, 'product_id', 'id');
     }
 
-    public function orders()
+    public function orderItems(): HasMany
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(OrderItem::class);
     }
 
     public function scopeSearch(Builder $query, $search): Builder
