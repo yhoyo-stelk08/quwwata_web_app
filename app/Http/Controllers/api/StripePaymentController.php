@@ -12,10 +12,10 @@ class StripePaymentController extends Controller
 {
     public function createPaymentIntent(Request $request)
     {
-        Stripe::setApiKey(env('STRIPE_SECRET'));
+        Stripe::setApiKey(config('stripe.secret_key'));
 
         $paymentIntent = PaymentIntent::create([
-            'amount' => $request->amount,
+            'amount' => $request->amount * 100,
             'currency' => 'usd',
             'automatic_payment_methods' => [
                 'enabled' => true,

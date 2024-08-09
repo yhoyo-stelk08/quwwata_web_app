@@ -1,6 +1,6 @@
 <?php
 
 return [
-  'STRIPE_PUBLIC_KEY' => env('STRIPE_KEY'),
-  'STRIPE_SECRET_KEY' => env('STRIPE_SECRET'),
+  'public_key' => env('VITE_STRIPE_PUBLIC_KEY'), // Use the correct key name from .env
+  'secret_key' => env('STRIPE_SECRET'),
 ];
