@@ -26,4 +26,19 @@ class Order extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
+
+    public function getSubTotalAttribute()
+    {
+        return $this->orderItems->sum('sub_total');
+    }
+
+    public function getDiscountAttribute()
+    {
+        return $this->orderItems->sum('discount');
+    }
+
+    public function getTotalAttribute()
+    {
+        return $this->orderItems->sum('total');
+    }
 }
