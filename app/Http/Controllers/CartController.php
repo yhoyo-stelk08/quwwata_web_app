@@ -37,10 +37,8 @@ class CartController extends Controller
         $payment_method = $validated_data['payment_method'];
         unset($validated_data['payment_method']);
 
-        $totalAmount = $validated_data['totalAmount'];
-        unset($validated_data['totalAmount']);
-
-        $customer = Customer::create($validated_data);
+        // create or find customer
+        $customer = Customer::firstOrCreate(['email' => $validated_data['email']], $validated_data);
 
         $order = new Order([
             'customer_id' => $customer->id,
