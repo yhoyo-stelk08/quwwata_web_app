@@ -27,4 +27,9 @@ export default defineConfig({
     },
     chunkSizeWarningLimit: 1000, // Adjust the chunk size warning limit if needed
   },
+  define: {
+    "process.env": {
+      STRIPE_PUBLIC_KEY: JSON.stringify(process.env.STRIPE_PUBLIC_KEY),
+    },
+  },
 });
