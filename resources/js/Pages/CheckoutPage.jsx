@@ -106,7 +106,7 @@ const CheckoutPage = ({ orderItems }) => {
       totalAmount: cartTotal,
     };
 
-    const response = router.post(route("checkout.order"), formData, {
+    router.post(route("checkout.order"), formData, {
       forceFormData: true,
       onError: (errors) => {
         console.log(errors);
