@@ -79,8 +79,14 @@ class CartController extends Controller
         } else if ($payment_method == 'paypal') {
             return app(PaypalController::class)->payment(new Request(['total' => $totalAmount, 'order_id' => $order->id]));
         } else {
-            dd($order);
-            return app(MidtransController::class)->payment(new Request(['total' => $totalAmount, 'order_id' => $order->id]));
+            $freecurencyapi = new \FreeCurrencyApi\FreeCurrencyApi\FreeCurrencyApiClient('fca_live_vALbVe4AOZ0JzQruSMfYCEB5domW0nuimDRSGkwa');
+            $result = $freecurencyapi->latest([
+                'base_currency' => 'USD',
+                'currencies' => 'IDR',
+            ]);
+            $usdToIdr = $result['data']['IDR'];
+
+            return app(MidtransController::class)->payment(new Request(['total' => $totalAmount, 'convert_value' => ceil($usdToIdr), 'order_id' => $order->id]));
         }
     }
 }
