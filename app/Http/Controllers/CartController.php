@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\api\StripePaymentController;
 use App\Http\Controllers\Gateway\PaypalController;
+use App\Http\Controllers\Gateway\StripeController;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Models\Customer;
 use App\Models\Order;
@@ -72,7 +74,8 @@ class CartController extends Controller
         $totalAmount = $order->orderItems->sum('total');
 
         if ($payment_method == 'stripe') {
-            return redirect()->route('stripe.payment', ['total' => $totalAmount, 'order_id' => $order->id]);
+            // return redirect()->route('stripe.payment', ['total' => $totalAmount, 'order_id' => $order->id]);
+            return app(StripeController::class)->payment(new Request(['total' => $totalAmount, 'order_id' => $order->id]));
         } else if ($payment_method == 'paypal') {
             return app(PaypalController::class)->payment(new Request(['total' => $totalAmount, 'order_id' => $order->id]));
         }
