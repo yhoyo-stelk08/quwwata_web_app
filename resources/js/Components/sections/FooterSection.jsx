@@ -8,7 +8,7 @@ const FooterSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false });
   return (
-    <section className="w-full h-64 my-4">
+    <section className="w-full h-64 my-4 mt-auto">
       <div className="flex flex-col w-full h-fit px-6 mt-4 justify-center items-center bg-slate-500">
         <motion.div
           className="flex flex-row max-w-4xl mt-12"
