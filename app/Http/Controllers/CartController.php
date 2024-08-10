@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\api\StripePaymentController;
+use App\Http\Controllers\Gateway\MidtransController;
 use App\Http\Controllers\Gateway\PaypalController;
 use App\Http\Controllers\Gateway\StripeController;
 use App\Http\Requests\StoreCustomerRequest;
@@ -78,6 +78,9 @@ class CartController extends Controller
             return app(StripeController::class)->payment(new Request(['total' => $totalAmount, 'order_id' => $order->id]));
         } else if ($payment_method == 'paypal') {
             return app(PaypalController::class)->payment(new Request(['total' => $totalAmount, 'order_id' => $order->id]));
+        } else {
+            dd($order);
+            return app(MidtransController::class)->payment(new Request(['total' => $totalAmount, 'order_id' => $order->id]));
         }
     }
 }

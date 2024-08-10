@@ -195,6 +195,21 @@ const CheckoutPage = ({ orderItems }) => {
                         Stripe
                       </label>
                     </li>
+                    <li className="flex gap-2 items-center">
+                      <input
+                        type="radio"
+                        id="payment_method"
+                        name="payment_method"
+                        onChange={handleChange}
+                        value={"midtrans"}
+                      />
+                      <label
+                        htmlFor="payment_method"
+                        className="flex gap-1 items-center justify-start text-slate-200"
+                      >
+                        Midtrans
+                      </label>
+                    </li>
                   </ul>
                 </div>
                 <div>
