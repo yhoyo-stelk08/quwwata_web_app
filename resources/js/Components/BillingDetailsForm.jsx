@@ -88,6 +88,7 @@ const BillingDetailsForm = React.memo(
               options={countryOptions}
               isClearable
               isSearchable
+              required
               className="text-slate-900"
               id="country"
               onChange={(selected) => handleSelectChange("country", selected)}
@@ -107,6 +108,7 @@ const BillingDetailsForm = React.memo(
               options={provinceOptions}
               isClearable
               isSearchable
+              required
               id="province"
               className="text-slate-900"
               onChange={(selected) => handleSelectChange("province", selected)}
@@ -126,6 +128,7 @@ const BillingDetailsForm = React.memo(
               options={cityOptions}
               isClearable
               isSearchable
+              required
               id="city"
               className="text-slate-900"
               onChange={(selected) => handleSelectChange("city", selected)}
