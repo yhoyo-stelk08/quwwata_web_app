@@ -153,15 +153,18 @@ const CheckoutPage = ({ orderItems }) => {
               countryDialCode={countryDialCode.current}
             />
             {/* Cart Summary */}
-            <div className="w-full border border-red-500 my-4 md:my-0 mx-auto flex flex-col justify-start items-center">
+            <div className="w-full p-4 my-4 md:my-0 mx-auto flex flex-col justify-start items-center bg-gradient-to-b from-slate-600 to-slate-800 rounded">
               <div className="mt-2 p-4 w-full flex flex-col justify-center items-center">
                 <h3 className="text-white font-quicksand text-xl">
                   Your Orders
                 </h3>
-                <div className="border border-blue-500 w-full">
+                <div className="w-full">
                   <Cart proceedToCheckout={true} />
                 </div>
-                <div className="w-full p-4">
+                <div className="w-full p-4 mt-8 flex flex-col gap-4 items-center justify-center md:justify-center md:items-start">
+                  <h3 className="md:text-center text-slate-200 font-bold text-xl">
+                    Payment Method
+                  </h3>
                   <ul>
                     <li className="flex gap-2 items-center">
                       <input
@@ -192,7 +195,7 @@ const CheckoutPage = ({ orderItems }) => {
                         className="flex gap-1 items-center justify-start text-slate-200"
                       >
                         <FaStripe color="blue" />
-                        Stripe
+                        Stripe (pay with credit card)
                       </label>
                     </li>
                     <li className="flex gap-2 items-center">
@@ -207,7 +210,7 @@ const CheckoutPage = ({ orderItems }) => {
                         htmlFor="payment_method"
                         className="flex gap-1 items-center justify-start text-slate-200"
                       >
-                        Midtrans
+                        Midtrans ( for local indonesia only )
                       </label>
                     </li>
                   </ul>

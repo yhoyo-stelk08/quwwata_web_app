@@ -27,4 +27,7 @@ export default defineConfig({
     },
     chunkSizeWarningLimit: 1000, // Adjust the chunk size warning limit if needed
   },
+  server: {
+    cors: true,
+  },
 });
