@@ -4,6 +4,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\Gateway\PaypalController;
 use App\Http\Controllers\Gateway\StripeController;
+use App\Http\Controllers\Gateway\MidtransController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -71,6 +72,11 @@ Route::get('paypal/receipt/{transactionId}', [PaypalController::class, 'getRecei
 Route::post('stripe/payment', [StripeController::class, 'payment'])->name('stripe.payment');
 Route::get('stripe/success', [StripeController::class, 'success'])->name('stripe.success');
 Route::get('stripe/cancel', [StripeController::class, 'cancel'])->name('stripe.cancel');
+
+// route to midtrans payment gateway
+Route::post('midtrans/payment', [MidtransController::class, 'payment'])->name('midtrans.payment');
+Route::get('midtrans/success', [MidtransController::class, 'success'])->name('midtrans.success');
+Route::get('midtrans/cancel', [MidtransController::class, 'cancel'])->name('midtrans.cancel');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
