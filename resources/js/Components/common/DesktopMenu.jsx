@@ -250,7 +250,7 @@ const DesktopMenu = () => {
             </li>
           </ul>
           <div className="relative items-center hidden md:flex space-x-4">
-            <Link className="text-slate-200">
+            <Link className="text-slate-200" href={route("login")}>
               <FaUser className="h-5 w-5" />
             </Link>
             <div className="relative flex items-center">
