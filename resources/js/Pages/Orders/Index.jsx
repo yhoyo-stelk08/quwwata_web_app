@@ -1,6 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { router } from "@inertiajs/react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useDebounce } from "use-debounce";
 
 export default function OrderIndex({
@@ -108,7 +109,28 @@ export default function OrderIndex({
         </h2>
       }
     >
-      Order
+      <div className="bg-gray-100 py-10">
+        <div className="mx-auto max-w-7xl">
+          <div className="px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col justify-start items-center sm:flex-row mt-6 w-full">
+              <div className="relative text-sm text-gray-800 col-span-3 w-1/2">
+                <div className="absolute pl-2 left-0 top-0 bottom-0 flex items-center pointer-events-none text-gray-500">
+                  <FaMagnifyingGlass />
+                </div>
+                <input
+                  onChange={handleChange}
+                  value={searchTerm}
+                  type="text"
+                  autoComplete="off"
+                  placeholder="Search Item..."
+                  id="search"
+                  className="block w-full rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </AuthenticatedLayout>
   );
 }
