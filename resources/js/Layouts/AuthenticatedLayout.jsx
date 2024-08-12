@@ -48,8 +48,8 @@ export default function Authenticated({ user, header, children }) {
               </div>
               <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                 <NavLink
-                  href={route("order.index")}
-                  active={route().current("order.index")}
+                  href={route("orders.index")}
+                  active={route().current("orders.index")}
                 >
                   Order
                 </NavLink>

@@ -95,7 +95,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('manage-products', ProductsController::class);
 
     // Route for managing order
-    Route::get('orders', [OrderController::class, 'index'])->name('order.index');
+    Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
 });
 
 require __DIR__ . '/auth.php';
