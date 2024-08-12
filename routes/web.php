@@ -5,6 +5,7 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\Gateway\PaypalController;
 use App\Http\Controllers\Gateway\StripeController;
 use App\Http\Controllers\Gateway\MidtransController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -92,6 +93,9 @@ Route::middleware('auth')->group(function () {
 
     // Route for managing products
     Route::resource('manage-products', ProductsController::class);
+
+    // Route for managing order
+    Route::get('orders', [OrderController::class, 'index'])->name('order.index');
 });
 
 require __DIR__ . '/auth.php';
