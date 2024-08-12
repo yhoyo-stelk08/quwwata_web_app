@@ -10,10 +10,6 @@ trait OrderTrait
             'id' => $model->id,
             'customer' => [
                 'id' => $model->customer->id,
-                'first_name' => $model->customer->first_name,
-                'last_name' => $model->customer->last_name,
-                'email' => $model->customer->email,
-                'phone_number' => $model->customer->phone_number,
                 'address' => $model->customer->address,
                 'city' => $model->customer->city,
                 'province' => $model->customer->province,
@@ -22,6 +18,7 @@ trait OrderTrait
             ],
             'customer_name' => $model->customer->first_name . ' ' . $model->customer->last_name,
             'customer_email' => $model->customer->email,
+            'customer_phone' => $model->customer->phone_number,
             'payment_status' => $model->status,
             'order_notes' => $model->order_notes,
             'payment_method' => $model->payment_method,
@@ -37,6 +34,7 @@ trait OrderTrait
                     'total' => $item->total,
                     'draw_weight' => $item->draw_weight,
                     'arrow_pass' => $item->arrow_pass,
+                    'remark' => $this->generateRemark($item),
                 ];
             }),
             'sub_total' => $model->sub_total,
@@ -50,5 +48,11 @@ trait OrderTrait
     private function formatDate($date)
     {
         return $date ? \Carbon\Carbon::parse($date)->format('Y-m-d H:i') : null;
+    }
+
+    private function generateRemark($item)
+    {
+        $remarks = "Draw Weight: " . $item->draw_weight . ", Color: " . $item->arrow_pass;
+        return $remarks;
     }
 }
