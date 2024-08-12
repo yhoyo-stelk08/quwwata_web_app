@@ -17,7 +17,7 @@ class StripeController extends Controller
     public function payment(Request $request)
     {
         // Get the total and order_id from the request
-        $amount = $request->input('total'); // Amount should be in cents (e.g., $10.00 = 1000 cents)
+        $amount = $request->input('total');
         $orderId = $request->input('order_id');
 
         // Set your Stripe secret key
@@ -28,10 +28,8 @@ class StripeController extends Controller
 
         if (!$order) {
             // to do create page order not found
-            return redirect()->route('/')->with('error', 'Order not found.');
+            return redirect()->route('/')->with('message', ['type' => 'error', 'body' => 'Order not found.']);
         }
-
-        // dd($order);
 
         // Create line items for each product in the order
         $lineItems = [];
@@ -40,15 +38,13 @@ class StripeController extends Controller
                 'price_data' => [
                     'currency' => 'usd',
                     'product_data' => [
-                        'name' => $item->product->name, // Assuming you have a product relationship
+                        'name' => $item->product->name,
                     ],
                     'unit_amount' => ($item->total / $item->quantity) * 100, // Amount in cents
                 ],
                 'quantity' => $item->quantity,
             ];
         }
-
-        // dd($lineItems);
 
         // Create a Checkout Session
         $session = StripeSession::create([
@@ -102,13 +98,13 @@ class StripeController extends Controller
                     'transactionId' => $transactionId,
                     'amount' => $amount,
                     'order' => $order
-                ]);
+                ])->with('message', ['type' => 'success', 'body' => 'Payment Successful']);
             } else {
                 Log::error("Order not found with ID: $orderId");
             }
         }
 
-        return redirect()->route('/')->with('error', 'Payment failed.');
+        return redirect()->route('/')->with('message', ['type' => 'error', 'body' => 'Payment Failed']);
     }
     public function cancel(Request $request)
     {
@@ -120,6 +116,6 @@ class StripeController extends Controller
             $order->save();
         }
 
-        return redirect()->route('/')->with('error', 'Payment was cancelled.');
+        return redirect()->route('/')->with('message', ['type' => 'error', 'body' => 'Payment Canceled']);
     }
 }

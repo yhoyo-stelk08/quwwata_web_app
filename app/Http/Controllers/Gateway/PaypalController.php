@@ -44,7 +44,7 @@ class PaypalController extends Controller
                 }
             }
         } else {
-            return redirect()->route('/')->with('error', 'Payment failed.');
+            return redirect()->route('/')->with('message', ['type' => 'error', 'body' => 'Paypal payment failed.']);
         }
     }
 
@@ -86,15 +86,14 @@ class PaypalController extends Controller
                 Log::error("Order not found with ID: $orderId");
             }
 
-            // return redirect()->route('paypal.receipt', ['transactionId' => $transactionId]);
             return Inertia::render('ReceiptPage', [
                 'transactionId' => $transactionId,
                 'amount' => $amount,
                 'order' => $order
-            ]);
+            ])->with('message', ['type' => 'success', 'body' => 'Payment Successful']);
         }
 
-        return redirect()->route('/')->with('error', 'Payment failed.');
+        return redirect()->route('/')->with('message', ['type' => 'error', 'body' => 'Paypal payment failed.']);
     }
 
 
@@ -108,7 +107,7 @@ class PaypalController extends Controller
             $order->save();
         }
 
-        return redirect()->route('/')->with('error', 'Payment was cancelled.');
+        return redirect()->route('/')->with('message', ['type' => 'error', 'body' => 'Payment Canceled']);
     }
 
     public function getReceipt($transactionId)
@@ -127,6 +126,6 @@ class PaypalController extends Controller
             ]);
         }
 
-        return redirect()->route('/')->with('error', 'Transaction not found or not completed.');
+        return redirect()->route('/')->with('message', ['type' => 'error', 'body' => 'Transaction not found or invalid.']);
     }
 }

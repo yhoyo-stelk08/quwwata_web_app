@@ -31,8 +31,7 @@ class MidtransController extends Controller
         $convert_value = $request->convert_value;
 
         if (!$order) {
-            // Todo create page order not found
-            return redirect()->route('/')->with('error', 'Order not found.');
+            return redirect()->route('/')->with('message', ['type' => 'error', 'body' => 'Order not found.']);
         }
 
         // Generate a new unique transaction id by appending a timestamp or a unique identifier
@@ -94,10 +93,10 @@ class MidtransController extends Controller
                 'transactionId' => $transactionId,
                 'amount' => $amount,
                 'order' => $order
-            ]);
+            ])->with('message', ['type' => 'success', 'body' => 'Payment Successful']);
         }
 
-        return Inertia::location('checkout')->with('error', 'Payment failed.');
+        return Inertia::location('checkout')->with('message', ['type' => 'error', 'body' => 'Payment Declined.']);
     }
 
     public function cancel(Request $request)
@@ -110,6 +109,6 @@ class MidtransController extends Controller
             $order->save();
         }
 
-        return Inertia::location('checkout')->with('error', 'Payment failed.');
+        return Inertia::location('checkout')->with('message', ['type' => 'error', 'body' => 'Payment Canceled']);
     }
 }
