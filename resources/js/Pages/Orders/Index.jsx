@@ -32,6 +32,29 @@ export default function OrderIndex({
     setSearchTerm(_searchTerm);
   };
 
+  // handle value of page number
+  const updatedPageNumber = (link) => {
+    setPageNumber(link.url.split("=")[1]);
+  };
+
+  // function to handle sorting of column
+  const handleSort = (column) => {
+    if (sortBy === column) {
+      // Cycle through the three states
+      if (sortDirection === "asc") {
+        setSortDirection("desc");
+      } else if (sortDirection === "desc") {
+        setSortBy("");
+        setSortDirection("");
+      } else {
+        setSortDirection("asc");
+      }
+    } else {
+      setSortBy(column);
+      setSortDirection("asc");
+    }
+  };
+
   return (
     <AuthenticatedLayout
       user={auth.user}
