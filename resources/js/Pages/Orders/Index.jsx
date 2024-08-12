@@ -1,5 +1,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { useRef, useState } from "react";
+import { router } from "@inertiajs/react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useDebounce } from "use-debounce";
 
 export default function OrderIndex({
@@ -54,6 +55,49 @@ export default function OrderIndex({
       setSortDirection("asc");
     }
   };
+
+  const orderUrl = useMemo(() => {
+    const url = new URL(route("order.index"));
+
+    if (pageNumber) url.searchParams.set("page", pageNumber);
+
+    if (debouncedSearchTerm) {
+      url.searchParams.set("search", debouncedSearchTerm);
+      if (debouncedSearchTerm !== previousSearchTerm.current) {
+        setPageNumber("1");
+        previousSearchTerm.current = debouncedSearchTerm;
+      }
+    }
+
+    if (sortBy) {
+      url.searchParams.set("sort_by", sortBy);
+      if (sortDirection) {
+        url.searchParams.set("sort_direction", sortDirection);
+      }
+    }
+    return url;
+  }, [
+    debouncedSearchTerm,
+    pageNumber,
+    sortBy,
+    sortDirection,
+    previousSearchTerm,
+  ]);
+
+  useEffect(() => {
+    // prevent the infinite loop caused by visiting orderUrl
+    if (isInitialRender.current) {
+      isInitialRender.current = false;
+      return;
+    }
+
+    // manual visit the order url whenever it changed
+    router.visit(orderUrl, {
+      preserveScroll: true,
+      preserveState: true,
+      replace: true,
+    });
+  }, []);
 
   return (
     <AuthenticatedLayout
