@@ -14,6 +14,7 @@ export default function OrderIndex({
         "Transaction Id",
         "Customer Name",
         "Customer Email",
+        "Customer Phone",
         "Payment Status",
         "Payment Method",
         "Total Payment",
@@ -23,6 +24,7 @@ export default function OrderIndex({
       sort_direction={sort_direction}
       tableData={orderData}
       indexRoute={"orders.index"}
+      showRoute={"orders.show"}
       objectKey={"order"}
       isAddBtnVisible={false}
       headerTitle={"Manage Orders"}
