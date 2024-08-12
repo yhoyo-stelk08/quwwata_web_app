@@ -54,12 +54,12 @@ const HeroSection = () => {
         </div>
         {/* CTA div */}
         <div className="flex flex-col md:flex-row gap-4 mb-6 justify-center items-center md:justify-normal pl-10">
-          <Link
+          {/* <Link
             className="inline-block mt-4 pl-0 py-1 text-slate-200 hover:text-slate-300 active:text-slate-200 md:text-base"
             href="#"
           >
             Join the Community
-          </Link>
+          </Link> */}
           <Link
             className="inline-block mt-4 md:mt-2 rounded-xl text-slate-200 py-1 px-4 font-bold bg-gradient-to-br from-slate-600 to-slate-200 hover:bg-gradient-to-r hover:from-slate-800 hover:to-slate-300 md:text-base"
             href={route("products")}
