@@ -37,4 +37,21 @@ class OrderController extends Controller
             'sort_direction' => $request->sort_direction ?? "",
         ]);
     }
+
+    public function show(Order $order)
+    {
+        \Log::debug('Entering Orders Show Method');
+
+        // Load the order with customer and orderItems
+        $order->load(['customer', 'orderItems.product']);
+        \Log::debug('Order Data', $order->toArray());
+
+        // Transform the order data using OrderResource
+        $orderData = new OrderResource($order);
+        \Log::debug('Transformed Order Data', $orderData->toArray(request()));
+
+        return inertia('Orders/Show', [
+            'orderData' => $orderData,
+        ]);
+    }
 }
