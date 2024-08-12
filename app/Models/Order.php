@@ -54,12 +54,12 @@ class Order extends Model
                 ->orWhereHas('customer', function ($q) use ($search) {
                     $q->where('first_name', 'like', '%' . $search . '%')
                         ->orWhere('last_name', 'like', '%' . $search . '%');
+                })
+                ->orWhereHas('orderItems', function ($q) use ($search) {
+                    $q->whereHas('product', function ($q) use ($search) {
+                        $q->where('name', 'like', '%' . $search . '%');
+                    });
                 });
-            // ->orWhereHas('orderItems', function ($q) use ($search) {
-            //     $q->whereHas('product', function ($q) use ($search) {
-            //         $q->where('name', 'like', '%' . $search . '%');
-            //     });
-            // });
         }
 
 
