@@ -14,6 +14,11 @@ class OrderController extends Controller
 
         $query = Order::with(['customer', 'orderItems.product']);
 
+        // Apply search
+        if ($request->has('search')) {
+            $query->search($request->get('search'));
+        }
+
         // Add sorting
         if ($request->has('sort_by') && $request->has('sort_direction')) {
             $query->orderBy($request->get('sort_by'), $request->get('sort_direction'));
