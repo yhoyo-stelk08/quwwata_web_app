@@ -52,7 +52,7 @@ class MidtransController extends Controller
             'item_details' => $order->orderItems->map(function ($item) use ($convert_value) {
                 return [
                     'id' => $item->id,
-                    'price' => $item->total * $convert_value,
+                    'price' => ($item->total / $item->quantity) * $convert_value,
                     'quantity' => $item->quantity,
                     'name' => $item->product->name,
                 ];
