@@ -13,7 +13,13 @@ class ContactController extends Controller
     {
         \Log::debug('Entering Contacts Index Method');
 
-        $query = Contact::search($request);
+        // Start building the query
+        $query = Contact::query();
+
+        // Apply search
+        if ($request->has('search')) {
+            $query->search($request->search);
+        }
 
         // Add sorting
         if ($request->has('sort_by') && $request->has('sort_direction')) {
@@ -24,7 +30,6 @@ class ContactController extends Controller
         }
 
         $contacts = $query->paginate(10);
-
         $contactsData = ContactResource::collection($contacts);
 
         \Log::info('Contacts Data', ['Contacts Data' => $contactsData]);
@@ -39,6 +44,22 @@ class ContactController extends Controller
 
     public function store(ContactRequest $request)
     {
+        \Log::debug('Entering Contacts Store Method');
+        try {
+            // validating the request
+            $validated_data = $request->validated();
+            \Log::info('Validated Data', ['Data' => $validated_data]);
+
+            // store contact message
+            $contact = Contact::create($validated_data);
+            \Log::info('Contact Stored', ['Contact Data' => $contact]);
+
+            return redirect()->route('contact')->with('message', ['type' => 'success', 'body' => 'Your message sent successfully']);
+
+        } catch (\Throwable $th) {
+            \Log::error('Error in storing message contact', ['Error' => $th->getMessage()]);
+            return redirect()->route('contact')->with('message', ['type' => 'error', 'body' => 'Error in sending message']);
+        }
     }
 
     public function show(Contact $contact)
