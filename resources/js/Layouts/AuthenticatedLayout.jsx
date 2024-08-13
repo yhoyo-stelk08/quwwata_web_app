@@ -87,6 +87,9 @@ export default function Authenticated({ user, header, children }) {
                     <Dropdown.Link href={route("profile.edit")}>
                       Profile
                     </Dropdown.Link>
+                    <Dropdown.Link href={route("contacts.index")}>
+                      Messages
+                    </Dropdown.Link>
                     <Dropdown.Link
                       href={route("logout")}
                       method="post"
