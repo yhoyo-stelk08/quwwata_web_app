@@ -145,9 +145,9 @@ const Cart = ({ proceedToCheckout }) => {
               Grand Total:
             </span>
             <span className="text-sm text-slate-500 font-bold">
-              {cartTotal.toLocaleString("ID", {
+              {cartTotal.toLocaleString("en-US", {
                 style: "currency",
-                currency: "IDR",
+                currency: "USD",
               })}
             </span>
           </div>
