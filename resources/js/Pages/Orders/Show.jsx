@@ -2,7 +2,6 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Link } from "@inertiajs/react";
 
 const OrderDetails = ({ orderData, auth }) => {
-  console.log(orderData);
   return (
     <AuthenticatedLayout
       user={auth.user}

@@ -64,9 +64,23 @@ class ContactController extends Controller
 
     public function show(Contact $contact)
     {
+        \Log::debug('Entering Contacts Show Method');
+        $contact->update(['is_read' => true]);
+        return inertia('Contacts/Show', [
+            'contact' => new ContactResource($contact),
+        ]);
     }
 
     public function destroy(Contact $contact)
     {
+        \Log::debug('Entering Contacts Destroy Method');
+        try {
+            $contact->delete();
+            \Log::info('Contact Message Deleted', ['Contact Data' => $contact]);
+            return redirect()->route('contacts.index')->with('message', ['type' => 'success', 'body' => 'Contact message deleted successfully']);
+        } catch (\Throwable $th) {
+            \Log::error('Error in deleting contact message', ['Error' => $th->getMessage()]);
+            return redirect()->route('contacts.index')->with('message', ['type' => 'error', 'body' => 'Error in deleting contact message']);
+        }
     }
 }
