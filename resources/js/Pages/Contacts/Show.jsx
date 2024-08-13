@@ -1,6 +1,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Link } from "@inertiajs/react";
-const Show = ({ auth }) => {
+const ShowMessage = ({ auth, contact }) => {
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -17,8 +17,19 @@ const Show = ({ auth }) => {
         >
           &larr; Back to messages
         </Link>
+        <div className="flex flex-col p-6 gap-6 justify-center items-start">
+          <div>
+            <strong>Email:</strong> {contact.data.email}
+          </div>
+          <div>
+            <strong>Contact Number:</strong> {contact.data.contact_number}
+          </div>
+          <div>
+            <strong>Message:</strong> {contact.data.message}
+          </div>
+        </div>
       </div>
     </AuthenticatedLayout>
   );
 };
-export default Show;
+export default ShowMessage;
