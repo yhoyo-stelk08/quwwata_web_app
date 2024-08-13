@@ -3,10 +3,11 @@ import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import ToastMessage from "@/Components/ToastMessage";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function Authenticated({ user, header, children }) {
+  const { unreadMessages } = usePage().props;
   const [showingNavigationDropdown, setShowingNavigationDropdown] =
     useState(false);
 
@@ -88,7 +89,14 @@ export default function Authenticated({ user, header, children }) {
                       Profile
                     </Dropdown.Link>
                     <Dropdown.Link href={route("contacts.index")}>
-                      Messages
+                      <div className="flex justify-between items-center">
+                        <span>Messages</span>
+                        {unreadMessages > 0 && (
+                          <span className="bg-red-500 text-white rounded-full px-2">
+                            {unreadMessages}
+                          </span>
+                        )}
+                      </div>
                     </Dropdown.Link>
                     <Dropdown.Link
                       href={route("logout")}
