@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\Gateway\PaypalController;
 use App\Http\Controllers\Gateway\StripeController;
@@ -97,6 +98,9 @@ Route::middleware('auth')->group(function () {
     // Route for managing order
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+
+    // Route for managing contact
+    Route::resource('contacts', ContactController::class)->only(['index', 'store', 'show', 'destroy']);
 });
 
 require __DIR__ . '/auth.php';
