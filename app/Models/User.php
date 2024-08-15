@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -50,8 +52,13 @@ class User extends Authenticatable
         ];
     }
 
-    public function customer()
+    public function customer(): HasOne
     {
         return $this->hasOne(Customer::class);
+    }
+
+    public function product_reviews(): HasMany
+    {
+        return $this->hasMany(ProductReview::class, 'user_id', 'id');
     }
 }

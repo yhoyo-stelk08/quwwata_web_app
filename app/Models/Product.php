@@ -24,6 +24,11 @@ class Product extends Model
         return $this->hasMany(OrderItem::class);
     }
 
+    public function product_reviews(): HasMany
+    {
+        return $this->hasMany(ProductReview::class, 'product_id', 'id');
+    }
+
     public function scopeSearch(Builder $query, $search): Builder
     {
         if ($search) {
