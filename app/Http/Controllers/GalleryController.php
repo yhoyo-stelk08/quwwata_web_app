@@ -137,7 +137,7 @@ class GalleryController extends Controller
             $gallery = $this->galleryRepository->find($gallery->id);
 
             // delete the image from the storage
-            $this->galleryService->handleImageDelete($gallery->image_name);
+            $this->galleryService->handleImageDelete($gallery);
 
             // delete gallery item from database
             $this->galleryRepository->delete($gallery->id);
