@@ -6,36 +6,39 @@ use App\Http\Requests\StoreGalleryRequest;
 use App\Http\Requests\UpdateGalleryRequest;
 use App\Http\Resources\GalleryResource;
 use App\Models\Gallery;
+use App\Repositories\GalleryRepository;
+use App\Services\GalleryService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class GalleryController extends Controller
 {
+    protected $galleryService;
+    protected $galleryRepository;
+
+    public function __construct(GalleryService $galleryService, GalleryRepository $galleryRepository)
+    {
+        $this->galleryService = $galleryService;
+        $this->galleryRepository = $galleryRepository;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
         \Log::debug('Entering Gallery Index Method');
-        $query = Gallery::search($request);
-
-        // Add sorting
-        if ($request->has('sort_by') && $request->has('sort_direction')) {
-            $query->orderBy($request->get('sort_by'), $request->get('sort_direction'));
-        } else {
-            // Default sorting
-            $query->orderByDesc('updated_at');
-        }
-
-        $gallery = $query->paginate(10);
-
-        $gallery_data = GalleryResource::collection($gallery);
+        $gallery_data = $this->galleryRepository->index(
+            $request->input('search'),
+            $request->input('sort_by'),
+            $request->input('sort_direction')
+        );
 
         // Log the gallery data 
         \Log::info('Gallery Data', ['Gallery Data' => $gallery_data]);
 
         return inertia('Gallery/Index', [
-            'galleriesData' => $gallery_data,
+            'galleriesData' => GalleryResource::collection($gallery_data),
             'search' => $request->search ?? "",
             'sort_by' => $request->sort_by ?? "",
             'sort_direction' => $request->sort_direction ?? "",
