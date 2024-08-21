@@ -16,7 +16,11 @@ class GalleryEloquent implements GalleryRepository
 
   public function index($search, $sortBy, $sortDirection)
   {
-    $query = $this->model::search($search);
+    $query = $this->model->newQuery();
+
+    if (!empty($search)) {
+      $query->search($search);
+    }
 
     // Add sorting
     if ($sortBy && $sortDirection) {

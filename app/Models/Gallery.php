@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,10 +12,10 @@ class Gallery extends Model
 
     protected $fillable = ['title', 'image_name', 'category'];
 
-    public function scopeSearch()
+    public function scopeSearch(Builder $query, $search = null)
     {
-        return Gallery::where('title', 'like', '%' . request('search') . '%')
-            ->orWhere('image_name', 'like', '%' . request('search') . '%')
-            ->orWhere('category', 'like', '%' . request('search') . '%');
+        return $query->where('title', 'like', '%' . $search . '%')
+            ->orWhere('image_name', 'like', '%' . $search . '%')
+            ->orWhere('category', 'like', '%' . $search . '%');
     }
 }
