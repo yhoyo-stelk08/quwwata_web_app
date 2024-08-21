@@ -131,12 +131,16 @@ class GalleryController extends Controller
      */
     public function destroy(Gallery $gallery)
     {
+        \Log::debug('Entering gallery controller destroy method');
         try {
-            // Delete the image
-            Storage::delete('public/' . $gallery->image_name);
+            // find the gallery item
+            $gallery = $this->galleryRepository->find($gallery->id);
 
-            // Delete the gallery item
-            $gallery->delete();
+            // delete the image from the storage
+            $this->galleryService->handleImageDelete($gallery->image_name);
+
+            // delete gallery item from database
+            $this->galleryRepository->delete($gallery->id);
 
             \Log::info('Gallery item deleted successfully', ['gallery data' => $gallery]);
 
