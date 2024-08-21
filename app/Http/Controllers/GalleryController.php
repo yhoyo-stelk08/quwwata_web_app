@@ -58,23 +58,13 @@ class GalleryController extends Controller
      */
     public function store(StoreGalleryRequest $request)
     {
-        // Ensure the directory exists
-        if (!Storage::exists('public/images/gallery')) {
-            Storage::makeDirectory('public/images/gallery');
-        }
+        $imageName = $this->galleryService->handleImageUpload($request->file('image_name'));
 
-        // Generate a unique name for the image file
-        $imageName = time() . '.' . $request->file('image_name')->extension();
-
-        // Store the file
-        $request->file('image_name')->storeAs('public/images/gallery', $imageName);
-
-        // Create a new Gallery instance and save the data
-        $gallery = new Gallery();
-        $gallery->title = $request->title;
-        $gallery->image_name = 'images/gallery/' . $imageName; // Save the relative path to the database
-        $gallery->category = $request->category;
-        $gallery->save();
+        $this->galleryRepository->create([
+            'title' => $request->title,
+            'image_name' => $imageName,
+            'category' => $request->category,
+        ]);
 
         // Redirect with a success message
         return redirect()->route('galleries.index')->with('message', ['type' => 'success', 'body' => 'Item Added Successfully']);
@@ -106,29 +96,23 @@ class GalleryController extends Controller
     {
         \Log::debug('Entering gallery controller update method');
         try {
-            $gallery->title = $request->title;
-            $gallery->category = $request->category;
+            // find the gallery item
+            $gallery = $this->galleryRepository->find($gallery->id);
 
+            // set the update data
+            $updateData = [
+                'title' => $request->title,
+                'category' => $request->category,
+            ];
+
+            // check if the image is updated
             if ($request->hasFile('image_name')) {
-                // Ensure the directory exists
-                if (!Storage::exists('public/images/gallery')) {
-                    Storage::makeDirectory('public/images/gallery');
-                }
-
-                // Generate a unique name for the image file
-                $imageName = time() . '.' . $request->file('image_name')->extension();
-
-                // Store the file
-                $request->file('image_name')->storeAs('public/images/gallery', $imageName);
-
-                // Delete the old image
-                Storage::delete('public/' . $gallery->image_name);
-
-                // Update the image name
-                $gallery->image_name = 'images/gallery/' . $imageName;
+                $imageName = $this->galleryService->handleImageUpload($request->file('image_name'));
+                $updateData['image_name'] = $imageName;
             }
 
-            $gallery->save();
+            // update the gallery item
+            $this->galleryRepository->update($gallery->id, $updateData);
 
             \Log::info('Gallery item updated successfully', ['galleries data' => $gallery]);
 
